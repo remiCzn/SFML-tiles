@@ -14,6 +14,7 @@ find_package(SFML 2.5
 add_executable(main 
     src/main.cpp
     src/Game.cpp
+    src/State.cpp
 )
 
 target_link_libraries(main sfml-graphics)
