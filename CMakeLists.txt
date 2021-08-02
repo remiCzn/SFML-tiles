@@ -11,6 +11,9 @@ find_package(SFML 2.5
         system window graphics network audio REQUIRED
     )
 
-add_executable(main src/main.cpp)
+add_executable(main 
+    src/main.cpp
+    src/Game.cpp
+)
 
 target_link_libraries(main sfml-graphics)

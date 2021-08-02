@@ -1,6 +1,6 @@
 # SFML RPG
 
-## Build
+## Build
 
 ```
 mkdir build
