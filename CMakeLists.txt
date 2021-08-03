@@ -15,6 +15,7 @@ add_executable(main
     src/main.cpp
     src/Game.cpp
     src/State.cpp
+    src/states/GameState.cpp
 )
 
 target_link_libraries(main sfml-graphics)
