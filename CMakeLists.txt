@@ -16,6 +16,7 @@ add_executable(main
     src/Game.cpp
     src/State.cpp
     src/states/GameState.cpp
+    src/entities/Entity.cpp
 )
 
 target_link_libraries(main sfml-graphics)

@@ -6,7 +6,7 @@
 class GameState : public State
 {
 private:
-    /* data */
+    Entity player;
 public:
     GameState(sf::RenderWindow* window);
     virtual ~GameState();

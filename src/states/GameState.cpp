@@ -11,10 +11,7 @@ GameState::~GameState()
 void GameState::update(const float& dt)
 {
     this->updateKeyBinds(dt);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-    {
-        std::cout << "A" << std::endl;
-    }
+    this->player.update(dt);
 }
 
 void GameState::updateKeyBinds(const float& dt)
@@ -22,9 +19,9 @@ void GameState::updateKeyBinds(const float& dt)
     this->checkForQuit();
 }
 
-void GameState::render(sf::RenderTarget* window)
+void GameState::render(sf::RenderTarget* target)
 {
-
+    this->player.render(target);
 }
 
 void GameState::endState() {
