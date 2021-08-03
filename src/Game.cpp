@@ -11,7 +11,6 @@ void Game::initWindow() {
     {
         std::getline(ifs ,title);
         ifs >> window_bounds.width >> window_bounds.height;
-        std::cout << window_bounds.width << window_bounds.height;
         ifs >> framerate_limit;
         ifs >> vsync_enabled;
     }
@@ -70,6 +69,16 @@ void Game::update() {
     if(!this->states.empty())
     {
         this->states.top()->update(this->dt);
+        if(this->states.top()->getQuit())
+        {
+            this->states.top()->endState();
+            delete this->states.top();
+            this->states.pop();
+        }
+    }
+    else {
+        this->endApplication();
+        this->window->close();
     }
 }
 
@@ -88,4 +97,9 @@ void Game::render() {
 void Game::updateDt() {
     //Update dt variable with the time between two loop
     this->dt = this->dtClock.restart().asSeconds();
+}
+
+void Game::endApplication()
+{
+    std::cout << "End Application" << std::endl;
 }

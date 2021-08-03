@@ -22,10 +22,14 @@ public:
     Game();
     virtual ~Game();
 
+    void endApplication();
+
     void updateDt();
     void updateSFMLEvent();
     void update();
+
     void render();
+    
     void run();
 };
 
