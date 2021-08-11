@@ -11,10 +11,11 @@ GameState::~GameState()
 }
 
 void GameState::initKeybinds() {
-    this->keybinds.emplace("MOVE_LEFT", this->supportedKeys->at("Q"));
-    this->keybinds.emplace("MOVE_RIGHT", this->supportedKeys->at("D"));
-    this->keybinds.emplace("MOVE_UP", this->supportedKeys->at("Z"));
-    this->keybinds.emplace("MOVE_DOWN", this->supportedKeys->at("S"));
+    this->keybinds["CLOSE"] = this->supportedKeys->at("Escape");
+    this->keybinds["MOVE_LEFT"] = this->supportedKeys->at("Q");
+    this->keybinds["MOVE_RIGHT"] = this->supportedKeys->at("D");
+    this->keybinds["MOVE_UP"] =  this->supportedKeys->at("Z");
+    this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("S");
 }
 
 void GameState::update(const float& dt)

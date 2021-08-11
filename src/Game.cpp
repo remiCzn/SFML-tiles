@@ -27,11 +27,11 @@ void Game::initStates() {
 }
 
 void Game::initKeys() {
-    this->supportedKeys.emplace("Escape", sf::Keyboard::Escape);
-    this->supportedKeys.emplace("Q", sf::Keyboard::Q);
-    this->supportedKeys.emplace("D", sf::Keyboard::D);
-    this->supportedKeys.emplace("Z", sf::Keyboard::Z);
-    this->supportedKeys.emplace("S", sf::Keyboard::S);
+    this->supportedKeys["Escape"] = sf::Keyboard::Escape;
+    this->supportedKeys["Q"] = sf::Keyboard::Q;
+    this->supportedKeys["D"] = sf::Keyboard::D;
+    this->supportedKeys["Z"] = sf::Keyboard::Z;
+    this->supportedKeys["S"] = sf::Keyboard::S;
 }
 
 //Constructors/Destructors
