@@ -27,11 +27,29 @@ void Game::initStates() {
 }
 
 void Game::initKeys() {
-    this->supportedKeys["Escape"] = sf::Keyboard::Escape;
-    this->supportedKeys["Q"] = sf::Keyboard::Q;
-    this->supportedKeys["D"] = sf::Keyboard::D;
-    this->supportedKeys["Z"] = sf::Keyboard::Z;
-    this->supportedKeys["S"] = sf::Keyboard::S;
+    std::ifstream ifs("../src/config/supported_keys");
+    if(ifs.is_open())
+    {
+        std::string key = "";
+        int key_value = 0;
+        while(ifs >> key >> key_value)
+        {
+            this->supportedKeys[key] = key_value;
+        }
+    }
+
+    ifs.close();
+    
+    //is now in the config file "supported_keys"
+    // this->supportedKeys["Escape"] = sf::Keyboard::Escape;
+    // this->supportedKeys["Q"] = sf::Keyboard::Q;
+    // this->supportedKeys["D"] = sf::Keyboard::D;
+    // this->supportedKeys["Z"] = sf::Keyboard::Z;
+    // this->supportedKeys["S"] = sf::Keyboard::S;
+
+    for(auto i : supportedKeys) {
+        std::cout << i.first << " " << i.second << std::endl;
+    }
 }
 
 //Constructors/Destructors
@@ -110,5 +128,5 @@ void Game::updateDt() {
 
 void Game::endApplication()
 {
-    std::cout << "End Application" << std::endl;
+    std::cout << "End Game" << std::endl;
 }

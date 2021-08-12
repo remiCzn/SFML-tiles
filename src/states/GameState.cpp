@@ -11,11 +11,18 @@ GameState::~GameState()
 }
 
 void GameState::initKeybinds() {
-    this->keybinds["CLOSE"] = this->supportedKeys->at("Escape");
-    this->keybinds["MOVE_LEFT"] = this->supportedKeys->at("Q");
-    this->keybinds["MOVE_RIGHT"] = this->supportedKeys->at("D");
-    this->keybinds["MOVE_UP"] =  this->supportedKeys->at("Z");
-    this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("S");
+    std::ifstream ifs("../src/config/gamestate_keybinds");
+    if(ifs.is_open())
+    {
+        std::string key = "";
+        std::string key2 = "";
+        while(ifs >> key >> key2)
+        {
+            this->keybinds[key] = this->supportedKeys->at(key2);
+        }
+    }
+
+    ifs.close();    
 }
 
 void GameState::update(const float& dt)
@@ -54,5 +61,5 @@ void GameState::render(sf::RenderTarget* target)
 }
 
 void GameState::endState() {
-    std::cout << "END gamestate" << std::endl;
+    std::cout << "END GameState" << std::endl;
 }
