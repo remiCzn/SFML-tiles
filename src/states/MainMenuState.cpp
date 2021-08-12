@@ -14,14 +14,14 @@ MainMenuState::~MainMenuState()
 }
 
 void MainMenuState::initFonts() {
-    if(!this->menuFont.loadFromFile("../src/fonts/Dosis-Light.ttf"))
+    if(!this->menuFont.loadFromFile("fonts/Dosis-Light.ttf"))
     {
         throw("ERROR::MAINMENUSTATE::Could not load font");
     }
 }
 
 void MainMenuState::initKeybinds() {
-    std::ifstream ifs("../src/config/gamestate_keybinds");
+    std::ifstream ifs("config/gamestate_keybinds");
     if(ifs.is_open())
     {
         std::string key = "";

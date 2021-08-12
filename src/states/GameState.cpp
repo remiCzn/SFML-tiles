@@ -11,7 +11,7 @@ GameState::~GameState()
 }
 
 void GameState::initKeybinds() {
-    std::ifstream ifs("../src/config/gamestate_keybinds");
+    std::ifstream ifs("config/gamestate_keybinds");
     if(ifs.is_open())
     {
         std::string key = "";

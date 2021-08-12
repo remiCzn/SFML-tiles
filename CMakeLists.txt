@@ -11,6 +11,21 @@ find_package(SFML 2.5
         system window graphics network audio REQUIRED
     )
 
+set(EXFILES
+    fonts/Dosis-Light.ttf
+    config/gamestate_keybinds
+    config/supported_keys
+    config/window
+)
+
+foreach(file ${EXFILES})
+    MESSAGE( STATUS "Including " ${file} )
+    configure_file(
+        src/${file}
+        ${file}
+        COPYONLY)
+endforeach()
+
 add_executable(main 
     src/main.cpp
     src/Game.cpp

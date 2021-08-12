@@ -23,12 +23,12 @@ void Game::initWindow() {
 }
 
 void Game::initStates() {
-    // this->states.push(new GameState(this->window, &this->supportedKeys));
-    this->states.push(new MainMenuState(this->window, &this->supportedKeys));
+    this->states.push(new GameState(this->window, &this->supportedKeys));
+    // this->states.push(new MainMenuState(this->window, &this->supportedKeys));
 }
 
 void Game::initKeys() {
-    std::ifstream ifs("../src/config/supported_keys");
+    std::ifstream ifs("config/supported_keys");
     if(ifs.is_open())
     {
         std::string key = "";
