@@ -3,6 +3,7 @@
 MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string,int>* supportedKeys) 
     : State(window, supportedKeys)
 {
+    this->initFonts();
     this->initKeybinds();
     this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
     this->background.setFillColor(sf::Color::Magenta);
@@ -10,6 +11,13 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string,int>
 
 MainMenuState::~MainMenuState()
 {
+}
+
+void MainMenuState::initFonts() {
+    if(!this->menuFont.loadFromFile("../src/fonts/Dosis-Light.ttf"))
+    {
+        throw("ERROR::MAINMENUSTATE::Could not load font");
+    }
 }
 
 void MainMenuState::initKeybinds() {
@@ -30,6 +38,7 @@ void MainMenuState::initKeybinds() {
 void MainMenuState::update(const float& dt)
 {
     this->updateInput(dt);
+    this->updateMousePosition();
 }
 
 void MainMenuState::updateInput(const float& dt)
@@ -38,7 +47,7 @@ void MainMenuState::updateInput(const float& dt)
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::G))
     {
-        
+
     }
 }
 

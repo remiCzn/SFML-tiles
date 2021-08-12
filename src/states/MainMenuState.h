@@ -2,12 +2,15 @@
 #define MAINMENUSTATE_H
 
 #include "GameState.h"
+#include "../resource/Button.h"
 
 class MainMenuState : public State
 {
 private:
     sf::RectangleShape background;
+    sf::Font menuFont;
 
+    void initFonts();
     void initKeybinds();
 public:
     MainMenuState(sf::RenderWindow* window, std::map<std::string,int>* supportedKeys);
