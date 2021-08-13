@@ -33,6 +33,7 @@ add_executable(main
     src/states/GameState.cpp
     src/entities/Entity.cpp
     src/states/MainMenuState.cpp
+    src/resource/Button.cpp
 )
 
 target_link_libraries(main sfml-graphics)
