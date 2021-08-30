@@ -14,6 +14,7 @@ find_package(SFML 2.5
 set(EXFILES
     fonts/Dosis-Light.ttf
     config/gamestate_keybinds
+    config/mainmenu_keybinds
     config/supported_keys
     config/window
 )
