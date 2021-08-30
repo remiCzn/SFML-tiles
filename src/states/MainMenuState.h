@@ -10,18 +10,21 @@ private:
     sf::RectangleShape background;
     sf::Font menuFont;
 
-    Button * gamestate_btn;
+    std::map<std::string, Button *> buttons;
 
     void initFonts();
     void initKeybinds();
+    void initButtons();
 public:
     MainMenuState(sf::RenderWindow* window, std::map<std::string,int>* supportedKeys);
     virtual ~MainMenuState();
 
     void endState();
     void updateInput(const float& dt);
+    void updateButtons();
     void update(const float& dt);
     void render(sf::RenderTarget* target = nullptr);
+    void renderButtons(sf::RenderTarget* target = nullptr);
 };
 
 #endif

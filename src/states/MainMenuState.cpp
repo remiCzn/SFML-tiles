@@ -5,21 +5,18 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string,int>
 {
     this->initFonts();
     this->initKeybinds();
-
-    this->gamestate_btn = new Button(
-        100, 100, 150, 50,
-        "start game", &this->menuFont,
-        sf::Color(150,150,150,200), sf::Color(20,20,20,200), sf::Color(70,70,70,200)
-
-    );
+    this->initButtons();
 
     this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
-    this->background.setFillColor(sf::Color::Magenta);
+    this->background.setFillColor(sf::Color::White);
 }
 
 MainMenuState::~MainMenuState()
-{
-    delete this->gamestate_btn;
+{    
+    for(auto it = this->buttons.begin(); it != this->buttons.end(); ++it)
+    {
+        delete it->second;
+    }
 }
 
 void MainMenuState::initFonts() {
@@ -44,12 +41,31 @@ void MainMenuState::initKeybinds() {
     ifs.close();
 }
 
+void MainMenuState::initButtons() {
+    this->buttons["GAME_STATE"] = new Button(
+        100, 100, 150, 50,
+        "New Game", &this->menuFont,
+        sf::Color(150,150,150,200), sf::Color(20,20,20,200), sf::Color(70,70,70,200)
+    );
+
+    this->buttons["CONTINUE"] = new Button(
+        300, 100, 150, 50,
+        "Continue", &this->menuFont,
+        sf::Color(150,150,150,200), sf::Color(20,20,20,200), sf::Color(70,70,70,200)
+    );
+
+    this->buttons["QUIT"] = new Button(
+        500, 100, 150, 50,
+        "Quit", &this->menuFont,
+        sf::Color(150,150,150,200), sf::Color(20,20,20,200), sf::Color(70,70,70,200)
+    );
+}
+
 void MainMenuState::update(const float& dt)
 {
     this->updateInput(dt);
     this->updateMousePosition();
-
-    this->gamestate_btn->update(this->mousePosView);
+    this->updateButtons();
 }
 
 void MainMenuState::updateInput(const float& dt)
@@ -62,14 +78,38 @@ void MainMenuState::updateInput(const float& dt)
     }
 }
 
+void MainMenuState::updateButtons() {
+    for(auto it : this->buttons)
+    {
+        it.second->update(this->mousePosView);
+    }
+
+    if(this->buttons["GAME_STATE"]->isPressed())
+    {
+        //push game state when pressed
+        
+    }
+    if(this->buttons["QUIT"]->isPressed())
+    {
+        this->quit = true;
+    }
+}
+
 void MainMenuState::render(sf::RenderTarget* target)
 {
     if(!target)
         target = this->window;
 
     target->draw(this->background);
+    this->renderButtons(target);
+}
 
-    this->gamestate_btn->render(target);
+void MainMenuState::renderButtons(sf::RenderTarget* target)
+{
+    for(auto it : this->buttons)
+    {
+        it.second->render(target);
+    }
 }
 
 void MainMenuState::endState() {
