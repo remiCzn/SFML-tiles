@@ -2,24 +2,47 @@
 
 void Game::initWindow() {
 
-    std::ifstream ifs("../src/config/window");
-    sf::VideoMode window_bounds(800,600);
+    std::ifstream ifs("./config/window");
+    this->videoModes = sf::VideoMode::getFullscreenModes();
+
+
+
+    sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode();
+    bool fullscreen = false;
     std::string title = "Unknown";
     unsigned int framerate_limit = 120;
     bool vsync_enabled = false;
+    unsigned antialising_level = 0;
+
     if(ifs.is_open())
     {
         std::getline(ifs ,title);
         ifs >> window_bounds.width >> window_bounds.height;
+        ifs >> fullscreen;
         ifs >> framerate_limit;
         ifs >> vsync_enabled;
+        ifs >> antialising_level;
     }
 
     ifs.close();
 
-    this->window = new sf::RenderWindow(window_bounds, title);
+    this->windowSettings.antialiasingLevel = antialising_level;
+    this->fullscreen = fullscreen;
+    
+    if(this->fullscreen)
+        this->window = new sf::RenderWindow(window_bounds, title, sf::Style::Fullscreen, this->windowSettings);
+    else
+        this->window = new sf::RenderWindow(window_bounds, title, sf::Style::Titlebar | sf::Style::Close, this->windowSettings);
+
     this->window->setFramerateLimit(framerate_limit);
     this->window->setVerticalSyncEnabled(vsync_enabled);
+}
+
+void Game::initVariables() {
+    this->window = NULL;
+    this->fullscreen = false;
+    this->dt = 0.f;
+
 }
 
 void Game::initStates() {
@@ -56,6 +79,7 @@ void Game::initKeys() {
 //Constructors/Destructors
 Game::Game()
 {
+    this->initVariables();
     this->initWindow();
     this->initKeys();
     this->initStates();
