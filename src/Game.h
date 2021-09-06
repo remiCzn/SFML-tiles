@@ -16,7 +16,7 @@ private:
     sf::Clock dtClock;
     float dt;
 
-    std::stack<State*> states;
+    std::stack<State *> states;
     std::map<std::string, int> supportedKeys;
 
     //Init
@@ -24,6 +24,7 @@ private:
     void initWindow();
     void initStates();
     void initKeys();
+
 public:
     Game();
     virtual ~Game();
@@ -35,7 +36,7 @@ public:
     void update();
 
     void render();
-    
+
     void run();
 };
 

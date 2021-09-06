@@ -18,16 +18,16 @@ private:
     void initFonts();
     void initKeybinds();
     void initButtons();
+
 public:
-    MainMenuState(sf::RenderWindow* window, std::map<std::string,int>* supportedKeys, std::stack<State *> * states);
+    MainMenuState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states);
     virtual ~MainMenuState();
 
-    void endState();
-    void updateInput(const float& dt);
+    void updateInput(const float &dt);
     void updateButtons();
-    void update(const float& dt);
-    void render(sf::RenderTarget* target = nullptr);
-    void renderButtons(sf::RenderTarget* target = nullptr);
+    void update(const float &dt);
+    void render(sf::RenderTarget *target = nullptr);
+    void renderButtons(sf::RenderTarget *target = nullptr);
 };
 
 #endif

@@ -4,12 +4,12 @@
 #include "entities/Entity.h"
 
 class State
-{ 
+{
 protected:
-    std::stack<State*>* states;
+    std::stack<State *> *states;
 
-    sf::RenderWindow* window;
-    std::map<std::string, int>* supportedKeys;
+    sf::RenderWindow *window;
+    std::map<std::string, int> *supportedKeys;
     std::map<std::string, int> keybinds;
     std::vector<sf::Texture> textures;
     bool quit;
@@ -19,18 +19,17 @@ protected:
     sf::Vector2f mousePosView;
 
     virtual void initKeybinds() = 0;
+
 public:
-    State(sf::RenderWindow* window, std::map<std::string,int>* supportedKeys, std::stack<State*>* states);
+    State(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states);
     virtual ~State();
 
-    const bool& getQuit() const;
+    const bool &getQuit() const;
 
-    virtual void checkForQuit();
-
-    virtual void endState() = 0;
-    virtual void updateInput(const float& dt) = 0;
+    void endState();
+    virtual void updateInput(const float &dt) = 0;
     virtual void updateMousePosition();
-    virtual void update(const float& dt) = 0;
-    virtual void render(sf::RenderTarget* target = nullptr) = 0;
+    virtual void update(const float &dt) = 0;
+    virtual void render(sf::RenderTarget *target = nullptr) = 0;
 };
 #endif
