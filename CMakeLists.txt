@@ -17,6 +17,7 @@ set(EXFILES
     config/mainmenu_keybinds
     config/supported_keys
     config/window
+    images/background/background.png
 )
 
 foreach(file ${EXFILES})
