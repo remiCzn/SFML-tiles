@@ -18,6 +18,7 @@ set(EXFILES
     config/supported_keys
     config/window
     images/background/background.png
+    images/character/down_idle.png
 )
 
 foreach(file ${EXFILES})
@@ -34,6 +35,7 @@ add_executable(main
     src/State.cpp
     src/states/GameState.cpp
     src/entities/Entity.cpp
+    src/entities/Player.cpp
     src/states/MainMenuState.cpp
     src/resource/Button.cpp
 )
