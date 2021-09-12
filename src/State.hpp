@@ -1,7 +1,7 @@
 #ifndef STATE_H
 #define STATE_H
 
-#include "entities/Player.h"
+#include "entities/Player.hpp"
 
 class State
 {

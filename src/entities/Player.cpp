@@ -1,7 +1,7 @@
-#include "Player.h"
+#include "Player.hpp"
 
 void Player::initComponents() {
-    
+    this->createMovementComponent(100.f);
 }
 
 void Player::initVariables() {

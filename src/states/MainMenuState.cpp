@@ -1,4 +1,4 @@
-#include "MainMenuState.h"
+#include "MainMenuState.hpp"
 
 MainMenuState::MainMenuState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states)
     : State(window, supportedKeys, states)

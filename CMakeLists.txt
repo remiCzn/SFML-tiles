@@ -38,6 +38,7 @@ add_executable(main
     src/entities/Player.cpp
     src/states/MainMenuState.cpp
     src/resource/Button.cpp
+    src/components/MovementComponent.cpp
 )
 
 target_link_libraries(main sfml-graphics)

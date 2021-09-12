@@ -1,8 +1,8 @@
 #ifndef MAINMENUSTATE_H
 #define MAINMENUSTATE_H
 
-#include "GameState.h"
-#include "../resource/Button.h"
+#include "GameState.hpp"
+#include "../resource/Button.hpp"
 
 class MainMenuState : public State
 {

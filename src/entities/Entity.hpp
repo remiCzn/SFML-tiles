@@ -1,20 +1,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <vector>
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <fstream>
-#include <sstream>
-#include <stack>
-#include <map>
-
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
+#include "../components/MovementComponent.hpp"
 
 class Entity
 {
@@ -25,13 +12,14 @@ protected:
     sf::Texture *texture;
 
     // sf::RectangleShape shape;
-    float moveSpeed;
+    MovementComponent* movementComponent;
 
 public:
     Entity(/* args */);
     virtual ~Entity();
 
     void createSprite(sf::Texture* texture);
+    void createMovementComponent(const float maxSpeed);
 
     virtual void setPosition(const float x, const float y);
     virtual void move(const float &dt, const float x, const float y);
