@@ -31,7 +31,7 @@ void GameState::initKeybinds()
 
 void GameState::initTextures()
 {
-    if(!this->textures["PLAYER_IDLE"].loadFromFile("images/character/down_idle.png", sf::IntRect(8,8,48,48)))
+    if(!this->textures["PLAYER_IDLE"].loadFromFile("images/character/down_idle.png"))
     {
         throw("ERROR::GAME_STATE::Could not load down idle sprite");
     }

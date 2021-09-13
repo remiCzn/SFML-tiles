@@ -14,7 +14,6 @@ MovementComponent::MovementComponent(sf::Sprite* sprite,
 
 MovementComponent::~MovementComponent()
 {
-    delete this->sprite;
 }
 
 void MovementComponent::update(const float& dt)
