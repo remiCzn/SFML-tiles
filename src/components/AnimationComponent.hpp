@@ -51,7 +51,6 @@ private:
                 if(this->timer >= this->animationTimer)
                 {
                     this->timer = 0.f;
-
                     if(this->counter < this->nb_frames)
                     {
                         this->counter ++;

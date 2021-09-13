@@ -18,7 +18,7 @@ set(EXFILES
     config/supported_keys
     config/window
     images/background/background.png
-    images/character/down_idle.png
+    images/character/player_sheet.png
 )
 
 foreach(file ${EXFILES})
