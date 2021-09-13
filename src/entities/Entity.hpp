@@ -9,17 +9,17 @@ private:
     void initVariables();
 protected:
     sf::Sprite *sprite;
-    sf::Texture *texture;
 
     // sf::RectangleShape shape;
     MovementComponent* movementComponent;
 
 public:
-    Entity(/* args */);
+    Entity();
     virtual ~Entity();
 
     void createSprite(sf::Texture* texture);
-    void createMovementComponent(const float maxSpeed);
+    void setTexture(sf::Texture* texture);
+    void createMovementComponent(const float maxSpeed, const float acceleration, const float deceleration);
 
     virtual void setPosition(const float x, const float y);
     virtual void move(const float &dt, const float x, const float y);
