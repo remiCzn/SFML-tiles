@@ -39,6 +39,7 @@ add_executable(main
     src/states/MainMenuState.cpp
     src/resource/Button.cpp
     src/components/MovementComponent.cpp
+    src/components/AnimationComponent.cpp
 )
 
 target_link_libraries(main sfml-graphics)
