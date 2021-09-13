@@ -14,12 +14,12 @@ AnimationComponent::~AnimationComponent()
 }
 
 void AnimationComponent::addAnimation(const std::string key, float animation_timer,
-        int nb_frames, int width, int height
+        int nb_frames, int start_x, int start_y, int width, int height
     )
 {
     this->animations[key] = new Animation(
         this->sprite, *this->textureSheet,
-        animation_timer,
+        animation_timer, start_x, start_y,
         nb_frames, width, height
     );
 }

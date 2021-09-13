@@ -26,19 +26,17 @@ private:
             int height;
             sf::IntRect startRect;
             sf::IntRect currentRect;
-            sf::IntRect endRect;
 
             Animation(sf::Sprite* sprite, sf::Texture& textureSheet,
-                    float animation_timer,
+                    float animation_timer, int start_x, int start_y,
                     int nb_frames, int width, int height)
                 : sprite(sprite), textureSheet(textureSheet),
                   animationTimer(animation_timer), nb_frames(nb_frames), width(width), height(height)
             {
                 this->counter = 0;
                 this->timer = 0.f;
-                this->startRect = sf::IntRect(0, 0 * height, width, height);
+                this->startRect = sf::IntRect(start_x * width, start_y * height, width, height);
                 this->currentRect = this->startRect;
-                this->endRect = sf::IntRect((nb_frames - 1) * width, 0, width, height);
 
                 this->sprite->setTexture(this->textureSheet, true);
                 this->sprite->setTextureRect(this->startRect);
@@ -82,7 +80,7 @@ public:
     AnimationComponent(sf::Sprite* sprite, sf::Texture& texture_sheet);
     virtual ~AnimationComponent();
 
-    void addAnimation(const std::string key, float animation_timer,
+    void addAnimation(const std::string key, float animation_timer, int start_x, int start_y,
         int nb_frames, int width, int heigt
     );
     void play(const std::string key, const float& dt);

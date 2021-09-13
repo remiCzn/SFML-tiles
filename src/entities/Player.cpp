@@ -21,7 +21,7 @@ Player::Player(float x, float y, sf::Texture* texture_sheet)
 
     this->createMovementComponent(300.f, 15.f, 5.f);
     this->createAnimationComponent(*texture_sheet);
-    this->animationComponent->addAnimation("IDLE_DOWN", 10.f, 4, 64, 64);
+    this->animationComponent->addAnimation("IDLE_DOWN", 10.f, 0, 0, 4, 64, 64);
 }
 
 Player::~Player()
@@ -31,5 +31,5 @@ Player::~Player()
 void Player::update(const float& dt)
 {
     this->movementComponent->update(dt);
-    this->animationComponent->play("IDLE_DOWN", dt);
+    //this->animationComponent->play("IDLE_DOWN", dt);
 }

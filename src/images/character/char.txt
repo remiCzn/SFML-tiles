@@ -1,2 +1,2 @@
-256 x 128
-64x64 / Tile
+320 x 64
+64x64 / Tile => 5 frames
