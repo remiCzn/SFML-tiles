@@ -9,12 +9,24 @@
 #include <sstream>
 #include <stack>
 #include <map>
+#include <math.h>
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+
+enum movement_states {
+    IDLE_DOWN = 0,
+    IDLE_LEFT,
+    IDLE_RIGHT,
+    IDLE_UP,
+    MOVING_LEFT,
+    MOVING_RIGHT,
+    MOVING_UP,
+    MOVING_DOWN
+};
 
 class MovementComponent
 {
@@ -26,6 +38,8 @@ private:
     float maxVelocity;
     float acceleration;
     float deceleration;
+
+    short state;
     
 public:
     MovementComponent(
@@ -35,6 +49,8 @@ public:
         float decceleration
     );
     virtual ~MovementComponent();
+
+    const short getState() const;
 
     void move(const float dir_x, const float dir_y, const float dt);
     void update(const float& dt);

@@ -10,7 +10,8 @@ private:
 
     //Initializers
     void initVariables();
-    void initComponents();
+
+    void playAnimations(const float& dt);
 
 public:
     Player(float x, float y, sf::Texture* textureSheet);
