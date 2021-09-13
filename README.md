@@ -9,6 +9,8 @@ cmake ..
 make
 ```
 
-## Diagramm
+Enjoy!
+
+## Diagramm (/!\ OUTDATED)
 
 ![diagramm](diagram.png)
