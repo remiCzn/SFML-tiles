@@ -63,19 +63,28 @@ void MainMenuState::initKeybinds()
 void MainMenuState::initButtons()
 {
     this->buttons["GAME_STATE"] = new Button(
-        100, 220, 150, 50,
-        "New Game", &this->menuFont,
-        sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200), sf::Color(70, 70, 70, 200));
+        100, 250, 250, 50,
+        "New Game", &this->menuFont, 50,
+        sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0),
+        sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50));
 
     this->buttons["SETTINGS"] = new Button(
-        100, 290, 150, 50,
-        "Settings", &this->menuFont,
-        sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200), sf::Color(70, 70, 70, 200));
+        100, 350, 250, 50,
+        "Settings", &this->menuFont, 50,
+        sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0),
+        sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50));
+
+    this->buttons["EDITOR_STATE"] = new Button(
+        100, 450, 250, 50,
+        "Editor", &this->menuFont, 50,
+        sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0),
+        sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50));
 
     this->buttons["QUIT"] = new Button(
-        100, 360, 150, 50,
-        "Quit", &this->menuFont,
-        sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200), sf::Color(70, 70, 70, 200));
+        100, 550, 250, 50,
+        "Quit", &this->menuFont, 50,
+        sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0),
+        sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50));
 }
 
 void MainMenuState::update(const float &dt)
