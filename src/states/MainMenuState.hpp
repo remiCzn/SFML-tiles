@@ -2,6 +2,7 @@
 #define MAINMENUSTATE_H
 
 #include "GameState.hpp"
+#include "EditorState.hpp"
 #include "../resource/Button.hpp"
 
 class MainMenuState : public State

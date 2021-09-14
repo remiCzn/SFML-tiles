@@ -110,6 +110,11 @@ void MainMenuState::updateButtons()
         //push game state when pressed
         this->states->push(new GameState(this->window, this->supportedKeys, this->states));
     }
+    if (this->buttons["EDITOR_STATE"]->isPressed())
+    {
+        //push editor state when pressed
+        this->states->push(new EditorState(this->window, this->supportedKeys, this->states));
+    }
     if (this->buttons["QUIT"]->isPressed())
     {
         this->endState();
