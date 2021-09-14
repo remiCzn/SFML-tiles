@@ -3,6 +3,7 @@
 
 #include "../components/MovementComponent.hpp"
 #include "../components/AnimationComponent.hpp"
+#include "../components/HitboxComponent.hpp"
 
 class Entity
 {
@@ -14,6 +15,7 @@ protected:
     // sf::RectangleShape shape;
     MovementComponent* movementComponent;
     AnimationComponent* animationComponent;
+    HitboxComponent* hitboxComponent;
 
 public:
     Entity();
@@ -21,6 +23,7 @@ public:
 
     void createSprite(sf::Texture* texture);
     void setTexture(sf::Texture* texture);
+    void createHitboxComponent(float offsetX, float offsetY, float width, float height);
     void createMovementComponent(const float maxSpeed, const float acceleration, const float deceleration);
     void createAnimationComponent(sf::Texture& textureSheet);
 

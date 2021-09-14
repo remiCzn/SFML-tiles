@@ -38,7 +38,7 @@ void MainMenuState::initBackground()
 
 void MainMenuState::initFonts()
 {
-    if (!this->menuFont.loadFromFile("fonts/Dosis-Light.ttf"))
+    if (!this->menuFont.loadFromFile("fonts/FreeSans.ttf"))
     {
         throw("ERROR::MAINMENUSTATE::Could not load font");
     }

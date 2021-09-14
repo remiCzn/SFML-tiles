@@ -107,3 +107,8 @@ const sf::Vector2f & MovementComponent::getVelocity() const{
 const short MovementComponent::getState() const {
     return this->state;
 }
+
+const float& MovementComponent::getMaxVelocity() const
+{
+    return this->maxVelocity;
+}

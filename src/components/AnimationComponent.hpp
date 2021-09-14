@@ -45,9 +45,12 @@ private:
             virtual ~Animation() {
             }
 
-            void play(const float& dt)
+            void play(const float& dt, float mod_percent)
             {
-                this->timer += 100.f * dt;
+                if(mod_percent < 0.5f)
+                    mod_percent = 0.5f;
+
+                this->timer += mod_percent * 100.f * dt;
                 if(this->timer >= this->animationTimer)
                 {
                     this->timer = 0.f;
@@ -66,7 +69,7 @@ private:
 
             void reset()
             {
-                this->timer = 0.f;
+                this->timer = this->animationTimer;
                 this->currentRect = this->startRect;
             }
 
@@ -76,6 +79,7 @@ private:
     sf::Texture* textureSheet;
     std::map<std::string, Animation*> animations;
     Animation* lastAnimation;
+    Animation* priorityAnimation;
 public:
     AnimationComponent(sf::Sprite* sprite, sf::Texture& texture_sheet);
     virtual ~AnimationComponent();
@@ -83,7 +87,9 @@ public:
     void addAnimation(const std::string key, float animation_timer, int start_x, int start_y,
         int nb_frames, int width, int heigt
     );
-    void play(const std::string key, const float& dt);
+    
+    void play(const std::string key, const float& dt, const bool priority = false);
+    void play(const std::string key, const float& dt, const float& modifier, const float& modifier_max, const bool priority = false);
 };
 
 #endif

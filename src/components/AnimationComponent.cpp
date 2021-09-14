@@ -1,7 +1,8 @@
 #include "AnimationComponent.hpp"
 
 AnimationComponent::AnimationComponent(sf::Sprite* sprite, sf::Texture& texture_sheet)
-    : sprite(sprite), textureSheet(&texture_sheet), lastAnimation(NULL)
+    : sprite(sprite), textureSheet(&texture_sheet), 
+        lastAnimation(NULL), priorityAnimation(NULL)
 {
 }
 
@@ -24,7 +25,7 @@ void AnimationComponent::addAnimation(const std::string key, float animation_tim
     );
 }
 
-void AnimationComponent::play(const std::string key, const float& dt)
+void AnimationComponent::play(const std::string key, const float& dt, const bool priority)
 {
     if(this->lastAnimation != this->animations[key])
     {
@@ -34,5 +35,18 @@ void AnimationComponent::play(const std::string key, const float& dt)
         }
         this->lastAnimation = this->animations[key];
     }
-    this->animations[key]->play(dt);
+    this->animations[key]->play(dt, 1.f);
+}
+
+void AnimationComponent::play(const std::string key, const float& dt, const float& modifier, const float& modifier_max, const bool priority)
+{
+    if(this->lastAnimation != this->animations[key])
+    {
+        if(this->lastAnimation != NULL)
+        {
+            this->lastAnimation->reset();
+        }
+        this->lastAnimation = this->animations[key];
+    }
+    this->animations[key]->play(dt, abs(modifier/modifier_max));
 }
