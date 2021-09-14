@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
 void Player::initVariables() {
-    
+    this->attacking = true;
 }
 
 Player::Player(float x, float y, sf::Texture* texture_sheet)
@@ -30,6 +30,12 @@ Player::Player(float x, float y, sf::Texture* texture_sheet)
     this->animationComponent->addAnimation("WALK_UP", walk_anim_timer, 5, 0, 5, 64, 64);
     this->animationComponent->addAnimation("WALK_LEFT", walk_anim_timer, 5, 0, 6, 64, 64);
     this->animationComponent->addAnimation("WALK_RIGHT", walk_anim_timer, 5, 0, 7, 64, 64);
+
+    float attack_anim_timer = 8.f;
+    this->animationComponent->addAnimation("ATTACK_DOWN", attack_anim_timer, 3,0,8,64,64);
+    this->animationComponent->addAnimation("ATTACK_UP", attack_anim_timer, 3,0,9,64,64);
+    this->animationComponent->addAnimation("ATTACK_LEFT", attack_anim_timer, 3,0,10,64,64);
+    this->animationComponent->addAnimation("ATTACK_RIGHT", attack_anim_timer, 3,0,11,64,64);
 }
 
 Player::~Player()
@@ -40,6 +46,30 @@ void Player::update(const float& dt)
 {
     this->movementComponent->update(dt);
     this->playAnimations(dt);
+    // if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+    // {
+    //     this->attacking = true;
+    // }
+    // if(this->attacking == true)
+    // {
+    //     this->animationComponent->play("ATTACK", dt, true);
+    // }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    {
+        this->animationComponent->play("ATTACK_UP", dt, true);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    {
+        this->animationComponent->play("ATTACK_DOWN", dt, true);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    {
+        this->animationComponent->play("ATTACK_LEFT", dt, true);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    {
+        this->animationComponent->play("ATTACK_RIGHT", dt, true);
+    }
     this->hitboxComponent->update();
 }
 

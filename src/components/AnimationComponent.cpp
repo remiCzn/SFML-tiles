@@ -27,26 +27,83 @@ void AnimationComponent::addAnimation(const std::string key, float animation_tim
 
 void AnimationComponent::play(const std::string key, const float& dt, const bool priority)
 {
-    if(this->lastAnimation != this->animations[key])
+    if(this->priorityAnimation)
     {
-        if(this->lastAnimation != NULL)
+        if(this->priorityAnimation == this->animations[key])
         {
-            this->lastAnimation->reset();
+            if(this->lastAnimation != this->animations[key])
+            {
+                if(this->lastAnimation == NULL)
+                    this->lastAnimation = this->animations[key];
+                else {
+                    this->lastAnimation->reset();
+                    this->lastAnimation = this->animations[key];
+                }
+            }
+            if(this->animations[key]->play(dt))
+            {
+                this->priorityAnimation = NULL;
+            }
         }
-        this->lastAnimation = this->animations[key];
     }
-    this->animations[key]->play(dt, 1.f);
+    else
+    {
+        if(priority)
+        {   
+            this->priorityAnimation = this->animations[key];
+        }
+        if(this->lastAnimation != this->animations[key])
+        {   
+            if(this->lastAnimation == NULL)
+            {
+                this->lastAnimation = this->animations[key];
+            }
+            else {
+                this->lastAnimation->reset();
+                this->lastAnimation = this->animations[key];
+            }
+        }
+        this->animations[key]->play(dt);
+    }
 }
 
 void AnimationComponent::play(const std::string key, const float& dt, const float& modifier, const float& modifier_max, const bool priority)
 {
-    if(this->lastAnimation != this->animations[key])
+    if(this->priorityAnimation)
     {
-        if(this->lastAnimation != NULL)
+        if(this->priorityAnimation == this->animations[key])
         {
-            this->lastAnimation->reset();
+            if(this->lastAnimation != this->animations[key])
+            {
+                if(this->lastAnimation == NULL)
+                    this->lastAnimation = this->animations[key];
+                else {
+                    this->lastAnimation->reset();
+                    this->lastAnimation = this->animations[key];
+                }
+            }
+            if(this->animations[key]->play(dt, abs(modifier / modifier_max)))
+            {
+                this->priorityAnimation = NULL;
+            }
         }
-        this->lastAnimation = this->animations[key];
     }
-    this->animations[key]->play(dt, abs(modifier/modifier_max));
+    else
+    {
+        if(priority)
+        {
+            this->priorityAnimation = this->animations[key];
+        }
+        if(this->lastAnimation != this->animations[key])
+        {
+            if(this->lastAnimation == NULL)
+                this->lastAnimation = this->animations[key];
+            else {
+                this->lastAnimation->reset();
+                this->lastAnimation = this->animations[key];
+            }
+        }
+
+        this->animations[key]->play(dt, abs(modifier / modifier_max));
+    }
 }

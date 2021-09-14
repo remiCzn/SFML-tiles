@@ -45,11 +45,35 @@ private:
             virtual ~Animation() {
             }
 
-            void play(const float& dt, float mod_percent)
+            bool play(const float& dt)
+            {   
+                bool done = false;
+                this->timer += 100.f * dt;
+                if(this->timer >= this->animationTimer)
+                {
+                    this->timer = 0.f;
+                    if(this->counter < this->nb_frames)
+                    {
+                        this->counter ++;
+                        this->currentRect.left += this->width;
+                    }
+                    else {
+                        this->counter = 0;
+                        this->currentRect.left = this->startRect.left;
+                        done = true;
+                    }
+                    this->sprite->setTextureRect(this->currentRect);
+                }
+
+                return done;
+            };
+
+            bool play(const float& dt, float mod_percent)
             {
                 if(mod_percent < 0.5f)
                     mod_percent = 0.5f;
 
+                bool done = false;
                 this->timer += mod_percent * 100.f * dt;
                 if(this->timer >= this->animationTimer)
                 {
@@ -62,9 +86,11 @@ private:
                     else {
                         this->counter = 0;
                         this->currentRect.left = this->startRect.left;
+                        done = true;
                     }
                     this->sprite->setTextureRect(this->currentRect);
                 }
+                return done;
             }
 
             void reset()
