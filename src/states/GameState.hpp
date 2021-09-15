@@ -2,10 +2,13 @@
 #define GAMESTATE_H
 
 #include "../State.hpp"
+#include "../PauseMenu.hpp"
 
 class GameState : public State
 {
 private:
+    PauseMenu pmenu;
+
     Player* player;
     void initKeybinds();
     void initTextures();
