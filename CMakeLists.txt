@@ -45,6 +45,7 @@ add_executable(main
     src/states/EditorState.cpp
     src/tile/Tile.cpp
     src/gui/PauseMenu.cpp
+    src/states/SettingsState.cpp
 )
 
 target_link_libraries(main sfml-graphics)
