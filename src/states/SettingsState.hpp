@@ -13,6 +13,8 @@ private:
 
     sf::Text menuText;
 
+    gui::DropDownList* ddl;
+
     std::map<std::string, gui::Button*> buttons;
 
     void initVariables();

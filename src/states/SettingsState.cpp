@@ -48,6 +48,9 @@ void SettingsState::initButtons()
     this->buttons["EXIT_STATE"] = new gui::Button(
         x, 500, 250, 50,
         "Quit", &this->font, 36);
+
+    std::string li[] {"aaa", "bbb", "ccc", "ddd", "eee"};
+    this->ddl = new gui::DropDownList(100.f, 100.f, 200.f, 50.f, &this->font, li, 5);
 }
 
 void SettingsState::initTitle()
@@ -80,6 +83,7 @@ SettingsState::~SettingsState()
     {
         delete it->second;
     }
+    delete this->ddl;
 }
 
 void SettingsState::updateInput(const float& dt)
@@ -104,6 +108,8 @@ void SettingsState::update(const float& dt)
     this->updateMousePosition();
     this->updateInput(dt);
     this->updateButtons();
+
+    this->ddl->update(this->mousePosView, dt);
 }
 
 void SettingsState::renderButtons(sf::RenderTarget* target)
@@ -123,6 +129,7 @@ void SettingsState::render(sf::RenderTarget* target)
 
     target->draw(this->bg);
     this->renderButtons(target);
+    this->ddl->render(target);
     target->draw(this->menuText);
 
 }
