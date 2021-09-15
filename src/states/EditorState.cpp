@@ -59,7 +59,7 @@ void EditorState::initButtons()
 //Update
 void EditorState::updateInput(const float& dt)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("Close"))))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
 		this->endState();
 }
 
