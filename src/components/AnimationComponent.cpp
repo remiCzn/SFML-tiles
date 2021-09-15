@@ -25,7 +25,7 @@ void AnimationComponent::addAnimation(const std::string key, float animation_tim
     );
 }
 
-void AnimationComponent::play(const std::string key, const float& dt, const bool priority)
+const bool& AnimationComponent::play(const std::string key, const float& dt, const bool priority)
 {
     if(this->priorityAnimation)
     {
@@ -65,9 +65,11 @@ void AnimationComponent::play(const std::string key, const float& dt, const bool
         }
         this->animations[key]->play(dt);
     }
+
+    return this->animations[key]->isDone();
 }
 
-void AnimationComponent::play(const std::string key, const float& dt, const float& modifier, const float& modifier_max, const bool priority)
+const bool& AnimationComponent::play(const std::string key, const float& dt, const float& modifier, const float& modifier_max, const bool priority)
 {
     if(this->priorityAnimation)
     {
@@ -106,4 +108,10 @@ void AnimationComponent::play(const std::string key, const float& dt, const floa
 
         this->animations[key]->play(dt, abs(modifier / modifier_max));
     }
+    return this->animations[key]->isDone();
+}
+
+const bool& AnimationComponent::isDone(const std::string key)
+{
+    return this->animations[key]->isDone();
 }

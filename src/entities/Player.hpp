@@ -3,11 +3,21 @@
 
 #include "Entity.hpp"
 
+enum Direction {
+    DOWN,
+    LEFT,
+    RIGHT,
+    UP
+};
+
 class Player : public Entity
 {
 private:
     //Variables
     bool attacking;
+    float attack_cooldown;
+
+    short direction;
 
     //Initializers
     void initVariables();
@@ -19,7 +29,8 @@ public:
     virtual ~Player();
     virtual void update(const float& dt);
 
-
+    void updateAttack(const float& dt);
+    void updateAnimation(const float& dt);
 };
 
 #endif

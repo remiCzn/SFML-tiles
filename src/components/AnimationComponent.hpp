@@ -24,6 +24,7 @@ private:
             int nb_frames;
             int width;
             int height;
+            bool done;
             sf::IntRect startRect;
             sf::IntRect currentRect;
 
@@ -35,6 +36,7 @@ private:
             {
                 this->counter = 0;
                 this->timer = 0.f;
+                this->done = false;
                 this->startRect = sf::IntRect(start_x * width, start_y * height, width, height);
                 this->currentRect = this->startRect;
 
@@ -45,9 +47,9 @@ private:
             virtual ~Animation() {
             }
 
-            bool play(const float& dt)
+            const bool& play(const float& dt)
             {   
-                bool done = false;
+                this->done = false;
                 this->timer += 100.f * dt;
                 if(this->timer >= this->animationTimer)
                 {
@@ -60,20 +62,20 @@ private:
                     else {
                         this->counter = 0;
                         this->currentRect.left = this->startRect.left;
-                        done = true;
+                        this->done = true;
                     }
                     this->sprite->setTextureRect(this->currentRect);
                 }
 
-                return done;
+                return this->done;
             };
 
-            bool play(const float& dt, float mod_percent)
+            const bool& play(const float& dt, float mod_percent)
             {
                 if(mod_percent < 0.5f)
                     mod_percent = 0.5f;
 
-                bool done = false;
+                this->done = false;
                 this->timer += mod_percent * 100.f * dt;
                 if(this->timer >= this->animationTimer)
                 {
@@ -86,17 +88,21 @@ private:
                     else {
                         this->counter = 0;
                         this->currentRect.left = this->startRect.left;
-                        done = true;
+                        this->done = true;
                     }
                     this->sprite->setTextureRect(this->currentRect);
                 }
-                return done;
+                return this->done;
             }
 
             void reset()
             {
                 this->timer = this->animationTimer;
                 this->currentRect = this->startRect;
+            }
+
+            const bool& isDone() {
+                return this->done;
             }
 
     };
@@ -114,8 +120,10 @@ public:
         int nb_frames, int width, int heigt
     );
     
-    void play(const std::string key, const float& dt, const bool priority = false);
-    void play(const std::string key, const float& dt, const float& modifier, const float& modifier_max, const bool priority = false);
+    const bool& play(const std::string key, const float& dt, const bool priority = false);
+    const bool& play(const std::string key, const float& dt, const float& modifier, const float& modifier_max, const bool priority = false);
+
+    const bool & isDone(const std::string key);
 };
 
 #endif
