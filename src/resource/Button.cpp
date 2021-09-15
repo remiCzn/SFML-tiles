@@ -31,6 +31,37 @@ Button::Button(float x, float y, float width, float height,
     this->textActiveColor = text_activeColor;
 }
 
+Button::Button(
+        float x, float y, float width, float height,
+        std::string text, sf::Font *font, unsigned character_size
+    )
+{
+    this->buttonState = BTN_IDLE;
+
+    // Default color buttons
+    this->idleColor = sf::Color(70, 70, 70, 0);
+    this->hoverColor = sf::Color(150, 150, 150, 0);
+    this->activeColor = sf::Color(20, 20, 20, 0);
+
+    this->textIdleColor = sf::Color(70, 70, 70, 200);
+    this->textHoverColor = sf::Color(250, 250, 250, 250);
+    this->textActiveColor = sf::Color(20, 20, 20, 50);
+
+    this->shape.setSize(sf::Vector2f(width, height));
+    this->shape.setPosition(sf::Vector2f(x, y));
+    this->shape.setFillColor(this->idleColor);
+
+    this->font = font;
+    this->text.setFont(*this->font);
+    this->text.setString(text);
+    this->text.setFillColor(this->textIdleColor);
+    this->text.setCharacterSize(character_size);
+
+    this->text.setPosition(
+        this->shape.getPosition().x + this->shape.getSize().x / 2.f - this->text.getGlobalBounds().width / 2.f,
+        this->shape.getPosition().y + this->shape.getSize().y / 2.f - this->text.getGlobalBounds().height / 2.f);
+}
+
 Button::~Button()
 {
 }

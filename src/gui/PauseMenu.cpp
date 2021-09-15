@@ -80,8 +80,6 @@ void PauseMenu::addButton(const std::string key, float y, const std::string text
 
     this->buttons[key] = new Button(
         x, y, width, height,
-        text, this->font, 50,
-        sf::Color(70,70,70,0), sf::Color(150,150,150,0), sf::Color(20,20,20,0),
-        sf::Color(70,70,70,200), sf::Color(250,250,250,250), sf::Color(20,20,20,20)
+        text, this->font, 50
     );
 }

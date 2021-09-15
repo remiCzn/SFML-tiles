@@ -42,6 +42,10 @@ public:
         sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor,
         sf::Color text_idleColor, sf::Color text_hoverColor, sf::Color text_activeColor
     );
+    Button(
+        float x, float y, float width, float height,
+        std::string text, sf::Font *font, unsigned character_size
+    );
     ~Button();
 
     void update(const sf::Vector2f& mousePose);

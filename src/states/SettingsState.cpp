@@ -12,12 +12,8 @@ void SettingsState::initBackground()
             static_cast<float>(this->window->getSize().y)
         )
     );
-    if(!this->bgTexture.loadFromFile("images/background/background.png"))
-    {
-        throw "ERROR::SETTINGS_STATE::Failed to load bg texture";
-    }
-
-    this->bg.setTexture(&this->bgTexture);
+    this->bg.setFillColor(sf::Color::Black);
+    //this->bg.setTexture(&this->bgTexture);
 }
 
 void SettingsState::initFonts()
@@ -46,12 +42,25 @@ void SettingsState::initKeybinds()
 
 void SettingsState::initButtons()
 {
+    float width = 250.f;
+    float x = this->window->getSize().x / 2.f - width / 2.f;
+    
     this->buttons["EXIT_STATE"] = new Button(
-        300, 500, 250, 50,
-        "Quit", &this->font, 50,
-        sf::Color(100,100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0),
-        sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50));
+        x, 500, 250, 50,
+        "Quit", &this->font, 36);
+}
 
+void SettingsState::initTitle()
+{
+    this->menuText.setString("SETTINGS");
+    this->menuText.setCharacterSize(48);
+    this->menuText.setFont(this->font);
+    this->menuText.setPosition(
+        sf::Vector2f(
+            this->window->getSize().x / 2.f - this->menuText.getGlobalBounds().width / 2,
+            50.f
+        )
+    );
 }
 
 SettingsState::SettingsState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
@@ -62,6 +71,7 @@ SettingsState::SettingsState(sf::RenderWindow* window, std::map<std::string, int
     this->initFonts();
     this->initKeybinds();
     this->initButtons();
+    this->initTitle();
 }
 
 SettingsState::~SettingsState()
@@ -113,5 +123,6 @@ void SettingsState::render(sf::RenderTarget* target)
 
     target->draw(this->bg);
     this->renderButtons(target);
+    target->draw(this->menuText);
 
 }

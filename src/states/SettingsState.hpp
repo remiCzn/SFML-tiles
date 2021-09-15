@@ -11,6 +11,8 @@ private:
     sf::RectangleShape bg;
     sf::Font font;
 
+    sf::Text menuText;
+
     std::map<std::string, Button*> buttons;
 
     void initVariables();
@@ -18,6 +20,7 @@ private:
     void initFonts();
     void initKeybinds();
     void initButtons();
+    void initTitle();
 public:
     SettingsState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
     virtual ~SettingsState();

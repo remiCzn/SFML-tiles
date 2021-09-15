@@ -54,6 +54,7 @@ void GameState::initPauseMenu()
 {
     this->pmenu = new PauseMenu(*this->window, this->font);
     this->pmenu->addButton("QUIT", 500.f, "Quit");
+    this->pmenu->addButton("CONTINUE", 200.f, "Continue");
 }
 
 void GameState::initPlayer() {
@@ -98,7 +99,7 @@ void GameState::updatePlayer(const float &dt)
 
 void GameState::updateInput(const float& dt)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeyTime())
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("PAUSE"))) && this->getKeyTime())
     {
         if(this->paused)
         {
@@ -114,6 +115,10 @@ void GameState::updatePauseMenuButtons() {
     if(this->pmenu->isButtonPressed("QUIT"))
     {
         this->endState();
+    }
+    if(this->pmenu->isButtonPressed("CONTINUE"))
+    {
+        this->unpauseState();
     }
 }
 
