@@ -2,7 +2,7 @@
 #define SETTINGS_STATE_H
 
 #include "../State.hpp"
-#include "../resource/Button.hpp"
+#include "../resource/gui.hpp"
 
 class SettingsState : public State
 {
@@ -13,7 +13,7 @@ private:
 
     sf::Text menuText;
 
-    std::map<std::string, Button*> buttons;
+    std::map<std::string, gui::Button*> buttons;
 
     void initVariables();
     void initBackground();

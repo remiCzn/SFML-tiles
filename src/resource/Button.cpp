@@ -1,6 +1,6 @@
-#include "Button.hpp"
+#include "gui.hpp"
 
-Button::Button(float x, float y, float width, float height,
+gui::Button::Button(float x, float y, float width, float height,
                std::string text, sf::Font *font, unsigned character_size,
                sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor,
                sf::Color text_idleColor, sf::Color text_hoverColor, sf::Color text_activeColor
@@ -31,7 +31,7 @@ Button::Button(float x, float y, float width, float height,
     this->textActiveColor = text_activeColor;
 }
 
-Button::Button(
+gui::Button::Button(
         float x, float y, float width, float height,
         std::string text, sf::Font *font, unsigned character_size
     )
@@ -62,11 +62,11 @@ Button::Button(
         this->shape.getPosition().y + this->shape.getSize().y / 2.f - this->text.getGlobalBounds().height / 2.f);
 }
 
-Button::~Button()
+gui::Button::~Button()
 {
 }
 
-void Button::update(const sf::Vector2f& mousePose)
+void gui::Button::update(const sf::Vector2f& mousePose)
 {
     this->buttonState = BTN_IDLE;
     if (this->shape.getGlobalBounds().contains(mousePose))
@@ -100,13 +100,13 @@ void Button::update(const sf::Vector2f& mousePose)
     }
 }
 
-void Button::render(sf::RenderTarget *target)
+void gui::Button::render(sf::RenderTarget *target)
 {
     target->draw(this->shape);
     target->draw(this->text);
 }
 
-const bool Button::isPressed() const
+const bool gui::Button::isPressed() const
 {
     if (this->buttonState == BTN_ACTIVE)
         return true;

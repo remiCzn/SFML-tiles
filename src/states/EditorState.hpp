@@ -2,14 +2,14 @@
 #define EDITORSTATE_H
 
 #include "../State.hpp"
-#include "../resource/Button.hpp"
+#include "../resource/gui.hpp"
 
 class EditorState : public State
 {
 private:
     sf::Font font;
 
-    std::map<std::string, Button*> buttons;
+    std::map<std::string, gui::Button*> buttons;
 
     void initVariables();
     void initBackground();

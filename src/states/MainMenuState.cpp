@@ -62,19 +62,19 @@ void MainMenuState::initKeybinds()
 
 void MainMenuState::initButtons()
 {
-    this->buttons["GAME_STATE"] = new Button(
+    this->buttons["GAME_STATE"] = new gui::Button(
         100, 250, 250, 50,
         "New Game", &this->menuFont, 50);
 
-    this->buttons["SETTINGS"] = new Button(
+    this->buttons["SETTINGS"] = new gui::Button(
         100, 350, 250, 50,
         "Settings", &this->menuFont, 50);
 
-    this->buttons["EDITOR_STATE"] = new Button(
+    this->buttons["EDITOR_STATE"] = new gui::Button(
         100, 450, 250, 50,
         "Editor", &this->menuFont, 50);
 
-    this->buttons["QUIT"] = new Button(
+    this->buttons["QUIT"] = new gui::Button(
         100, 550, 250, 50,
         "Quit", &this->menuFont, 50);
 }

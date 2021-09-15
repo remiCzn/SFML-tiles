@@ -37,17 +37,18 @@ add_executable(main
     src/Game.cpp
     src/State.cpp
     src/states/GameState.cpp
+    src/states/SettingsState.cpp
+    src/states/MainMenuState.cpp
+    src/states/EditorState.cpp
     src/entities/Entity.cpp
     src/entities/Player.cpp
-    src/states/MainMenuState.cpp
     src/resource/Button.cpp
+    src/resource/DropDownList.cpp
     src/components/MovementComponent.cpp
     src/components/AnimationComponent.cpp
     src/components/HitboxComponent.cpp
-    src/states/EditorState.cpp
     src/tile/Tile.cpp
     src/gui/PauseMenu.cpp
-    src/states/SettingsState.cpp
 )
 
 target_link_libraries(main sfml-graphics)

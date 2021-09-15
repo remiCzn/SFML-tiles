@@ -45,7 +45,7 @@ void SettingsState::initButtons()
     float width = 250.f;
     float x = this->window->getSize().x / 2.f - width / 2.f;
     
-    this->buttons["EXIT_STATE"] = new Button(
+    this->buttons["EXIT_STATE"] = new gui::Button(
         x, 500, 250, 50,
         "Quit", &this->font, 36);
 }
