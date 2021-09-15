@@ -43,6 +43,7 @@ add_executable(main
     src/components/AnimationComponent.cpp
     src/components/HitboxComponent.cpp
     src/states/EditorState.cpp
+    src/tile/Tile.cpp
 )
 
 target_link_libraries(main sfml-graphics)
