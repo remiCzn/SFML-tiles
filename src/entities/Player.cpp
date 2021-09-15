@@ -34,7 +34,7 @@ Player::Player(float x, float y, sf::Texture* texture_sheet)
     this->animationComponent->addAnimation("WALK_LEFT", walk_anim_timer, 5, 0, 6, 64, 64);
     this->animationComponent->addAnimation("WALK_RIGHT", walk_anim_timer, 5, 0, 7, 64, 64);
 
-    float attack_anim_timer = 10.f;
+    float attack_anim_timer = 6.f;
     this->animationComponent->addAnimation("ATTACK_DOWN", attack_anim_timer, 2,0,8,64,64);
     this->animationComponent->addAnimation("ATTACK_UP", attack_anim_timer, 2,0,9,64,64);
     this->animationComponent->addAnimation("ATTACK_LEFT", attack_anim_timer, 2,0,10,64,64);
@@ -138,7 +138,7 @@ void Player::playAnimations(const float& dt)
 void Player::updateAttack(const float& dt)
 {
     this->attack_cooldown += dt;
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::R) && this->attack_cooldown > 0.5f)
+    if((sf::Keyboard::isKeyPressed(sf::Keyboard::R) || sf::Mouse::isButtonPressed(sf::Mouse::Left)) && this->attack_cooldown > 0.3f)
     {
         this->attacking = true;
     }

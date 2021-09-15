@@ -54,6 +54,7 @@ private:
                 if(this->timer >= this->animationTimer)
                 {
                     this->timer = 0.f;
+                    this->sprite->setTextureRect(this->currentRect);
                     if(this->counter < this->nb_frames)
                     {
                         this->counter ++;
@@ -64,7 +65,6 @@ private:
                         this->currentRect.left = this->startRect.left;
                         this->done = true;
                     }
-                    this->sprite->setTextureRect(this->currentRect);
                 }
 
                 return this->done;
