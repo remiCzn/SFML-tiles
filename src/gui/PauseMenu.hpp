@@ -10,7 +10,7 @@
 #include <stack>
 #include <map>
 
-#include "./resource/Button.hpp"
+#include "../resource/Button.hpp"
 
 #include"SFML/System.hpp"
 #include"SFML/Window.hpp"

@@ -2,7 +2,7 @@
 #define GAMESTATE_H
 
 #include "../State.hpp"
-#include "../PauseMenu.hpp"
+#include "../gui/PauseMenu.hpp"
 
 class GameState : public State
 {
