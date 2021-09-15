@@ -1,16 +1,20 @@
 #include "GameState.hpp"
 
 GameState::GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states)
-    : State(window, supportedKeys, states), pmenu(*window)
+    : State(window, supportedKeys, states)
 {
     this->initKeybinds();
+    this->initFonts();
     this->initTextures();
+    this->initPauseMenu();
     this->initPlayer();
 }
 
 GameState::~GameState()
 {
+    delete this->pmenu;
     delete this->player;
+    delete this->font;
 }
 
 void GameState::initKeybinds()
@@ -37,25 +41,42 @@ void GameState::initTextures()
     }
 }
 
+void GameState::initFonts()
+{
+    this->font = new sf::Font();
+    if(!this->font->loadFromFile("fonts/FreeSans.ttf"))
+    {
+        throw("ERROR::GAME_STATE::Could not load font for GUI");
+    }
+}
+
+void GameState::initPauseMenu()
+{
+    this->pmenu = new PauseMenu(*this->window, this->font);
+    this->pmenu->addButton("QUIT", 500.f, "Quit");
+}
+
 void GameState::initPlayer() {
     this->player = new Player(0,0,&this->textures["PLAYER_IDLE"]);
 }
 
 void GameState::update(const float &dt)
 {
-    
+    this->updateMousePosition();
+    this->updateKeyTime(dt);
+    this->updateInput(dt);
     if(this->paused)
     {
-        this->pmenu.update();
+        this->pmenu->update(this->mousePosView);
+        this->updatePauseMenuButtons();
     }
     else {
-        this->updateInput(dt);
+        this->updatePlayer(dt);
         this->player->update(dt);
-        this->updateMousePosition();
     }
 }
 
-void GameState::updateInput(const float &dt)
+void GameState::updatePlayer(const float &dt)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
     {
@@ -73,7 +94,11 @@ void GameState::updateInput(const float &dt)
     {
         this->player->move(dt, 0.f, 1.f);
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
+}
+
+void GameState::updateInput(const float& dt)
+{
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeyTime())
     {
         if(this->paused)
         {
@@ -85,6 +110,14 @@ void GameState::updateInput(const float &dt)
     }
 }
 
+void GameState::updatePauseMenuButtons() {
+    if(this->pmenu->isButtonPressed("QUIT"))
+    {
+        this->endState();
+    }
+}
+
+
 void GameState::render(sf::RenderTarget *target)
 {
     if (!target)
@@ -92,6 +125,6 @@ void GameState::render(sf::RenderTarget *target)
     this->player->render(target);
     if(this->paused)
     {
-        this->pmenu.render(*target);
+        this->pmenu->render(*target);
     }
 }

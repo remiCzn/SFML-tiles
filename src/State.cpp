@@ -7,6 +7,8 @@ State::State(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys
     this->supportedKeys = supportedKeys;
     this->quit = false;
     this->paused = false;
+    this->keyTime = 0.f;
+    this->keyTimeMax = 20.f;
 }
 
 State::~State()
@@ -38,4 +40,20 @@ void State::pauseState()
 void State::unpauseState()
 {
     this->paused = false;
+}
+
+const bool State::getKeyTime()
+{
+    if(this->keyTime >= this->keyTimeMax)
+    {
+        this->keyTime = 0.f;
+        return true;
+    }
+    return false;
+}
+
+void State::updateKeyTime(const float& dt)
+{
+    if(this->keyTime < this->keyTimeMax)
+        this->keyTime += 100.f * dt;
 }

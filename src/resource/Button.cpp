@@ -35,7 +35,7 @@ Button::~Button()
 {
 }
 
-void Button::update(const sf::Vector2f mousePose)
+void Button::update(const sf::Vector2f& mousePose)
 {
     this->buttonState = BTN_IDLE;
     if (this->shape.getGlobalBounds().contains(mousePose))

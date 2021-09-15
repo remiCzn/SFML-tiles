@@ -44,7 +44,7 @@ public:
     );
     ~Button();
 
-    void update(const sf::Vector2f mousePose);
+    void update(const sf::Vector2f& mousePose);
     void render(sf::RenderTarget *target);
 
     const bool isPressed() const;

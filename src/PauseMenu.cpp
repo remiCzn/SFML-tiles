@@ -1,7 +1,9 @@
 #include "PauseMenu.hpp"
 
-PauseMenu::PauseMenu(sf::RenderWindow& window)
+PauseMenu::PauseMenu(sf::RenderWindow& window, sf::Font* font)
 {
+    this->font = font;
+
     this->background.setSize(
         sf::Vector2f(
             static_cast<float>(window.getSize().x),
@@ -13,7 +15,7 @@ PauseMenu::PauseMenu(sf::RenderWindow& window)
     this->container.setSize(
         sf::Vector2f(
             static_cast<float>(window.getSize().x) / 4.f,
-            static_cast<float>(window.getSize().y) - 60.f
+            static_cast<float>(window.getSize().y) - 100.f
         )
     );
 
@@ -21,6 +23,15 @@ PauseMenu::PauseMenu(sf::RenderWindow& window)
     this->container.setPosition(
         static_cast<float>(window.getSize().x) / 2.f - this->container.getSize().x / 2.f,
         30.f
+    );
+
+    this->pauseText.setFont(*font);
+    this->pauseText.setFillColor(sf::Color(255,255,255,200));
+    this->pauseText.setCharacterSize(60);
+    this->pauseText.setString("PAUSE");
+    this->pauseText.setPosition(
+        this->container.getPosition().x + this->container.getSize().x / 2.f - this->pauseText.getGlobalBounds().width / 2.f,
+        this->container.getPosition().y + 40.f
     );
 }
 
@@ -33,11 +44,11 @@ PauseMenu::~PauseMenu()
 
 }
 
-void PauseMenu::update()
+void PauseMenu::update(const sf::Vector2f& mousePose)
 {
     for(auto it = this->buttons.begin(); it != this->buttons.end(); ++it)
     {
-        //it->second->update();
+        it->second->update(mousePose);
     }
 }
 
@@ -50,4 +61,27 @@ void PauseMenu::render(sf::RenderTarget& target)
     {
         i.second->render(&target);
     }
+    target.draw(this->pauseText);
+}
+
+std::map<std::string, Button*>& PauseMenu::getButtons() {
+    return this->buttons;
+}
+    
+const bool PauseMenu::isButtonPressed(std::string key) {
+    return this->buttons[key]->isPressed();
+}
+
+void PauseMenu::addButton(const std::string key, float y, const std::string text) {
+    
+    float width = 250.f;
+    float height = 50.f;
+    float x = this->container.getPosition().x + this->container.getSize().x / 2.f - width / 2.f;
+
+    this->buttons[key] = new Button(
+        x, y, width, height,
+        text, this->font, 50,
+        sf::Color(70,70,70,0), sf::Color(150,150,150,0), sf::Color(20,20,20,0),
+        sf::Color(70,70,70,200), sf::Color(250,250,250,250), sf::Color(20,20,20,20)
+    );
 }

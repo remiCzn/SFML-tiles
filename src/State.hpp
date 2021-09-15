@@ -21,6 +21,9 @@ protected:
     sf::Vector2i mousePosWindow;
     sf::Vector2f mousePosView;
 
+    float keyTime;
+    float keyTimeMax;
+
     virtual void initKeybinds() = 0;
 
 public:
@@ -38,5 +41,8 @@ public:
     virtual void updateMousePosition();
     virtual void update(const float &dt) = 0;
     virtual void render(sf::RenderTarget *target = nullptr) = 0;
+
+    const bool getKeyTime();
+    void updateKeyTime(const float& dt);
 };
 #endif
