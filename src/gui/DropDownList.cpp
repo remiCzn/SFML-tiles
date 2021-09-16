@@ -1,4 +1,4 @@
-#include "gui.hpp"
+#include "../resource/gui.hpp"
 
 gui::DropDownList::DropDownList(
     float x, float y, float width, float height,

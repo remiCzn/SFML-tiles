@@ -42,8 +42,8 @@ add_executable(main
     src/states/EditorState.cpp
     src/entities/Entity.cpp
     src/entities/Player.cpp
-    src/resource/Button.cpp
-    src/resource/DropDownList.cpp
+    src/gui/Button.cpp
+    src/gui/DropDownList.cpp
     src/components/MovementComponent.cpp
     src/components/AnimationComponent.cpp
     src/components/HitboxComponent.cpp
