@@ -1,7 +1,17 @@
 #include "SettingsState.hpp"
 
 void SettingsState::initVariables(){
+    this->modes = std::vector<sf::VideoMode>({
+        sf::VideoMode(1920, 1080, 32),
+        sf::VideoMode(1600,900, 32),
+        sf::VideoMode(1440,810, 32),
+        sf::VideoMode(1368, 768, 32),
+        sf::VideoMode(1360,768, 32),
+        sf::VideoMode(1280,720,32),
+        sf::VideoMode(1024,576, 32),
+        sf::VideoMode(960,540,32)
 
+    });
 }
 
 void SettingsState::initBackground()
@@ -40,17 +50,42 @@ void SettingsState::initKeybinds()
     ifs.close();
 }
 
-void SettingsState::initButtons()
+void SettingsState::initGui()
 {
     float width = 250.f;
     float x = this->window->getSize().x / 2.f - width / 2.f;
     
     this->buttons["EXIT_STATE"] = new gui::Button(
-        x, 500, 250, 50,
+        x - 130, 500, 250, 50,
         "Quit", &this->font, 36);
 
-    std::string li[] {"aaa", "bbb", "ccc", "ddd", "eee"};
-    this->ddl = new gui::DropDownList(100.f, 100.f, 200.f, 50.f, &this->font, li, 5);
+    this->buttons["APPLY"] = new gui::Button(
+        x + 130, 500, 250, 50,
+        "Apply", &this->font, 36);
+
+    std::vector<std::string> modes_str;
+    for(auto &i : this->modes)
+    {
+        modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
+    }
+    this->ddls["RESOLUTION"] = new gui::DropDownList(
+        x, 200.f, 200.f, 40.f, 
+        &this->font, modes_str.data(), modes_str.size());
+    
+    this->buttons["FULLSCREEN"] = new gui::Button(
+        x, 265.f, 200.f, 40.f,
+        "Fullscreen", &this->font, 16.f
+    );
+
+    this->buttons["VSYNC"] = new gui::Button(
+        x, 330.f, 200.f, 40.f,
+        "VSync", &this->font, 16.f
+    );
+
+    this->buttons["ANTIALIASING"] = new gui::Button(
+        x, 395.f, 200.f, 40.f,
+        "Antialiasing", &this->font, 16.f
+    );
 }
 
 void SettingsState::initTitle()
@@ -64,6 +99,15 @@ void SettingsState::initTitle()
             50.f
         )
     );
+
+    this->optionsText.setFont(this->font);
+    this->optionsText.setPosition(sf::Vector2f(300.f, 200.f));
+    this->optionsText.setCharacterSize(30);
+    this->optionsText.setFillColor(sf::Color(255,255,255,200));
+
+    this->optionsText.setString(
+        "Resolution \n\nFullscreen \n\nVsync \n\nAntialiasing \n\n "
+    );
 }
 
 SettingsState::SettingsState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
@@ -73,7 +117,7 @@ SettingsState::SettingsState(sf::RenderWindow* window, std::map<std::string, int
     this->initBackground();
     this->initFonts();
     this->initKeybinds();
-    this->initButtons();
+    this->initGui();
     this->initTitle();
 }
 
@@ -83,7 +127,10 @@ SettingsState::~SettingsState()
     {
         delete it->second;
     }
-    delete this->ddl;
+    for(auto it = this->ddls.begin(); it != this->ddls.end(); ++it)
+    {
+        delete it->second;
+    }
 }
 
 void SettingsState::updateInput(const float& dt)
@@ -91,15 +138,24 @@ void SettingsState::updateInput(const float& dt)
 
 }
 
-void SettingsState::updateButtons()
+void SettingsState::updateGui(const float& dt)
 {
     for(auto &it : this->buttons)
     {
         it.second->update(this->mousePosView);
     }
+    for(auto &it : this->ddls)
+    {
+        it.second->update(this->mousePosView, dt);
+    }
+
     if(this->buttons["EXIT_STATE"]->isPressed())
     {
         this->endState();
+    }
+    if(this->buttons["APPLY"]->isClicked())
+    {
+        this->window->create(this->modes.at(this->ddls["RESOLUTION"]->getActiveElementId()), "test", sf::Style::Default);
     }
 }
 
@@ -107,14 +163,16 @@ void SettingsState::update(const float& dt)
 {
     this->updateMousePosition();
     this->updateInput(dt);
-    this->updateButtons();
-
-    this->ddl->update(this->mousePosView, dt);
+    this->updateGui(dt);
 }
 
-void SettingsState::renderButtons(sf::RenderTarget* target)
+void SettingsState::renderGui(sf::RenderTarget* target)
 {
     for(auto &it : this->buttons)
+    {
+        it.second->render(target);
+    }
+    for(auto &it : this->ddls)
     {
         it.second->render(target);
     }
@@ -128,8 +186,20 @@ void SettingsState::render(sf::RenderTarget* target)
     }
 
     target->draw(this->bg);
-    this->renderButtons(target);
-    this->ddl->render(target);
+    this->renderGui(target);
     target->draw(this->menuText);
+    target->draw(this->optionsText);
+
+    //remove later
+    sf::Text mouseText;
+    mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 50);
+    mouseText.setFont(this->font);
+    mouseText.setColor(sf::Color::White);
+    mouseText.setCharacterSize(12);
+    std::stringstream ss;
+    ss << this->mousePosView.x << "  " << this->mousePosView.y;
+    mouseText.setString(ss.str());
+
+    target->draw(mouseText);
 
 }

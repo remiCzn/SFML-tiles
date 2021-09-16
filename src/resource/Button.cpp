@@ -3,9 +3,13 @@
 gui::Button::Button(float x, float y, float width, float height,
                std::string text, sf::Font *font, unsigned character_size,
                sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor,
-               sf::Color text_idleColor, sf::Color text_hoverColor, sf::Color text_activeColor
+               sf::Color text_idleColor, sf::Color text_hoverColor, sf::Color text_activeColor,
+               sf::Color outline_idleColor, sf::Color outline_hoverColor, sf::Color outline_ActiveColor,
+               short unsigned id
                )
 {
+    this->id = id;
+    
     this->buttonState = BTN_IDLE;
     this->lastState = BTN_IDLE;
 
@@ -30,13 +34,19 @@ gui::Button::Button(float x, float y, float width, float height,
     this->textIdleColor = text_idleColor;
     this->textHoverColor = text_hoverColor;
     this->textActiveColor = text_activeColor;
+
+    this->outlineActiveColor = outline_ActiveColor;
+    this->outlineIdleColor = outline_idleColor;
+    this->outlineHoverColor = outline_hoverColor;
 }
 
 gui::Button::Button(
         float x, float y, float width, float height,
-        std::string text, sf::Font *font, unsigned character_size
+        std::string text, sf::Font *font, unsigned character_size,
+        short unsigned id
     )
 {
+    this->id = id;
     this->buttonState = BTN_IDLE;
     this->lastState = BTN_IDLE;
 
@@ -49,9 +59,16 @@ gui::Button::Button(
     this->textHoverColor = sf::Color(250, 250, 250, 250);
     this->textActiveColor = sf::Color(20, 20, 20, 50);
 
+    this->outlineHoverColor = sf::Color(0,0,0,0);
+    this->outlineActiveColor = sf::Color(0,0,0,0);
+    this->outlineIdleColor = sf::Color(0,0,0,0);
+
     this->shape.setSize(sf::Vector2f(width, height));
     this->shape.setPosition(sf::Vector2f(x, y));
     this->shape.setFillColor(this->idleColor);
+
+    this->shape.setOutlineColor(this->outlineIdleColor);
+    this->shape.setOutlineThickness(1.f);
 
     this->font = font;
     this->text.setFont(*this->font);
@@ -87,18 +104,22 @@ void gui::Button::update(const sf::Vector2f& mousePose)
     case BTN_IDLE:
         this->shape.setFillColor(this->idleColor);
         this->text.setFillColor(this->textIdleColor);
+        this->shape.setOutlineColor(this->outlineIdleColor);
         break;
     case BTN_HOVER:
         this->shape.setFillColor(this->hoverColor);
         this->text.setFillColor(this->textHoverColor);
+        this->shape.setOutlineColor(this->outlineHoverColor);
         break;
     case BTN_ACTIVE:
         this->shape.setFillColor(this->activeColor);
         this->text.setFillColor(this->textActiveColor);
+        this->shape.setOutlineColor(this->outlineActiveColor);
         break;
     default:
         this->shape.setFillColor(sf::Color::Red);
         this->text.setFillColor(sf::Color::Blue);
+        this->shape.setOutlineColor(sf::Color::Green);
         break;
     }
 }
@@ -122,4 +143,20 @@ const bool gui::Button::isClicked() const {
         return this->isPressed();
     }
     return false;
+}
+
+const std::string gui::Button::getText() const {
+    return this->text.getString();
+};
+
+const short unsigned& gui::Button::getId() const {
+    return this->id;
+}
+
+void gui::Button::setText(const std::string newText) {
+    this->text.setString(newText);
+}
+
+void gui::Button::setId(const short unsigned id) {
+    this->id = id;
 }

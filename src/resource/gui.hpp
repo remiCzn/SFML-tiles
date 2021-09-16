@@ -22,6 +22,8 @@ namespace gui {
     class Button
     {
     private:
+        short unsigned id;
+
         char buttonState;
         short lastState;
 
@@ -37,21 +39,34 @@ namespace gui {
         sf::Color textHoverColor;
         sf::Color textActiveColor;
 
+        sf::Color outlineIdleColor;
+        sf::Color outlineHoverColor;
+        sf::Color outlineActiveColor;
+
     public:
         Button(
             float x, float y, float width, float height,
             std::string text, sf::Font *font, unsigned character_size,
             sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor,
-            sf::Color text_idleColor, sf::Color text_hoverColor, sf::Color text_activeColor
+            sf::Color text_idleColor, sf::Color text_hoverColor, sf::Color text_activeColor,
+               sf::Color outline_idleColor, sf::Color outline_hoverColor, sf::Color outline_ActiveColor,
+               short unsigned id
         );
         Button(
             float x, float y, float width, float height,
-            std::string text, sf::Font *font, unsigned character_size
+            std::string text, sf::Font *font, unsigned character_size,
+            short unsigned id = 0
         );
         ~Button();
 
         void update(const sf::Vector2f& mousePose);
         void render(sf::RenderTarget *target);
+
+        const std::string getText() const;
+        const short unsigned& getId() const;
+
+        void setText(const std::string newText);
+        void setId(const short unsigned id); 
 
         const bool isPressed() const;
         const bool isClicked() const;
@@ -79,6 +94,8 @@ namespace gui {
         void updateKeytime(const float& dt);
         void update(const sf::Vector2f& mousePos, const float& dt);
         void render(sf::RenderTarget* target);
+
+        const unsigned short& getActiveElementId() const;
     };    
 }
 

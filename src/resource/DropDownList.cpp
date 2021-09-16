@@ -7,18 +7,29 @@ gui::DropDownList::DropDownList(
 ) : showList(false), keytimeMax(1.f), keytime(0.f)
 {
     this->font = font;
+
+    this->activeElement = new gui::Button(
+        x, y, width, height,
+        list[default_index], this->font, 14,
+        sf::Color(70,70,70,200), sf::Color(150,150,150,200), sf::Color(20,20,20,200),
+        sf::Color(255,255,255,150), sf::Color(255,255,255,200), sf::Color(20,20,20,50),
+        sf::Color(255,255,255,200), sf::Color(255,255,255,255), sf::Color(20,20,20,50), 
+        0
+    );
+
     for(size_t i = 0; i < nrOfElements; i++)
     {
         this->list.push_back(
             new gui::Button(
-                x, y + (i * height), width, height,
+                x, y + ((i+1) * height), width, height,
                 list[i], this->font, 12,
                 sf::Color(70,70,70,200), sf::Color(150,150,150,200), sf::Color(20,20,20,200),
-                sf::Color(255,255,255,150), sf::Color(255,255,255,255), sf::Color(20,20,20,50)
+                sf::Color(255,255,255,150), sf::Color(255,255,255,255), sf::Color(20,20,20,50),
+                sf::Color(255,255,255,0), sf::Color(255,255,255,0), sf::Color(20,20,20,0), 
+                i
             )
         );
     }
-    this->activeElement = new Button(*this->list[default_index]);
 }
 
 gui::DropDownList::~DropDownList()
@@ -59,7 +70,16 @@ void gui::DropDownList::update(const sf::Vector2f& mousePos, const float& dt)
     if(this->showList)
     {
         for(auto &i : this->list)
-            i->update(mousePos);
+        {
+            i->update(mousePos); 
+            if(i->isPressed() && this->getKeyTime())
+            {
+                this->showList = false;
+                this->activeElement->setText(i->getText());
+                this->activeElement->setId(i->getId());
+            }
+        }
+            
     }
 }
 
@@ -74,4 +94,9 @@ void gui::DropDownList::render(sf::RenderTarget* target)
             i->render(target);
         }
     }
+}
+
+const short unsigned& gui::DropDownList::getActiveElementId() const
+{
+    return this->activeElement->getId();
 }

@@ -13,24 +13,26 @@ private:
 
     sf::Text menuText;
 
-    gui::DropDownList* ddl;
+    sf::Text optionsText;
+    std::vector<sf::VideoMode> modes;
 
+    std::map<std::string, gui::DropDownList*> ddls;
     std::map<std::string, gui::Button*> buttons;
 
     void initVariables();
     void initBackground();
     void initFonts();
     void initKeybinds();
-    void initButtons();
+    void initGui();
     void initTitle();
 public:
     SettingsState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
     virtual ~SettingsState();
 
     void updateInput(const float& dt);
-    void updateButtons();
+    void updateGui(const float& dt);
     void update(const float& dt);
-    void renderButtons(sf::RenderTarget* target);
+    void renderGui(sf::RenderTarget* target);
     void render(sf::RenderTarget* target = NULL);
 };
 
