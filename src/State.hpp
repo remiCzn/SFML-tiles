@@ -15,7 +15,9 @@ protected:
     std::map<std::string, sf::Texture> textures;
 
     bool quit;
+
     bool paused;
+    bool lastPauseKeyStatus = false;
 
     sf::Vector2i mousePosScreen;
     sf::Vector2i mousePosWindow;

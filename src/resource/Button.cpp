@@ -7,6 +7,7 @@ gui::Button::Button(float x, float y, float width, float height,
                )
 {
     this->buttonState = BTN_IDLE;
+    this->lastState = BTN_IDLE;
 
     this->shape.setSize(sf::Vector2f(width, height));
     this->shape.setPosition(sf::Vector2f(x, y));
@@ -37,6 +38,7 @@ gui::Button::Button(
     )
 {
     this->buttonState = BTN_IDLE;
+    this->lastState = BTN_IDLE;
 
     // Default color buttons
     this->idleColor = sf::Color(70, 70, 70, 0);
@@ -68,6 +70,7 @@ gui::Button::~Button()
 
 void gui::Button::update(const sf::Vector2f& mousePose)
 {
+    this->lastState = this->buttonState;
     this->buttonState = BTN_IDLE;
     if (this->shape.getGlobalBounds().contains(mousePose))
     // == if hover
@@ -110,5 +113,13 @@ const bool gui::Button::isPressed() const
 {
     if (this->buttonState == BTN_ACTIVE)
         return true;
+    return false;
+}
+
+const bool gui::Button::isClicked() const {
+    if(this->lastState == BTN_HOVER || this->lastState == BTN_IDLE)
+    {
+        return this->isPressed();
+    }
     return false;
 }

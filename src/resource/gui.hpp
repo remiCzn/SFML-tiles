@@ -23,6 +23,7 @@ namespace gui {
     {
     private:
         char buttonState;
+        short lastState;
 
         sf::RectangleShape shape;
         sf::Font *font;
@@ -53,6 +54,7 @@ namespace gui {
         void render(sf::RenderTarget *target);
 
         const bool isPressed() const;
+        const bool isClicked() const;
     };
 
     class DropDownList

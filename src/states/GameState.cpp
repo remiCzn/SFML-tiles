@@ -99,15 +99,22 @@ void GameState::updatePlayer(const float &dt)
 
 void GameState::updateInput(const float& dt)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("PAUSE"))) && this->getKeyTime())
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("PAUSE"))))
     {
-        if(this->paused)
+        if(this->lastPauseKeyStatus == false && this->getKeyTime())
         {
-            this->unpauseState();
+            if(this->paused)
+            {   
+                this->unpauseState();
+            }
+            else {
+                this->pauseState();
+            }
         }
-        else {
-            this->pauseState();
-        }
+        this->lastPauseKeyStatus = true;
+    }
+    else {
+        this->lastPauseKeyStatus = false;
     }
 }
 
