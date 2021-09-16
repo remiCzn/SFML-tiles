@@ -3,6 +3,7 @@
 
 #include "../State.hpp"
 #include "../resource/gui.hpp"
+#include "../resource/headers.hpp"
 
 class SettingsState : public State
 {

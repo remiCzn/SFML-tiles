@@ -1,21 +1,7 @@
 #ifndef MOVE_COMPO_H
 #define MOVE_COMPO_H
 
-#include <vector>
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <fstream>
-#include <sstream>
-#include <stack>
-#include <map>
-#include <math.h>
-
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
+#include "../resource/headers.hpp"
 
 enum movement_states {
     IDLE_DOWN = 0,

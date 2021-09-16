@@ -3,18 +3,21 @@
 
 // Std libs
 #include <algorithm>
+#include <cmath>
+#include <cstdlib>
 #include <deque>
+#include <fstream>
 #include <iostream>
+#include <list>
 #include <map>
 #include <memory>
 #include <set>
+#include <sstream>
+#include <stack>
+#include <string>
 #include <thread>
 #include <utility>
 #include <vector>
-#include <list>
-#include <string>
-#include <sstream>
-#include <fstream>
 
 // SFML
 #include "SFML/System.hpp"

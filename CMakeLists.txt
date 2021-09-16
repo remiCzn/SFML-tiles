@@ -33,6 +33,8 @@ foreach(file ${EXFILES})
 endforeach()
 
 add_executable(main 
+    src/resource/headers.cpp
+    
     src/main.cpp
     src/Game.cpp
     src/State.cpp
@@ -48,6 +50,7 @@ add_executable(main
     src/components/AnimationComponent.cpp
     src/components/HitboxComponent.cpp
     src/tile/Tile.cpp
+    src/tile/TileMap.cpp
     src/gui/PauseMenu.cpp
 )
 

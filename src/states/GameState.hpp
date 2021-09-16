@@ -3,6 +3,8 @@
 
 #include "../State.hpp"
 #include "../gui/PauseMenu.hpp"
+#include "../resource/headers.hpp"
+#include "entities/Player.hpp"
 
 class GameState : public State
 {

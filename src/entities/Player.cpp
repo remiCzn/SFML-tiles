@@ -1,4 +1,5 @@
 #include "Player.hpp"
+#include "../resource/headers.hpp"
 
 void Player::initVariables() {
     this->attacking = false;

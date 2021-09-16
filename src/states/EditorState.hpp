@@ -2,6 +2,7 @@
 #define EDITORSTATE_H
 
 #include "../State.hpp"
+#include "../resource/headers.hpp"
 #include "../resource/gui.hpp"
 
 class EditorState : public State

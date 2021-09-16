@@ -1,4 +1,5 @@
 #include "Entity.hpp"
+#include "../resource/headers.hpp"
 
 Entity::Entity(/* args */)
 {
