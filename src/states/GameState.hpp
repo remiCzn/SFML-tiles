@@ -5,6 +5,7 @@
 #include "../gui/PauseMenu.hpp"
 #include "../resource/headers.hpp"
 #include "../entities/Player.hpp"
+#include "../tile/TileMap.hpp"
 
 class GameState : public State
 {
@@ -14,6 +15,8 @@ private:
     sf::Font* font;
 
     Player* player;
+    TileMap map;
+
     void initKeybinds();
     void initTextures();
     void initPlayer();

@@ -6,10 +6,14 @@
 class Tile
 {
 private:
-    /* data */
+    sf::RectangleShape shape;
 public:
-    Tile(/* args */);
+    Tile();
+    Tile(float x, float y, float gridSizeF);
     virtual ~Tile();
+
+    void update();
+    void render(sf::RenderTarget& target);
 };
 
 #endif
