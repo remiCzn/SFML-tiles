@@ -1,9 +1,9 @@
 #ifndef GAMESTATE_H
 #define GAMESTATE_H
 
-#include "../State.hpp"
+#include "./State.hpp"
 #include "../gui/PauseMenu.hpp"
-#include "../resource/headers.hpp"
+#include "../headers/headers.hpp"
 #include "../entities/Player.hpp"
 #include "../tile/TileMap.hpp"
 

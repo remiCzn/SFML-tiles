@@ -1,7 +1,7 @@
 #ifndef TILE_H
 #define TILE_h
 
-#include "../resource/headers.hpp"
+#include "../headers/headers.hpp"
 
 class Tile
 {

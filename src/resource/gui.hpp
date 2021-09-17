@@ -1,7 +1,7 @@
 #ifndef GUI_H
 #define GUI_H
 
-#include "../resource/headers.hpp"
+#include "../headers/headers.hpp"
 
 enum button_states
 {

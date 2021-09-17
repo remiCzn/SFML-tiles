@@ -1,7 +1,7 @@
 #ifndef STATE_H
 #define STATE_H
 
-#include "./resource/headers.hpp"
+#include "../headers/headers.hpp"
 
 class State
 {

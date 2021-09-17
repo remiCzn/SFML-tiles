@@ -5,7 +5,7 @@
 #include "EditorState.hpp"
 #include "SettingsState.hpp"
 #include "../resource/gui.hpp"
-#include "../resource/headers.hpp"
+#include "../headers/headers.hpp"
 
 class MainMenuState : public State
 {

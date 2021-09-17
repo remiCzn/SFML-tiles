@@ -1,7 +1,7 @@
 #ifndef MOVE_COMPO_H
 #define MOVE_COMPO_H
 
-#include "../resource/headers.hpp"
+#include "../headers/headers.hpp"
 
 enum movement_states {
     IDLE_DOWN = 0,

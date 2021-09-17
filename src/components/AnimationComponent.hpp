@@ -1,7 +1,7 @@
 #ifndef ANIM_COMPO_H
 #define ANIM_COMPO_H
 
-#include "../resource/headers.hpp"
+#include "../headers/headers.hpp"
 
 class AnimationComponent
 {

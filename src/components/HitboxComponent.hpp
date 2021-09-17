@@ -1,7 +1,7 @@
 #ifndef HITBOX_COMP_H
 #define HITBOX_COMP_H
 
-#include "../resource/headers.hpp"
+#include "../headers/headers.hpp"
 
 class HitboxComponent
 {

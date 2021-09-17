@@ -33,19 +33,19 @@ foreach(file ${EXFILES})
 endforeach()
 
 add_executable(main 
-    src/resource/headers.cpp
+    src/headers/headers.cpp
     
     src/main.cpp
     src/Game.cpp
-    src/State.cpp
+    src/states/State.cpp
     src/states/GameState.cpp
     src/states/SettingsState.cpp
     src/states/MainMenuState.cpp
     src/states/EditorState.cpp
     src/entities/Entity.cpp
     src/entities/Player.cpp
-    src/gui/Button.cpp
-    src/gui/DropDownList.cpp
+    src/resource/Button.cpp
+    src/resource/DropDownList.cpp
     src/components/MovementComponent.cpp
     src/components/AnimationComponent.cpp
     src/components/HitboxComponent.cpp

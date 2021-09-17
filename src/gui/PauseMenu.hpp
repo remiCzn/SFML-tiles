@@ -2,7 +2,7 @@
 #define PAUSEMENU_H
 
 #include "../resource/gui.hpp"
-#include "../resource/headers.hpp"
+#include "../headers/headers.hpp"
 
 class PauseMenu
 {
