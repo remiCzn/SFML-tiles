@@ -46,6 +46,7 @@ add_executable(main
     src/entities/Player.cpp
     src/resource/Button.cpp
     src/resource/DropDownList.cpp
+    src/resource/GraphicSettings.cpp
     src/components/MovementComponent.cpp
     src/components/AnimationComponent.cpp
     src/components/HitboxComponent.cpp

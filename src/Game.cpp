@@ -1,53 +1,40 @@
 #include "Game.hpp"
 
+void Game::initGraphicSettings() {
+    this->gfxSettings.loadFromFile("./config/window");
+}
+
 void Game::initWindow()
 {
-
-    std::ifstream ifs("./config/window");
-    this->videoModes = sf::VideoMode::getFullscreenModes();
-
-    sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode();
-    bool fullscreen = false;
-    std::string title = "Unknown";
-    unsigned int framerate_limit = 120;
-    bool vsync_enabled = false;
-    unsigned antialising_level = 0;
-
-    if (ifs.is_open())
-    {
-        std::getline(ifs, title);
-        ifs >> window_bounds.width >> window_bounds.height;
-        ifs >> fullscreen;
-        ifs >> framerate_limit;
-        ifs >> vsync_enabled;
-        ifs >> antialising_level;
-    }
-
-    ifs.close();
-
-    this->windowSettings.antialiasingLevel = antialising_level;
-    this->fullscreen = fullscreen;
-
-    if (this->fullscreen)
-        this->window = new sf::RenderWindow(window_bounds, title, sf::Style::Fullscreen, this->windowSettings);
+    if (this->gfxSettings.fullscreen)
+        this->window = new sf::RenderWindow(
+            this->gfxSettings.resolution, 
+            this->gfxSettings.title, 
+            sf::Style::Fullscreen, 
+            this->gfxSettings.contextSettings
+        );
     else
-        this->window = new sf::RenderWindow(window_bounds, title, sf::Style::Titlebar | sf::Style::Close, this->windowSettings);
+        this->window = new sf::RenderWindow(
+            this->gfxSettings.resolution, 
+            this->gfxSettings.title, 
+            sf::Style::Titlebar | sf::Style::Close, 
+            this->gfxSettings.contextSettings
+        );
 
-    this->window->setFramerateLimit(framerate_limit);
-    this->window->setVerticalSyncEnabled(vsync_enabled);
+    this->window->setFramerateLimit(this->gfxSettings.framerateLimit);
+    this->window->setVerticalSyncEnabled(this->gfxSettings.verticalSync);
 }
 
 void Game::initVariables()
 {
     this->window = NULL;
-    this->fullscreen = false;
     this->dt = 0.f;
 }
 
 void Game::initStates()
 {
     // this->states.push(new GameState(this->window, &this->supportedKeys, &this->states));
-    this->states.push(new MainMenuState(this->window, &this->supportedKeys, &this->states));
+    this->states.push(new MainMenuState(this->window, this->gfxSettings, &this->supportedKeys, &this->states));
 }
 
 void Game::initKeys()
@@ -65,13 +52,6 @@ void Game::initKeys()
 
     ifs.close();
 
-    //is now in the config file "supported_keys"
-    // this->supportedKeys["Escape"] = sf::Keyboard::Escape;
-    // this->supportedKeys["Q"] = sf::Keyboard::Q;
-    // this->supportedKeys["D"] = sf::Keyboard::D;
-    // this->supportedKeys["Z"] = sf::Keyboard::Z;
-    // this->supportedKeys["S"] = sf::Keyboard::S;
-
     for (auto i : supportedKeys)
     {
         std::cout << i.first << " " << i.second << std::endl;
@@ -82,6 +62,7 @@ void Game::initKeys()
 Game::Game()
 {
     this->initVariables();
+    this->initGraphicSettings();
     this->initWindow();
     this->initKeys();
     this->initStates();

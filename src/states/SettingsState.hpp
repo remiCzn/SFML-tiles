@@ -2,12 +2,14 @@
 #define SETTINGS_STATE_H
 
 #include "./State.hpp"
+#include "../resource/GraphicSettings.hpp"
 #include "../resource/gui.hpp"
 #include "../headers/headers.hpp"
 
 class SettingsState : public State
 {
 private:
+    GraphicSettings& gfxSettings;
     sf::Texture bgTexture;
     sf::RectangleShape bg;
     sf::Font font;
@@ -27,7 +29,7 @@ private:
     void initGui();
     void initTitle();
 public:
-    SettingsState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
+    SettingsState(sf::RenderWindow* window, GraphicSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
     virtual ~SettingsState();
 
     void updateInput(const float& dt);

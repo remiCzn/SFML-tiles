@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "states/MainMenuState.hpp"
+#include "./resource/GraphicSettings.hpp"
 
 class Game
 {
@@ -9,9 +10,7 @@ private:
     //Variables
     sf::RenderWindow *window;
     sf::Event sfEvent;
-    std::vector<sf::VideoMode> videoModes;
-    sf::ContextSettings windowSettings;
-    bool fullscreen;
+    GraphicSettings gfxSettings;
 
     sf::Clock dtClock;
     float dt;
@@ -24,6 +23,7 @@ private:
     void initWindow();
     void initStates();
     void initKeys();
+    void initGraphicSettings();
 
 public:
     Game();
