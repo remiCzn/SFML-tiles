@@ -9,6 +9,7 @@ EditorState::EditorState(StateData* stateData)
     this->initKeybinds();
     this->initPauseMenu();
     this->initButtons();
+    this->initGui();
     this->initTileMap();
 }
 
@@ -18,6 +19,9 @@ EditorState::~EditorState()
     {
         delete it->second;
     }
+
+    delete this->pmenu;
+    delete this->map;
 }
 
 //Initialization
@@ -70,6 +74,14 @@ void EditorState::initTileMap()
     this->map = new TileMap(this->statedata->gridSize, 10, 10);
 }
 
+void EditorState::initGui()
+{
+    this->selectorRect.setSize(sf::Vector2f(this->statedata->gridSize, this->statedata->gridSize));
+    this->selectorRect.setFillColor(sf::Color::Transparent);
+    this->selectorRect.setOutlineThickness(1.f);
+    this->selectorRect.setOutlineColor(sf::Color::Green);
+}
+
 //Update
 void EditorState::updateInput(const float& dt)
 {
@@ -108,6 +120,8 @@ void EditorState::update(const float& dt)
     if(!this->paused)
     {
         this->updateButtons();
+        this->updateGui();
+        this->updateEditorInput(dt);
     }
     else {
         this->pmenu->update(this->mousePosView);
@@ -124,6 +138,19 @@ void EditorState::updatePauseMenu()
     }
 }
 
+void EditorState::updateEditorInput(const float& dt)
+{
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->getKeyTime())
+    {
+        this->map->addTile(this->mousePosGrid.x, this->mousePosGrid.y, 0);
+    }
+}
+
+void EditorState::updateGui() {
+    this->selectorRect.setPosition(this->mousePosGrid.x * this->statedata->gridSize, this->mousePosGrid.y * this->statedata->gridSize);
+}
+
+//Render
 void EditorState::renderButtons(sf::RenderTarget* target)
 {
     for(auto &it : this->buttons)
@@ -132,12 +159,18 @@ void EditorState::renderButtons(sf::RenderTarget* target)
     }
 }
 
+void EditorState::renderGui(sf::RenderTarget* target)
+{
+    target->draw(this->selectorRect);
+}
+
 void EditorState::render(sf::RenderTarget* target)
 {
     if(!target)
         target = this->statedata->window;
 
     this->renderButtons(target);
+    this->renderGui(target);
     this->map->render(*target);
 
     if(this->paused)
