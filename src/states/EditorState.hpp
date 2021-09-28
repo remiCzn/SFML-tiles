@@ -13,7 +13,7 @@ private:
     sf::Font font;
     PauseMenu* pmenu;
 
-    TileMap map;
+    TileMap* map;
 
     std::map<std::string, gui::Button*> buttons;
 
@@ -23,6 +23,7 @@ private:
     void initKeybinds();
     void initPauseMenu();
     void initButtons();
+    void initTileMap();
 public:
     EditorState(StateData* stateData);
     virtual ~EditorState();

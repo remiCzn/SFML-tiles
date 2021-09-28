@@ -9,6 +9,7 @@ EditorState::EditorState(StateData* stateData)
     this->initKeybinds();
     this->initPauseMenu();
     this->initButtons();
+    this->initTileMap();
 }
 
 EditorState::~EditorState()
@@ -62,6 +63,11 @@ void EditorState::initPauseMenu()
     this->pmenu = new PauseMenu(*this->statedata->window, &this->font);
 
     this->pmenu->addButton("QUIT", 500.f, "Quit");
+}
+
+void EditorState::initTileMap()
+{
+    this->map = new TileMap(this->statedata->gridSize, 10, 10);
 }
 
 //Update
@@ -132,7 +138,7 @@ void EditorState::render(sf::RenderTarget* target)
         target = this->statedata->window;
 
     this->renderButtons(target);
-    this->map.render(*target);
+    this->map->render(*target);
 
     if(this->paused)
     {
