@@ -12,8 +12,11 @@ private:
     sf::Event sfEvent;
     GraphicSettings gfxSettings;
 
+    StateData stateData;
+
     sf::Clock dtClock;
     float dt;
+    float gridSize;
 
     std::stack<State *> states;
     std::map<std::string, int> supportedKeys;
@@ -24,6 +27,7 @@ private:
     void initStates();
     void initKeys();
     void initGraphicSettings();
+    void initStateData();
 
 public:
     Game();

@@ -15,13 +15,16 @@ void SettingsState::initVariables(){
 
 void SettingsState::initBackground()
 {
+    std::cout << "B" << std::endl;
     this->bg.setSize(
         sf::Vector2f(
-            static_cast<float>(this->window->getSize().x),
-            static_cast<float>(this->window->getSize().y)
+            static_cast<float>(this->statedata->window->getSize().x),
+            static_cast<float>(this->statedata->window->getSize().y)
         )
     );
+    std::cout << "B" << std::endl;
     this->bg.setFillColor(sf::Color::Black);
+    std::cout << "B" << std::endl;
     //this->bg.setTexture(&this->bgTexture);
 }
 
@@ -42,7 +45,7 @@ void SettingsState::initKeybinds()
         std::string key2 = "";
         while (ifs >> key >> key2)
         {
-            this->keybinds[key] = this->supportedKeys->at(key2);
+            this->keybinds[key] = this->statedata->supportedKeys->at(key2);
         }
     }
 
@@ -52,7 +55,7 @@ void SettingsState::initKeybinds()
 void SettingsState::initGui()
 {
     float width = 250.f;
-    float x = this->window->getSize().x / 2.f - width / 2.f;
+    float x = this->statedata->window->getSize().x / 2.f - width / 2.f;
     
     this->buttons["EXIT_STATE"] = new gui::Button(
         x - 130, 500, 250, 50,
@@ -94,7 +97,7 @@ void SettingsState::initTitle()
     this->menuText.setFont(this->font);
     this->menuText.setPosition(
         sf::Vector2f(
-            this->window->getSize().x / 2.f - this->menuText.getGlobalBounds().width / 2,
+            this->statedata->window->getSize().x / 2.f - this->menuText.getGlobalBounds().width / 2,
             50.f
         )
     );
@@ -109,8 +112,8 @@ void SettingsState::initTitle()
     );
 }
 
-SettingsState::SettingsState(sf::RenderWindow* window, GraphicSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
-    : State(window, supportedKeys, states), gfxSettings(gfxSettings)
+SettingsState::SettingsState(StateData* state_data)
+    : State(state_data)
 {
     this->initVariables();
     this->initBackground();
@@ -154,9 +157,9 @@ void SettingsState::updateGui(const float& dt)
     }
     if(this->buttons["APPLY"]->isClicked())
     {
-        this->gfxSettings.resolution = this->modes.at(this->ddls["RESOLUTION"]->getActiveElementId());
-        this->window->create(this->gfxSettings.resolution, this->gfxSettings.title, sf::Style::Titlebar | sf::Style::Close);
-        this->gfxSettings.saveToFile("../config/window");
+        this->statedata->gfxSettings->resolution = this->modes.at(this->ddls["RESOLUTION"]->getActiveElementId());
+        this->statedata->window->create(this->statedata->gfxSettings->resolution, this->statedata->gfxSettings->title, sf::Style::Titlebar | sf::Style::Close);
+        this->statedata->gfxSettings->saveToFile("../config/window");
     }
 }
 
@@ -183,7 +186,7 @@ void SettingsState::render(sf::RenderTarget* target)
 {
     if(!target)
     {
-        target = this->window;
+        target = this->statedata->window;
     }
 
     target->draw(this->bg);

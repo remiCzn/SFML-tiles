@@ -1,13 +1,14 @@
 #include "GameState.hpp"
 
-GameState::GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states)
-    : State(window, supportedKeys, states)
+GameState::GameState(StateData* stateData)
+    : State(stateData)
 {
     this->initKeybinds();
     this->initFonts();
     this->initTextures();
     this->initPauseMenu();
     this->initPlayer();
+    this->initTileMap();
 }
 
 GameState::~GameState()
@@ -15,6 +16,7 @@ GameState::~GameState()
     delete this->pmenu;
     delete this->player;
     delete this->font;
+    delete this->map;
 }
 
 void GameState::initKeybinds()
@@ -26,7 +28,7 @@ void GameState::initKeybinds()
         std::string key2 = "";
         while (ifs >> key >> key2)
         {
-            this->keybinds[key] = this->supportedKeys->at(key2);
+            this->keybinds[key] = this->statedata->supportedKeys->at(key2);
         }
     }
 
@@ -52,13 +54,17 @@ void GameState::initFonts()
 
 void GameState::initPauseMenu()
 {
-    this->pmenu = new PauseMenu(*this->window, this->font);
+    this->pmenu = new PauseMenu(*this->statedata->window, this->font);
     this->pmenu->addButton("QUIT", 500.f, "Quit");
     this->pmenu->addButton("CONTINUE", 200.f, "Continue");
 }
 
 void GameState::initPlayer() {
     this->player = new Player(0,0,&this->textures["PLAYER_IDLE"]);
+}
+
+void GameState::initTileMap() {
+    this->map = new TileMap();
 }
 
 void GameState::update(const float &dt)
@@ -133,9 +139,10 @@ void GameState::updatePauseMenuButtons() {
 void GameState::render(sf::RenderTarget *target)
 {
     if (!target)
-        target = this->window;
+        target = this->statedata->window;
+
+    this->map->render(*target);
     
-    this->map.render(*target);
     this->player->render(target);
     if(this->paused)
     {

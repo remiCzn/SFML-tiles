@@ -9,7 +9,6 @@
 class SettingsState : public State
 {
 private:
-    GraphicSettings& gfxSettings;
     sf::Texture bgTexture;
     sf::RectangleShape bg;
     sf::Font font;
@@ -29,7 +28,7 @@ private:
     void initGui();
     void initTitle();
 public:
-    SettingsState(sf::RenderWindow* window, GraphicSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
+    SettingsState(StateData* state_data);
     virtual ~SettingsState();
 
     void updateInput(const float& dt);

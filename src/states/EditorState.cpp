@@ -1,7 +1,7 @@
 #include "EditorState.hpp"
 
-EditorState::EditorState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
-    : State(window, supportedKeys, states)
+EditorState::EditorState(StateData* stateData)
+    : State(stateData)
 {
     this->initVariables();
     this->initBackground();
@@ -45,7 +45,7 @@ void EditorState::initKeybinds()
         std::string key2 = "";
         while (ifs >> key >> key2)
         {
-            this->keybinds[key] = this->supportedKeys->at(key2);
+            this->keybinds[key] = this->statedata->supportedKeys->at(key2);
         }
     }
 
@@ -59,7 +59,7 @@ void EditorState::initButtons()
 
 void EditorState::initPauseMenu()
 {
-    this->pmenu = new PauseMenu(*this->window, &this->font);
+    this->pmenu = new PauseMenu(*this->statedata->window, &this->font);
 
     this->pmenu->addButton("QUIT", 500.f, "Quit");
 }
@@ -129,7 +129,7 @@ void EditorState::renderButtons(sf::RenderTarget* target)
 void EditorState::render(sf::RenderTarget* target)
 {
     if(!target)
-        target = this->window;
+        target = this->statedata->window;
 
     this->renderButtons(target);
     this->map.render(*target);

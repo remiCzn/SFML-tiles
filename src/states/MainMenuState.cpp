@@ -1,7 +1,7 @@
 #include "MainMenuState.hpp"
 
-MainMenuState::MainMenuState(sf::RenderWindow *window, GraphicSettings& gfxSettings, std::map<std::string, int> *supportedKeys, std::stack<State *> *states)
-    : State(window, supportedKeys, states), gfxSettings(gfxSettings)
+MainMenuState::MainMenuState(StateData* stateData)
+    : State(stateData)
 {
     this->initVariables();
     this->initBackground();
@@ -26,8 +26,8 @@ void MainMenuState::initBackground()
 {
     this->background.setSize(
         sf::Vector2f(
-            this->window->getSize().x,
-            this->window->getSize().y));
+            this->statedata->window->getSize().x,
+            this->statedata->window->getSize().y));
     if (!this->bgTexture.loadFromFile("images/background/background.png"))
     {
         throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_TEXTURE";
@@ -53,7 +53,7 @@ void MainMenuState::initKeybinds()
         std::string key2 = "";
         while (ifs >> key >> key2)
         {
-            this->keybinds[key] = this->supportedKeys->at(key2);
+            this->keybinds[key] = this->statedata->supportedKeys->at(key2);
         }
     }
 
@@ -100,16 +100,16 @@ void MainMenuState::updateButtons()
     if (this->buttons["GAME_STATE"]->isPressed())
     {
         //push game state when pressed
-        this->states->push(new GameState(this->window, this->supportedKeys, this->states));
+        this->statedata->states->push(new GameState(this->statedata));
     }
     if(this->buttons["SETTINGS"]->isPressed())
     {
-        this->states->push(new SettingsState(this->window, this->gfxSettings, this->supportedKeys, this->states));
+        this->statedata->states->push(new SettingsState(this->statedata));
     }
     if (this->buttons["EDITOR_STATE"]->isPressed())
     {
         //push editor state when pressed
-        this->states->push(new EditorState(this->window, this->supportedKeys, this->states));
+        this->statedata->states->push(new EditorState(this->statedata));
     }
     if (this->buttons["QUIT"]->isPressed())
     {
@@ -120,7 +120,7 @@ void MainMenuState::updateButtons()
 void MainMenuState::render(sf::RenderTarget *target)
 {
     if (!target)
-        target = this->window;
+        target = this->statedata->window;
 
     target->draw(this->background);
     this->renderButtons(target);

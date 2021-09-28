@@ -29,12 +29,22 @@ void Game::initVariables()
 {
     this->window = NULL;
     this->dt = 0.f;
+    this->gridSize = 100.f;
+}
+
+void Game::initStateData()
+{
+    this->stateData.gfxSettings = &this->gfxSettings;
+    this->stateData.gridSize = this->gridSize;
+    this->stateData.states = &this->states;
+    this->stateData.supportedKeys = &this->supportedKeys;
+    this->stateData.window = this->window;
 }
 
 void Game::initStates()
 {
-    // this->states.push(new GameState(this->window, &this->supportedKeys, &this->states));
-    this->states.push(new MainMenuState(this->window, this->gfxSettings, &this->supportedKeys, &this->states));
+    this->states.push(new MainMenuState(&stateData));
+    // this->states.push(new EditorState(&stateData));
 }
 
 void Game::initKeys()
@@ -65,6 +75,7 @@ Game::Game()
     this->initGraphicSettings();
     this->initWindow();
     this->initKeys();
+    this->initStateData();
     this->initStates();
 }
 

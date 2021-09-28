@@ -1,14 +1,13 @@
 #include "State.hpp"
 
-State::State(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states)
+State::State(StateData* state_data)
 {
-    this->states = states;
-    this->window = window;
-    this->supportedKeys = supportedKeys;
+    this->statedata = state_data;
     this->quit = false;
     this->paused = false;
     this->keyTime = 0.f;
     this->keyTimeMax = 20.f;
+    this->gridSize = state_data->gridSize;
 }
 
 State::~State()
@@ -23,8 +22,12 @@ const bool &State::getQuit() const
 void State::updateMousePosition()
 {
     this->mousePosScreen = sf::Mouse::getPosition();
-    this->mousePosWindow = sf::Mouse::getPosition(*this->window);
-    this->mousePosView = this->window->mapPixelToCoords(sf::Mouse::getPosition(*this->window));
+    this->mousePosWindow = sf::Mouse::getPosition(*this->statedata->window);
+    this->mousePosView = this->statedata->window->mapPixelToCoords(sf::Mouse::getPosition(*this->statedata->window));
+    this->mousePosGrid = sf::Vector2u(
+        static_cast<unsigned>(this->mousePosView.x) / static_cast<unsigned>(this->gridSize),
+        static_cast<unsigned>(this->mousePosView.y) / static_cast<unsigned>(this->gridSize)
+    );
 }
 
 void State::endState()
