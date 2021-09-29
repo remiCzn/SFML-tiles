@@ -144,6 +144,10 @@ void EditorState::updateEditorInput(const float& dt)
     {
         this->map->addTile(this->mousePosGrid.x, this->mousePosGrid.y, 0);
     }
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Right) && this->getKeyTime())
+    {
+        this->map->removeTile(this->mousePosGrid.x, this->mousePosGrid.y, 0);
+    }
 }
 
 void EditorState::updateGui() {

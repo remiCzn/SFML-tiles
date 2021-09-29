@@ -43,7 +43,17 @@ void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z) {
     z < this->layers && z >= 0) {
         if(this->map[x][y][z] == NULL) {
             this->map[x][y][z] = new Tile(x * this->gridSizeF, y * this->gridSizeF, this->gridSizeF);
-            std::cout << "DEBUG: ADDED TILE!" << std::endl;
+        }
+    }
+}
+
+void TileMap::removeTile(const unsigned x, const unsigned y, const unsigned z) {
+    if(x < this->maxSize.x && x >= 0 &&
+    y < this->maxSize.y && y >= 0 &&
+    z < this->layers && z >= 0) {
+        if(this->map[x][y][z] != NULL) {
+            delete this->map[x][y][z];
+            this->map[x][y][z] = NULL;
         }
     }
 }
