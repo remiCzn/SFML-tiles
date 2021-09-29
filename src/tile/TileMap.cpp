@@ -23,6 +23,11 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height)
             }
         }
     }
+
+    if(!this->textureSheet.loadFromFile("images/Tiles/grass.png"))
+    {
+        std::cout << "ERROR::TILEMAP::FAILED TO LOAD TILESHEET" << std::endl;
+    }
 }
 
 TileMap::~TileMap()
@@ -42,7 +47,7 @@ void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z) {
     y < this->maxSize.y && y >= 0 &&
     z < this->layers && z >= 0) {
         if(this->map[x][y][z] == NULL) {
-            this->map[x][y][z] = new Tile(x * this->gridSizeF, y * this->gridSizeF, this->gridSizeF);
+            this->map[x][y][z] = new Tile(x * this->gridSizeF, y * this->gridSizeF, this->gridSizeF, this->textureSheet);
         }
     }
 }

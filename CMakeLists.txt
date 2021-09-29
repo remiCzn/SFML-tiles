@@ -22,6 +22,7 @@ set(EXFILES
     config/window
     images/background/background.png
     images/character/player_sheet.png
+    images/Tiles/grass.png
 )
 
 foreach(file ${EXFILES})

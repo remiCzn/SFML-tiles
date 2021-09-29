@@ -3,12 +3,10 @@
 Tile::Tile()
 {}
 
-Tile::Tile(float x, float y, float gridSizeF)
+Tile::Tile(float x, float y, float gridSizeF, sf::Texture& texture)
 {
     this->shape.setSize(sf::Vector2f(gridSizeF, gridSizeF));
-    this->shape.setFillColor(sf::Color::White);
-    this->shape.setOutlineThickness(1.f);
-    this->shape.setOutlineColor(sf::Color::Black);
+    this->shape.setTexture(&texture);
     this->shape.setPosition(x, y);
 }
 
