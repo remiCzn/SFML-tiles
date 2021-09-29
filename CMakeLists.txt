@@ -23,6 +23,7 @@ set(EXFILES
     images/background/background.png
     images/character/player_sheet.png
     images/Tiles/grass.png
+    images/Tiles/tilesheet.png
 )
 
 foreach(file ${EXFILES})
