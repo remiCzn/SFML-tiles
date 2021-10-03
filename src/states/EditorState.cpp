@@ -87,6 +87,11 @@ void EditorState::initTileMap()
 
 void EditorState::initGui()
 {
+    this->sidebar.setSize(sf::Vector2f(80.f, static_cast<float>(this->statedata->gfxSettings->resolution.height)));
+    this->sidebar.setFillColor(sf::Color(50,50,50,100));
+    this->sidebar.setOutlineColor(sf::Color(200, 200, 200, 150));
+    this->sidebar.setOutlineThickness(1.f);
+
     this->selectorRect.setSize(sf::Vector2f(this->statedata->gridSize, this->statedata->gridSize));
     this->selectorRect.setFillColor(sf::Color(255, 255, 255, 150));
     this->selectorRect.setOutlineThickness(1.f);
@@ -158,11 +163,23 @@ void EditorState::updateEditorInput(const float& dt)
 {
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->getKeyTime())
     {
-        this->map->addTile(this->mousePosGrid.x, this->mousePosGrid.y, 0, this->textureRect);
+        if(!this->sidebar.getGlobalBounds().contains(sf::Vector2f(this->mousePosWindow))) {
+            if(!this->textureSelector->getActive())
+            {
+                this->map->addTile(this->mousePosGrid.x, this->mousePosGrid.y, 0, this->textureRect);
+            }
+            else {
+                this->textureRect = this->textureSelector->getTextureRect();
+            }
+        }
     }
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Right) && this->getKeyTime())
+    else if(sf::Mouse::isButtonPressed(sf::Mouse::Right) && this->getKeyTime())
     {
-        this->map->removeTile(this->mousePosGrid.x, this->mousePosGrid.y, 0);
+        if(!this->sidebar.getGlobalBounds().contains(sf::Vector2f(this->mousePosWindow))) {
+            if(!this->textureSelector->getActive()) {
+                this->map->removeTile(this->mousePosGrid.x, this->mousePosGrid.y, 0);
+            }
+        }
     }
 }
 

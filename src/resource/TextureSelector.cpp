@@ -65,6 +65,10 @@ const bool gui::TextureSelector::getKeytime() {
     return false;
 }
 
+const sf::FloatRect& gui::TextureSelector::getBounds() const {
+    return this->bounds.getGlobalBounds();
+}
+
 void gui::TextureSelector::updateKeytime(const float& dt) {
     if(this->keytime < this->keyTimeMax)
         this->keytime += 10.f * dt;

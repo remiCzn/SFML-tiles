@@ -112,6 +112,7 @@ namespace gui {
 
         const bool& getActive() const;
         const sf::IntRect& getTextureRect() const;
+        const sf::FloatRect& getBounds() const;
 
         const bool getKeytime();
         void updateKeytime(const float& dt);
