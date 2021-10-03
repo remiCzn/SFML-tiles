@@ -58,11 +58,11 @@ void SettingsState::initGui()
     float x = this->statedata->window->getSize().x / 2.f - width / 2.f;
     
     this->buttons["EXIT_STATE"] = new gui::Button(
-        x - 130, 500, 250, 50,
+        x - 130, 500, 250, 65,
         "Quit", &this->font, 36);
 
     this->buttons["APPLY"] = new gui::Button(
-        x + 130, 500, 250, 50,
+        x + 130, 500, 250, 65,
         "Apply", &this->font, 36);
 
     std::vector<std::string> modes_str;

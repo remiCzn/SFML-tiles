@@ -1,5 +1,17 @@
 #include "TileMap.hpp"
 
+void TileMap::clear()
+{
+    for(size_t x = 0; x < this->maxSize.x; x++) {
+        for(size_t y = 0; y < this->maxSize.y; y++) {
+            for(size_t z = 0; z < this->layers; z++) {
+                delete this->map[x][y][z];
+                this->map[x][y][z] = NULL;
+            }
+        }
+    }
+}
+
 TileMap::TileMap(float gridSize, unsigned width, unsigned height)
 {
     this->gridSizeF = gridSize;
@@ -32,14 +44,7 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height)
 
 TileMap::~TileMap()
 {
-    for(size_t x = 0; x < this->maxSize.x; x++) {
-        for(size_t y = 0; y < this->maxSize.y; y++) {
-            for(size_t z = 0; z < this->layers; z++) {
-                delete this->map[x][y][z];
-            }
-        }
-    }
-
+    this->clear();
 }
 
 const sf::Texture* TileMap::getTileSheet() const {
@@ -87,5 +92,30 @@ void TileMap::render(sf::RenderTarget& target) {
             }
         }
     }
+}
+
+void TileMap::saveToFile(const std::string file_name) {
+    std::ofstream out_file;
+
+    out_file.open(file_name);
+
+    if(out_file.is_open()) {
+        out_file << this->maxSize.x << " " << this->maxSize.y << "\n"
+         << this->gridSizeU << "\n"
+         << this->layers << "\n";
+        
+        for(size_t x = 0; x < this->maxSize.x; x++) {
+            for(size_t y = 0; y < this->maxSize.y; y++) {
+                for(size_t z = 0; z < this->layers; z++) {
+                    if(this->map[x][y][z])
+                        out_file << x << " " << y << " " << z << " " << this->map[x][y][z]->getAsString() << "\n";
+                }
+            }
+        }
+    } else {
+        std::cout << "ERROR::TILEMAP::COULD NOT SAVE TO FILE" << file_name << "\n";
+    }
+
+    out_file.close();
 }
 

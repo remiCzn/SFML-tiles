@@ -6,6 +6,8 @@
 class TileMap
 {
 private:
+    void clear();
+    
     float gridSizeF;
     unsigned gridSizeU;
     sf::Vector2u maxSize;
@@ -24,7 +26,8 @@ public:
 
     void addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect& texture_rect);
     void removeTile(const unsigned x, const unsigned y, const unsigned z);
-
+    void saveToFile(const std::string file_name);
+    void loadFromFile(const std::string file_name);
 
 };
 
