@@ -51,8 +51,9 @@ void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, cons
     y < this->maxSize.y && y >= 0 &&
     z < this->layers && z >= 0) {
         if(this->map[x][y][z] == NULL) {
-            this->map[x][y][z] = new Tile(x * this->gridSizeF, y * this->gridSizeF, this->gridSizeF, this->tileSheet, texture_rect);
+            delete this->map[x][y][z];
         }
+        this->map[x][y][z] = new Tile(x * this->gridSizeF, y * this->gridSizeF, this->gridSizeF, this->tileSheet, texture_rect);
     }
 }
 
