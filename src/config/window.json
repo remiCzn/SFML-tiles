@@ -1,0 +1,11 @@
+{
+    "title":"Tiles RPG",
+    "resolution": {
+        "width": 1280,
+        "height": 720
+    },
+    "fullscreen": false,
+    "framerateLimit": 120,
+    "VSync": false,
+    "Antialiasing": 0
+}

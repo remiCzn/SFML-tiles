@@ -159,7 +159,7 @@ void SettingsState::updateGui(const float& dt)
     {
         this->statedata->gfxSettings->resolution = this->modes.at(this->ddls["RESOLUTION"]->getActiveElementId());
         this->statedata->window->create(this->statedata->gfxSettings->resolution, this->statedata->gfxSettings->title, sf::Style::Titlebar | sf::Style::Close);
-        this->statedata->gfxSettings->saveToFile("../config/window");
+        this->statedata->gfxSettings->saveToFile("./config/window.json");
     }
 }
 

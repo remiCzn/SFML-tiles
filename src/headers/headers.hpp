@@ -26,4 +26,7 @@
 #include "SFML/Audio.hpp"
 #include "SFML/Network.hpp"
 
+//JSONCPP
+#include "../lib/json/json.h"
+
 #endif

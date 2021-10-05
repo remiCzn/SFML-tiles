@@ -20,6 +20,7 @@ set(EXFILES
     config/mainmenu_keybinds
     config/supported_keys
     config/window
+    config/window.json
     images/background/background.png
     images/character/player_sheet.png
     images/Tiles/grass.png
@@ -36,6 +37,7 @@ endforeach()
 
 add_executable(main 
     src/headers/headers.cpp
+    src/lib/jsoncpp.cpp
     
     src/main.cpp
     src/Game.cpp

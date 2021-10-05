@@ -1,7 +1,7 @@
 #include "Game.hpp"
 
 void Game::initGraphicSettings() {
-    this->gfxSettings.loadFromFile("./config/window");
+    this->gfxSettings.loadFromFile("./config/window.json");
 }
 
 void Game::initWindow()

@@ -14,15 +14,22 @@ GraphicSettings::GraphicSettings()
 void GraphicSettings::saveToFile(const std::string path)
 {
     std::ofstream ofs(path);
-
+    Json::Value root;
     if(ofs.is_open())
     {
-        ofs << this->title;
-        ofs << this->resolution.width << " " << this->resolution.height;
-        ofs << this->fullscreen;
-        ofs << this->framerateLimit;
-        ofs << this->verticalSync;
-        ofs << this->contextSettings.antialiasingLevel;
+        root["title"] = this->title;
+        root["resolution"] = Json::nullValue;
+        root["resolution"]["width"] = this->resolution.width;
+        root["resolution"]["height"] = this->resolution.height;
+        root["fullscreen"] = this->fullscreen;
+        root["framerateLimit"] = this->framerateLimit;
+        root["VSync"] = this->verticalSync;
+        root["Antialiasing"] = this->contextSettings.antialiasingLevel;
+
+        ofs << root;
+    }
+    else {
+        std::cout << "GFXSETTINGS::FAILED TO OPEN FILE" << std::endl;
     }
 
     ofs.close();
@@ -31,16 +38,18 @@ void GraphicSettings::saveToFile(const std::string path)
 void GraphicSettings::loadFromFile(const std::string path)
 {
     std::ifstream ifs(path);
-
+    Json::Value root;
     if(ifs.is_open())
     {
-        std::getline(ifs, this->title);
-        ifs >> this->resolution.width >> this->resolution.height;
-        ifs >> this->fullscreen;
-        ifs >> this->framerateLimit;
-        ifs >> this->verticalSync;
-        ifs >> this->contextSettings.antialiasingLevel;
+        ifs >> root;
     }
-
     ifs.close();
+
+    this->title = root["title"].asString();
+    this->resolution.width = root["resolution"]["width"].asInt();
+    this->resolution.height = root["resolution"]["height"].asInt();
+    this->fullscreen = root["fullscreen"].asBool();
+    this->framerateLimit = root["framerateLimit"].asInt();
+    this->verticalSync = root["VSync"].asBool();
+    this->contextSettings.antialiasingLevel = root["Antialiasing"].asInt();    
 }
