@@ -7,5 +7,11 @@
     "fullscreen": false,
     "framerateLimit": 120,
     "VSync": false,
-    "Antialiasing": 0
+    "Antialiasing": 0,
+    "videoModes": [
+        [1920, 1080],
+        [1368, 768],
+        [1280, 720],
+        [960, 540]
+    ]
 }

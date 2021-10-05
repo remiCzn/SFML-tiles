@@ -1,30 +1,18 @@
 #include "SettingsState.hpp"
 
 void SettingsState::initVariables(){
-    this->modes = std::vector<sf::VideoMode>({
-        sf::VideoMode(1920, 1080, 32),
-        sf::VideoMode(1600,900, 32),
-        sf::VideoMode(1440,810, 32),
-        sf::VideoMode(1368, 768, 32),
-        sf::VideoMode(1360,768, 32),
-        sf::VideoMode(1280,720,32),
-        sf::VideoMode(1024,576, 32),
-        sf::VideoMode(960,540,32)
-    });
+    this->modes = this->statedata->gfxSettings->videoModes;
 }
 
 void SettingsState::initBackground()
 {
-    std::cout << "B" << std::endl;
     this->bg.setSize(
         sf::Vector2f(
             static_cast<float>(this->statedata->window->getSize().x),
             static_cast<float>(this->statedata->window->getSize().y)
         )
     );
-    std::cout << "B" << std::endl;
     this->bg.setFillColor(sf::Color::Black);
-    std::cout << "B" << std::endl;
     //this->bg.setTexture(&this->bgTexture);
 }
 

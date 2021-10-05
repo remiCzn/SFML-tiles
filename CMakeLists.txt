@@ -19,7 +19,6 @@ set(EXFILES
     config/gamestate_keybinds
     config/mainmenu_keybinds
     config/supported_keys
-    config/window
     config/window.json
     images/background/background.png
     images/character/player_sheet.png

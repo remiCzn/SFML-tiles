@@ -8,7 +8,7 @@ GraphicSettings::GraphicSettings()
     this->verticalSync = false;
     this->framerateLimit = 120;
     this->contextSettings.antialiasingLevel = 0;
-    this->videoModes = sf::VideoMode::getFullscreenModes();
+    this->videoModes = std::vector<sf::VideoMode>();
 }
 
 void GraphicSettings::saveToFile(const std::string path)
@@ -25,7 +25,13 @@ void GraphicSettings::saveToFile(const std::string path)
         root["framerateLimit"] = this->framerateLimit;
         root["VSync"] = this->verticalSync;
         root["Antialiasing"] = this->contextSettings.antialiasingLevel;
-
+        root["videoModes"] = Json::Value();
+        for(auto &i : this->videoModes) {
+            Json::Value resol;
+            resol.append(i.width);
+            resol.append(i.height);
+            root["videoModes"].append(resol);
+        }
         ofs << root;
     }
     else {
@@ -51,5 +57,9 @@ void GraphicSettings::loadFromFile(const std::string path)
     this->fullscreen = root["fullscreen"].asBool();
     this->framerateLimit = root["framerateLimit"].asInt();
     this->verticalSync = root["VSync"].asBool();
-    this->contextSettings.antialiasingLevel = root["Antialiasing"].asInt();    
+    this->contextSettings.antialiasingLevel = root["Antialiasing"].asInt();
+    for(Json::Value &i : root["videoModes"])
+    {
+        this->videoModes.push_back(sf::VideoMode(i[0].asInt(), i[1].asInt()));
+    }   
 }
