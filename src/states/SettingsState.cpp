@@ -12,7 +12,7 @@ void SettingsState::initBackground()
             static_cast<float>(this->statedata->window->getSize().y)
         )
     );
-    this->bg.setFillColor(sf::Color::Black);
+    this->bg.setFillColor(sf::Color::Blue);
     //this->bg.setTexture(&this->bgTexture);
 }
 
@@ -76,6 +76,8 @@ void SettingsState::initGui()
         x, 395.f, 200.f, 40.f,
         "Antialiasing", &this->font, 16.f
     );
+
+    this->checkBoxs["FULLSCREEN"] = new gui::CheckBox(365.f, 300.f, 20, true);
 }
 
 void SettingsState::initTitle()
@@ -138,6 +140,10 @@ void SettingsState::updateGui(const float& dt)
     {
         it.second->update(this->mousePosView, dt);
     }
+    for(auto &it : this->checkBoxs)
+    {
+        it.second->update(this->mousePosView);
+    }
 
     if(this->buttons["EXIT_STATE"]->isPressed())
     {
@@ -165,6 +171,10 @@ void SettingsState::renderGui(sf::RenderTarget* target)
         it.second->render(target);
     }
     for(auto &it : this->ddls)
+    {
+        it.second->render(target);
+    }
+    for(auto &it : this->checkBoxs)
     {
         it.second->render(target);
     }

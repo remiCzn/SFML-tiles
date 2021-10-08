@@ -24,6 +24,7 @@ set(EXFILES
     images/character/player_sheet.png
     images/Tiles/grass.png
     images/Tiles/tilesheet.png
+    images/UI/check-mark.png
 )
 
 foreach(file ${EXFILES})
@@ -51,6 +52,7 @@ add_executable(main
     src/resource/DropDownList.cpp
     src/resource/TextureSelector.cpp
     src/resource/GraphicSettings.cpp
+    src/resource/CheckBox.cpp
     src/components/MovementComponent.cpp
     src/components/AnimationComponent.cpp
     src/components/HitboxComponent.cpp

@@ -20,6 +20,7 @@ private:
 
     std::map<std::string, gui::DropDownList*> ddls;
     std::map<std::string, gui::Button*> buttons;
+    std::map<std::string, gui::CheckBox*> checkBoxs;
 
     void initVariables();
     void initBackground();
