@@ -123,7 +123,7 @@ namespace gui {
     class CheckBox {
     private:
         sf::RectangleShape box;
-        sf::Sprite cross;
+        sf::CircleShape cross;
         bool value;
 
         void initCross(float x, float y, float width);

@@ -24,7 +24,7 @@ set(EXFILES
     images/character/player_sheet.png
     images/Tiles/grass.png
     images/Tiles/tilesheet.png
-    images/UI/check-mark.png
+    images/UI/checkx48.png
 )
 
 foreach(file ${EXFILES})

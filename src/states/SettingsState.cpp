@@ -12,7 +12,7 @@ void SettingsState::initBackground()
             static_cast<float>(this->statedata->window->getSize().y)
         )
     );
-    this->bg.setFillColor(sf::Color::Blue);
+    this->bg.setFillColor(sf::Color::White);
     //this->bg.setTexture(&this->bgTexture);
 }
 
@@ -77,7 +77,7 @@ void SettingsState::initGui()
         "Antialiasing", &this->font, 16.f
     );
 
-    this->checkBoxs["FULLSCREEN"] = new gui::CheckBox(365.f, 300.f, 20, true);
+    this->checkBoxs["FULLSCREEN"] = new gui::CheckBox(365.f, 300.f, 36, true);
 }
 
 void SettingsState::initTitle()
