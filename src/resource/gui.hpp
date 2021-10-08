@@ -126,6 +126,8 @@ namespace gui {
         sf::CircleShape cross;
         bool value;
 
+        short lastState;
+
         void initCross(float x, float y, float width);
 
     public:
@@ -133,6 +135,7 @@ namespace gui {
         virtual ~CheckBox();
 
         const bool getValue() const;
+        void setValue(const bool value);
 
         void update(const sf::Vector2f& mousePose);
         void render(sf::RenderTarget *target);

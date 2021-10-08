@@ -12,7 +12,7 @@ void SettingsState::initBackground()
             static_cast<float>(this->statedata->window->getSize().y)
         )
     );
-    this->bg.setFillColor(sf::Color::White);
+    this->bg.setFillColor(sf::Color::Black);
     //this->bg.setTexture(&this->bgTexture);
 }
 
@@ -46,11 +46,11 @@ void SettingsState::initGui()
     float x = this->statedata->window->getSize().x / 2.f - width / 2.f;
     
     this->buttons["EXIT_STATE"] = new gui::Button(
-        x - 130, 500, 250, 65,
+        x - 130, 500, width, 65,
         "Quit", &this->font, 36);
 
     this->buttons["APPLY"] = new gui::Button(
-        x + 130, 500, 250, 65,
+        x + 130, 500, width, 65,
         "Apply", &this->font, 36);
 
     std::vector<std::string> modes_str;
@@ -61,10 +61,9 @@ void SettingsState::initGui()
     this->ddls["RESOLUTION"] = new gui::DropDownList(
         x, 200.f, 200.f, 40.f, 
         &this->font, modes_str.data(), modes_str.size());
-    
-    this->buttons["FULLSCREEN"] = new gui::Button(
-        x, 265.f, 200.f, 40.f,
-        "Fullscreen", &this->font, 16.f
+
+    this->checkBoxs["FULLSCREEN"] = new gui::CheckBox(
+        x + 82.f, 265.f, 36, false
     );
 
     this->buttons["VSYNC"] = new gui::Button(
@@ -76,8 +75,6 @@ void SettingsState::initGui()
         x, 395.f, 200.f, 40.f,
         "Antialiasing", &this->font, 16.f
     );
-
-    this->checkBoxs["FULLSCREEN"] = new gui::CheckBox(365.f, 300.f, 36, true);
 }
 
 void SettingsState::initTitle()

@@ -2,6 +2,7 @@
 
 gui::CheckBox::CheckBox(float x, float y, float width, bool defaultValue) 
 {
+    this->lastState = BTN_IDLE;
     this->box.setPosition(sf::Vector2f(
         x, y
     ));
@@ -29,8 +30,21 @@ const bool gui::CheckBox::getValue() const {
     return this->value;
 }
 
-void gui::CheckBox::update(const sf::Vector2f& mousePose) {
+void gui::CheckBox::setValue(const bool value) {
+    this->value = value;
+}
 
+void gui::CheckBox::update(const sf::Vector2f& mousePose) {
+    if(this->box.getGlobalBounds().contains(mousePose) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        if(this->lastState == BTN_IDLE) {
+            this->value = !this->value;
+            this->lastState = BTN_ACTIVE;
+        }
+        
+    } else {
+        this->lastState = BTN_IDLE;
+    }
 }
 
 void gui::CheckBox::render(sf::RenderTarget* target) {
