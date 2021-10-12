@@ -13,10 +13,12 @@ private:
     sf::Vector2u maxSize;
     unsigned layers;
     std::vector<std::vector<std::vector<Tile *>>> map;
-
+    std::string texture_file;
     sf::Texture tileSheet;
+
+    std::string saveFile;
 public:
-    TileMap(float gridSize, unsigned width, unsigned height);
+    TileMap(float gridSize, unsigned width, unsigned height, std::string texture_file);
     virtual ~TileMap();
 
     const sf::Texture* getTileSheet() const;

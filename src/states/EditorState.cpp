@@ -83,7 +83,7 @@ void EditorState::initPauseMenu()
 
 void EditorState::initTileMap()
 {
-    this->map = new TileMap(this->statedata->gridSize, 10, 10);
+    this->map = new TileMap(this->statedata->gridSize, 10, 10, "images/Tiles/tilesheet.png");
 }
 
 void EditorState::initGui()
@@ -161,7 +161,7 @@ void EditorState::updatePauseMenu()
 
     if(this->pmenu->isButtonPressed("SAVE"))
     {
-        this->map->saveToFile("map.map");
+        this->map->saveToFile("map.json");
     }
 }
 

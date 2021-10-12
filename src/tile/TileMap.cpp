@@ -12,13 +12,14 @@ void TileMap::clear()
     }
 }
 
-TileMap::TileMap(float gridSize, unsigned width, unsigned height)
+TileMap::TileMap(float gridSize, unsigned width, unsigned height, std::string texture_sheet)
 {
     this->gridSizeF = gridSize;
     this->gridSizeU = static_cast<unsigned>(this->gridSizeF);
     this->maxSize.x = width;
     this->maxSize.y = height;
     this->layers = 1;
+    this->texture_file = texture_file;
 
     this->map.resize(this->maxSize.x);
     for(size_t x = 0; x < this->maxSize.x; x++)
@@ -36,7 +37,7 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height)
         }
     }
 
-    if(!this->tileSheet.loadFromFile("images/Tiles/tilesheet.png"))
+    if(!this->tileSheet.loadFromFile(texture_sheet))
     {
         std::cout << "ERROR::TILEMAP::FAILED TO LOAD TILESHEET" << std::endl;
     }
@@ -44,6 +45,7 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height)
 
 TileMap::~TileMap()
 {
+    this->saveToFile(this->saveFile);
     this->clear();
 }
 
@@ -95,20 +97,27 @@ void TileMap::render(sf::RenderTarget& target) {
 }
 
 void TileMap::saveToFile(const std::string file_name) {
-    std::ofstream out_file;
-
-    out_file.open(file_name);
+    std::ofstream out_file(file_name);
+    Json::Value root;
 
     if(out_file.is_open()) {
-        out_file << this->maxSize.x << " " << this->maxSize.y << "\n"
-         << this->gridSizeU << "\n"
-         << this->layers << "\n";
+        root["size"]["x"] = this->maxSize.x;
+        root["size"]["y"] = this->maxSize.y;
+        root["gridSize"] = this->gridSizeU;
+        root["layers"] = this->layers;
+        root["textureFile"] = this->texture_file;
+        root["tiles"] = Json::Value();
         
         for(size_t x = 0; x < this->maxSize.x; x++) {
             for(size_t y = 0; y < this->maxSize.y; y++) {
                 for(size_t z = 0; z < this->layers; z++) {
                     if(this->map[x][y][z])
-                        out_file << x << " " << y << " " << z << " " << this->map[x][y][z]->getAsString() << "\n";
+                    {
+                        Json::Value value = this->map[x][y][z]->getAsJson();
+                        value["x"] = x;
+                        value["y"] = y;
+                        value["z"] = z;
+                    }
                 }
             }
         }
@@ -117,5 +126,50 @@ void TileMap::saveToFile(const std::string file_name) {
     }
 
     out_file.close();
+}
+
+void TileMap::loadFromFile(std::string filename) {
+    std::ifstream ifs(filename);
+    Json::Value root;
+    if(ifs.is_open())
+    {
+        ifs >> root;
+    
+        this->maxSize.x = root["size"]["x"].asInt();
+        this->maxSize.y = root["size"]["y"].asInt();
+        this->gridSizeU = root["gridSize"].asInt();
+        this->layers = root["layers"].asInt();
+        this->texture_file = root["textureFile"].asString();
+        
+        this->clear();
+
+        if(!this->tileSheet.loadFromFile(texture_file)){
+            std::cout << "ERROR::TILEMAP::Failed to load tiletexture sheet::filename: " << texture_file << std::endl;
+        }
+
+        this->map.resize(this->maxSize.x, std::vector<std::vector<Tile*>>());
+        for(size_t x = 0; x < this->maxSize.x; x++)
+        {
+            this->map[x].resize(this->maxSize.y, std::vector<Tile*>());
+            for(size_t y = 0; y < this->maxSize.y; y++)
+            {
+                this->map[x][y].resize(this->layers, NULL);
+            }
+        }
+
+        for (int i = 0; i < root["tiles"].size(); i++)
+        {
+            Json::Value tile = root["tiles"][i];
+            this->map[tile["x"].asInt()][tile["y"].asInt()][tile["z"].asInt()]
+                = new Tile();
+            //TODO: load from file
+        }
+    } else {
+        std::cout << "ERROR::TILEMAP::COULD NOT LOAD FROM FILE::FILENAME: " << filename << std::endl;
+    }
+    ifs.close();
+
+
+
 }
 

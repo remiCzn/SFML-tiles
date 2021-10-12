@@ -17,7 +17,8 @@ public:
         bool collision = false, short type = TileTypes::DEFAULT);
     virtual ~Tile();
 
-    const std::string getAsString() const;
+    void loadTile(Json::Value tile);
+    const Json::Value getAsJson() const;
 
     void update();
     void render(sf::RenderTarget& target);
