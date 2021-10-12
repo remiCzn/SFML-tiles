@@ -8,8 +8,8 @@ void SettingsState::initBackground()
 {
     this->bg.setSize(
         sf::Vector2f(
-            static_cast<float>(this->statedata->window->getSize().x),
-            static_cast<float>(this->statedata->window->getSize().y)
+            static_cast<float>(this->statedata->gfxSettings->window->getSize().x),
+            static_cast<float>(this->statedata->gfxSettings->window->getSize().y)
         )
     );
     this->bg.setFillColor(sf::Color::Black);
@@ -43,7 +43,7 @@ void SettingsState::initKeybinds()
 void SettingsState::initGui()
 {
     float width = 250.f;
-    float x = this->statedata->window->getSize().x / 2.f - width / 2.f;
+    float x = this->statedata->gfxSettings->window->getSize().x / 2.f - width / 2.f;
     
     this->buttons["EXIT_STATE"] = new gui::Button(
         x - 130, 500, width, 65,
@@ -84,7 +84,7 @@ void SettingsState::initTitle()
     this->menuText.setFont(this->font);
     this->menuText.setPosition(
         sf::Vector2f(
-            this->statedata->window->getSize().x / 2.f - this->menuText.getGlobalBounds().width / 2,
+            this->statedata->gfxSettings->window->getSize().x / 2.f - this->menuText.getGlobalBounds().width / 2,
             50.f
         )
     );
@@ -149,7 +149,7 @@ void SettingsState::updateGui(const float& dt)
     if(this->buttons["APPLY"]->isClicked())
     {
         this->statedata->gfxSettings->resolution = this->modes.at(this->ddls["RESOLUTION"]->getActiveElementId());
-        this->statedata->window->create(this->statedata->gfxSettings->resolution, this->statedata->gfxSettings->title, sf::Style::Titlebar | sf::Style::Close);
+        this->statedata->gfxSettings->window->create(this->statedata->gfxSettings->resolution, this->statedata->gfxSettings->title, sf::Style::Titlebar | sf::Style::Close);
         this->statedata->gfxSettings->saveToFile("./config/window.json");
     }
 }
@@ -181,7 +181,7 @@ void SettingsState::render(sf::RenderTarget* target)
 {
     if(!target)
     {
-        target = this->statedata->window;
+        target = this->statedata->gfxSettings->window;
     }
 
     target->draw(this->bg);

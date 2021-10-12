@@ -3,11 +3,17 @@
 MainMenuState::MainMenuState(StateData* stateData)
     : State(stateData)
 {
+    std::cout << 1 << std::endl;
     this->initVariables();
+    std::cout << 2 << std::endl;
     this->initBackground();
+    std::cout << 3 << std::endl;
     this->initFonts();
+    std::cout << 4 << std::endl;
     this->initKeybinds();
+    std::cout << 5 << std::endl;
     this->initButtons();
+    std::cout << 6 << std::endl;
 }
 
 MainMenuState::~MainMenuState()
@@ -26,8 +32,8 @@ void MainMenuState::initBackground()
 {
     this->background.setSize(
         sf::Vector2f(
-            this->statedata->window->getSize().x,
-            this->statedata->window->getSize().y));
+            this->statedata->gfxSettings->window->getSize().x,
+            this->statedata->gfxSettings->window->getSize().y));
     if (!this->bgTexture.loadFromFile("images/background/background.png"))
     {
         throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_TEXTURE";
@@ -120,7 +126,7 @@ void MainMenuState::updateButtons()
 void MainMenuState::render(sf::RenderTarget *target)
 {
     if (!target)
-        target = this->statedata->window;
+        target = this->statedata->gfxSettings->window;
 
     target->draw(this->background);
     this->renderButtons(target);

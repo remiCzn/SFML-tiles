@@ -6,28 +6,11 @@ void Game::initGraphicSettings() {
 
 void Game::initWindow()
 {
-    if (this->gfxSettings.fullscreen)
-        this->window = new sf::RenderWindow(
-            this->gfxSettings.resolution, 
-            this->gfxSettings.title, 
-            sf::Style::Fullscreen, 
-            this->gfxSettings.contextSettings
-        );
-    else
-        this->window = new sf::RenderWindow(
-            this->gfxSettings.resolution, 
-            this->gfxSettings.title, 
-            sf::Style::Titlebar | sf::Style::Close, 
-            this->gfxSettings.contextSettings
-        );
-
-    this->window->setFramerateLimit(this->gfxSettings.framerateLimit);
-    this->window->setVerticalSyncEnabled(this->gfxSettings.verticalSync);
+    this->gfxSettings.initWindow();
 }
 
 void Game::initVariables()
 {
-    this->window = NULL;
     this->dt = 0.f;
     this->gridSize = 100.f;
 }
@@ -38,7 +21,6 @@ void Game::initStateData()
     this->stateData.gridSize = this->gridSize;
     this->stateData.states = &this->states;
     this->stateData.supportedKeys = &this->supportedKeys;
-    this->stateData.window = this->window;
 }
 
 void Game::initStates()
@@ -81,7 +63,6 @@ Game::Game()
 
 Game::~Game()
 {
-    delete this->window;
     while (!this->states.empty())
     {
         delete this->states.top();
@@ -91,18 +72,18 @@ Game::~Game()
 
 void Game::updateSFMLEvent()
 {
-    while (this->window->pollEvent(this->sfEvent))
+    while (this->gfxSettings.window->pollEvent(this->sfEvent))
     {
         if (this->sfEvent.type == sf::Event::Closed)
         {
-            this->window->close();
+            this->gfxSettings.window->close();
         }
     }
 }
 
 void Game::run()
 {
-    while (this->window->isOpen())
+    while (this->gfxSettings.window->isOpen())
     {
         this->updateDt();
         this->update();
@@ -127,21 +108,21 @@ void Game::update()
     else
     {
         this->endApplication();
-        this->window->close();
+        this->gfxSettings.window->close();
     }
 }
 
 void Game::render()
 {
-    this->window->clear();
+    this->gfxSettings.window->clear();
 
     //Render items in window
     if (!this->states.empty())
     {
-        this->states.top()->render(this->window);
+        this->states.top()->render(this->gfxSettings.window);
     }
 
-    this->window->display();
+    this->gfxSettings.window->display();
 }
 
 void Game::updateDt()

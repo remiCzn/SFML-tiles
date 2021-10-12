@@ -11,7 +11,6 @@ public:
     StateData() {};
 
     float gridSize;
-    sf::RenderWindow* window;
     GraphicSettings* gfxSettings;
     std::map<std::string,int>* supportedKeys;
     std::stack<State*>* states;

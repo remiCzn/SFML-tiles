@@ -11,6 +11,10 @@ GraphicSettings::GraphicSettings()
     this->videoModes = std::vector<sf::VideoMode>();
 }
 
+GraphicSettings::~GraphicSettings() {
+    delete this->window;
+}
+
 void GraphicSettings::saveToFile(const std::string path)
 {
     std::ofstream ofs(path);
@@ -62,4 +66,30 @@ void GraphicSettings::loadFromFile(const std::string path)
     {
         this->videoModes.push_back(sf::VideoMode(i[0].asInt(), i[1].asInt()));
     }   
+}
+
+void GraphicSettings::setFullscreen(bool value) {
+    this->fullscreen = value;
+    delete this->window;
+    this->initWindow();
+}
+
+void GraphicSettings::initWindow() {
+    if(this->fullscreen)
+        this->window = new sf::RenderWindow(
+            this->resolution,
+            this->title,
+            sf::Style::Fullscreen,
+            this->contextSettings
+        );
+    else
+        this->window = new sf::RenderWindow(
+            this->resolution,
+            this->title,
+            sf::Style::Titlebar | sf::Style::Close,
+            this->contextSettings
+        );
+    
+    this->window->setFramerateLimit(this->framerateLimit);
+    this->window->setVerticalSyncEnabled(this->verticalSync);
 }

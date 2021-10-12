@@ -5,10 +5,11 @@
 
 class GraphicSettings
 {
-private:
-    /* data */
 public:
     GraphicSettings();
+    virtual ~GraphicSettings();
+
+    sf::RenderWindow* window;
 
     std::string title;
     sf::VideoMode resolution;
@@ -20,6 +21,9 @@ public:
 
     void saveToFile(const std::string path);
     void loadFromFile(const std::string path);
+
+    void setFullscreen(bool value);
+    void initWindow();
 };
 
 #endif
