@@ -45,7 +45,6 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height, std::string te
 
 TileMap::~TileMap()
 {
-    this->saveToFile(this->saveFile);
     this->clear();
 }
 
@@ -97,8 +96,9 @@ void TileMap::render(sf::RenderTarget& target) {
 }
 
 void TileMap::saveToFile(const std::string file_name) {
-    std::ofstream out_file(file_name);
+    std::ofstream out_file;
     Json::Value root;
+    out_file.open(file_name, std::ofstream::out | std::ofstream::trunc);
 
     if(out_file.is_open()) {
         root["size"]["x"] = this->maxSize.x;
@@ -117,10 +117,13 @@ void TileMap::saveToFile(const std::string file_name) {
                         value["x"] = x;
                         value["y"] = y;
                         value["z"] = z;
+                        root["tiles"].append(value);
                     }
                 }
             }
         }
+
+        out_file << root;
     } else {
         std::cout << "ERROR::TILEMAP::COULD NOT SAVE TO FILE" << file_name << "\n";
     }

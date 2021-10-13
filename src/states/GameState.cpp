@@ -64,7 +64,7 @@ void GameState::initPlayer() {
 }
 
 void GameState::initTileMap() {
-    this->map = new TileMap(this->statedata->gridSize, 10, 10);
+    this->map = new TileMap(this->statedata->gridSize, 10, 10, "images/Tiles/tilesheet.png");
 }
 
 void GameState::update(const float &dt)
