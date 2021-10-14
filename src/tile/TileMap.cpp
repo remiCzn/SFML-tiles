@@ -164,7 +164,7 @@ void TileMap::loadFromFile(std::string filename) {
         {
             Json::Value tile = root["tiles"][i];
             this->map[tile["x"].asInt()][tile["y"].asInt()][tile["z"].asInt()]
-                = new Tile(tile["x"].asInt(), tile["y"].asInt(), this->gridSizeF, this->tileSheet,
+                = new Tile(tile["x"].asInt() * this->gridSizeF, tile["y"].asInt() * this->gridSizeF, this->gridSizeF, this->tileSheet,
                 sf::IntRect(tile["trX"].asInt(), tile["trY"].asInt(), this->gridSizeU, this->gridSizeU), tile["collision"].asBool(), tile["type"].asInt());
                 
             
