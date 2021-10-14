@@ -78,7 +78,8 @@ void EditorState::initPauseMenu()
     this->pmenu = new PauseMenu(*this->statedata->window, &this->font);
 
     this->pmenu->addButton("QUIT", 500.f, "Quit");
-    this->pmenu->addButton("SAVE", 400.f, "Save");
+    this->pmenu->addButton("SAVE", 300.f, "Save");
+    this->pmenu->addButton("LOAD", 400.f, "Load");
 }
 
 void EditorState::initTileMap()
@@ -162,6 +163,11 @@ void EditorState::updatePauseMenu()
     if(this->pmenu->isButtonPressed("SAVE"))
     {
         this->map->saveToFile("map.json");
+    }
+
+    if(this->pmenu->isButtonPressed("LOAD"))
+    {
+        this->map->loadFromFile("map.json");
     }
 }
 

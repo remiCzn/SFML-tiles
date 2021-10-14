@@ -19,7 +19,7 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height, std::string te
     this->maxSize.x = width;
     this->maxSize.y = height;
     this->layers = 1;
-    this->texture_file = texture_file;
+    this->texture_file = texture_sheet;
 
     this->map.resize(this->maxSize.x);
     for(size_t x = 0; x < this->maxSize.x; x++)
@@ -164,8 +164,10 @@ void TileMap::loadFromFile(std::string filename) {
         {
             Json::Value tile = root["tiles"][i];
             this->map[tile["x"].asInt()][tile["y"].asInt()][tile["z"].asInt()]
-                = new Tile();
-            //TODO: load from file
+                = new Tile(tile["x"].asInt(), tile["y"].asInt(), this->gridSizeF, this->tileSheet,
+                sf::IntRect(tile["trX"].asInt(), tile["trY"].asInt(), this->gridSizeU, this->gridSizeU), tile["collision"].asBool(), tile["type"].asInt());
+                
+            
         }
     } else {
         std::cout << "ERROR::TILEMAP::COULD NOT LOAD FROM FILE::FILENAME: " << filename << std::endl;
