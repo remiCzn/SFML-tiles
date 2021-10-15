@@ -25,6 +25,9 @@ private:
 
     std::map<std::string, gui::Button*> buttons;
 
+    bool collision;
+    short tileType;
+
     void initVariables();
     void initBackground();
     void initFonts();

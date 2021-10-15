@@ -52,14 +52,14 @@ const sf::Texture* TileMap::getTileSheet() const {
     return &this->tileSheet;
 }
 
-void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect& texture_rect) {
+void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect& texture_rect, bool collision, short type) {
     if(x < this->maxSize.x && x >= 0 &&
     y < this->maxSize.y && y >= 0 &&
     z < this->layers && z >= 0) {
         if(this->map[x][y][z] == NULL) {
             delete this->map[x][y][z];
         }
-        this->map[x][y][z] = new Tile(x * this->gridSizeF, y * this->gridSizeF, this->gridSizeF, this->tileSheet, texture_rect);
+        this->map[x][y][z] = new Tile(x * this->gridSizeF, y * this->gridSizeF, this->gridSizeF, this->tileSheet, texture_rect, collision, type);
     }
 }
 

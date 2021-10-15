@@ -30,6 +30,8 @@ EditorState::~EditorState()
 void EditorState::initVariables()
 {
     this->textureRect = sf::IntRect(0, 0, static_cast<int>(this->statedata->gridSize), static_cast<int>(this->statedata->gridSize));
+    this->collision = false;
+    this->tileType = TileTypes::DEFAULT;
 }
 
 void EditorState::initBackground()
@@ -178,7 +180,7 @@ void EditorState::updateEditorInput(const float& dt)
         if(!this->sidebar.getGlobalBounds().contains(sf::Vector2f(this->mousePosWindow))) {
             if(!this->textureSelector->getActive())
             {
-                this->map->addTile(this->mousePosGrid.x, this->mousePosGrid.y, 0, this->textureRect);
+                this->map->addTile(this->mousePosGrid.x, this->mousePosGrid.y, 0, this->textureRect, this->collision, this->tileType);
             }
             else {
                 this->textureRect = this->textureSelector->getTextureRect();
@@ -192,6 +194,22 @@ void EditorState::updateEditorInput(const float& dt)
                 this->map->removeTile(this->mousePosGrid.x, this->mousePosGrid.y, 0);
             }
         }
+    }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("TOGGLE_COLLISION"))) && this->getKeyTime())
+    {
+        if(this->collision) {
+            this->collision = false;
+            this->selectorRect.setOutlineColor(sf::Color::Red);
+        } else {
+            this->collision = true;
+            this->selectorRect.setOutlineColor(sf::Color::Green);
+        }
+    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("INCREASE_TYPE"))) && this->getKeyTime()) {
+        this->tileType++;
+    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("DECREASE_TYPE"))) && this->getKeyTime()) {
+        if(this->tileType > 0) 
+            this->tileType--;
     }
 }
 
