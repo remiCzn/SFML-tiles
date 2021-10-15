@@ -13,6 +13,7 @@ private:
     sf::Font font;
     sf::Text cursorText;
     PauseMenu* pmenu;
+    sf::View view;
 
     TileMap* map;
 
@@ -28,7 +29,10 @@ private:
     bool collision;
     short tileType;
 
+    float cameraSpeed;
+
     void initVariables();
+    void initView();
     void initBackground();
     void initFonts();
     void initText();

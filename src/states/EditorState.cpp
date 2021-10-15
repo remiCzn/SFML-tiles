@@ -4,6 +4,7 @@ EditorState::EditorState(StateData* stateData)
     : State(stateData)
 {
     this->initVariables();
+    this->initView();
     this->initBackground();
     this->initFonts();
     this->initText();
@@ -32,6 +33,19 @@ void EditorState::initVariables()
     this->textureRect = sf::IntRect(0, 0, static_cast<int>(this->statedata->gridSize), static_cast<int>(this->statedata->gridSize));
     this->collision = false;
     this->tileType = TileTypes::DEFAULT;
+    this->cameraSpeed = 100.f;
+}
+
+void EditorState::initView() {
+    this->view.setSize(sf::Vector2f(
+        this->statedata->gfxSettings->resolution.width,
+        this->statedata->gfxSettings->resolution.height
+    ));
+
+    this->view.setCenter(sf::Vector2f(
+        this->statedata->gfxSettings->resolution.width / 2.f,
+        this->statedata->gfxSettings->resolution.height / 2.f
+    ));
 }
 
 void EditorState::initBackground()
@@ -175,6 +189,17 @@ void EditorState::updatePauseMenu()
 
 void EditorState::updateEditorInput(const float& dt)
 {
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CAMERA_UP")))) {
+        this->view.move(0, -cameraSpeed * dt);
+        std::cout << "Helo" << std::endl;
+    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CAMERA_DOWN")))) {
+        this->view.move(0, cameraSpeed * dt);
+    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CAMERA_LEFT")))) {
+        this->view.move(-cameraSpeed * dt, 0);
+    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CAMERA_RIGHT")))) {
+        this->view.move(cameraSpeed * dt, 0);
+    }
+
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->getKeyTime())
     {
         if(!this->sidebar.getGlobalBounds().contains(sf::Vector2f(this->mousePosWindow))) {
@@ -241,25 +266,32 @@ void EditorState::renderButtons(sf::RenderTarget* target)
 
 void EditorState::renderGui(sf::RenderTarget* target)
 {
-    if(!this->textureSelector->getActive())
+    if(!this->textureSelector->getActive()) {
+        target->setView(this->view);
         target->draw(this->selectorRect);
+    }
 
+    target->setView(this->statedata->gfxSettings->window->getDefaultView());
     this->textureSelector->render(*target);
-    target->draw(this->cursorText);
     target->draw(this->sidebar);
+    target->setView(this->view);
+    target->draw(this->cursorText);
 }
 
 void EditorState::render(sf::RenderTarget* target)
 {
-    if(!target)
+    if(!target) 
         target = this->statedata->gfxSettings->window;
 
+    target->setView(this->view);
     this->map->render(*target);
+    target->setView(this->statedata->gfxSettings->window->getDefaultView());
     this->renderButtons(target);
     this->renderGui(target);
 
     if(this->paused)
-    {
+    {   
+        target->setView(this->statedata->gfxSettings->window->getDefaultView());
         this->pmenu->render(*target);
     }
 }
