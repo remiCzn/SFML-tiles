@@ -44,11 +44,11 @@ PauseMenu::~PauseMenu()
 
 }
 
-void PauseMenu::update(const sf::Vector2f& mousePose)
+void PauseMenu::update(const sf::Vector2i& mousePoseWindow)
 {
     for(auto it = this->buttons.begin(); it != this->buttons.end(); ++it)
     {
-        it->second->update(mousePose);
+        it->second->update(mousePoseWindow);
     }
 }
 

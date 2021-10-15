@@ -131,15 +131,15 @@ void SettingsState::updateGui(const float& dt)
 {
     for(auto &it : this->buttons)
     {
-        it.second->update(this->mousePosView);
+        it.second->update(this->mousePosWindow);
     }
     for(auto &it : this->ddls)
     {
-        it.second->update(this->mousePosView, dt);
+        it.second->update(this->mousePosWindow, dt);
     }
     for(auto &it : this->checkBoxs)
     {
-        it.second->update(this->mousePosView);
+        it.second->update(this->mousePosWindow);
     }
 
     if(this->buttons["EXIT_STATE"]->isPressed())

@@ -57,10 +57,10 @@ void gui::DropDownList::updateKeytime(const float& dt)
         this->keytime += 10.f * dt;
 }
 
-void gui::DropDownList::update(const sf::Vector2f& mousePos, const float& dt)
+void gui::DropDownList::update(const sf::Vector2i& mousePosWindow, const float& dt)
 {
     this->updateKeytime(dt);
-    this->activeElement->update(mousePos);
+    this->activeElement->update(mousePosWindow);
 
     if(this->activeElement->isClicked() && this->getKeyTime())
     {
@@ -71,7 +71,7 @@ void gui::DropDownList::update(const sf::Vector2f& mousePos, const float& dt)
     {
         for(auto &i : this->list)
         {
-            i->update(mousePos); 
+            i->update(mousePosWindow); 
             if(i->isPressed() && this->getKeyTime())
             {
                 this->showList = false;

@@ -72,7 +72,7 @@ void gui::TextureSelector::updateKeytime(const float& dt) {
 
 void gui::TextureSelector::update(const sf::Vector2i& mousePosWindow, const float& dt) {
     this->updateKeytime(dt);
-    this->hide_btn->update(static_cast<sf::Vector2f>(mousePosWindow));
+    this->hide_btn->update(mousePosWindow);
     
     if(this->hide_btn->isClicked() && this->getKeytime())
     {

@@ -74,7 +74,7 @@ void GameState::update(const float &dt)
     this->updateInput(dt);
     if(this->paused)
     {
-        this->pmenu->update(this->mousePosView);
+        this->pmenu->update(this->mousePosWindow);
         this->updatePauseMenuButtons();
     }
     else {

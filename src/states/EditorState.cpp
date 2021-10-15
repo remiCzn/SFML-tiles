@@ -133,7 +133,7 @@ void EditorState::updateButtons()
 {
     for(auto &it : this->buttons)
     {
-        it.second->update(this->mousePosView);
+        it.second->update(this->mousePosWindow);
     }
 }
 
@@ -149,7 +149,7 @@ void EditorState::update(const float& dt)
         this->updateEditorInput(dt);
     }
     else {
-        this->pmenu->update(this->mousePosView);
+        this->pmenu->update(this->mousePosWindow);
         this->updatePauseMenu();
     }
     

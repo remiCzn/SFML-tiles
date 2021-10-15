@@ -19,15 +19,22 @@ const bool &State::getQuit() const
     return this->quit;
 }
 
-void State::updateMousePosition()
+void State::updateMousePosition(sf::View* view)
 {
     this->mousePosScreen = sf::Mouse::getPosition();
     this->mousePosWindow = sf::Mouse::getPosition(*this->statedata->gfxSettings->window);
+
+    if(view) {
+        this->statedata->gfxSettings->window->setView(*view);
+    }
+
     this->mousePosView = this->statedata->gfxSettings->window->mapPixelToCoords(sf::Mouse::getPosition(*this->statedata->gfxSettings->window));
     this->mousePosGrid = sf::Vector2u(
         static_cast<unsigned>(this->mousePosView.x) / static_cast<unsigned>(this->gridSize),
         static_cast<unsigned>(this->mousePosView.y) / static_cast<unsigned>(this->gridSize)
     );
+
+    this->statedata->gfxSettings->window->setView(this->statedata->gfxSettings->window->getDefaultView());
 }
 
 void State::endState()

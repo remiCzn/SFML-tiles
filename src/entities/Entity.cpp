@@ -27,6 +27,10 @@ void Entity::setPosition(const float x, const float y)
     this->sprite->setPosition(x, y);
 }
 
+const sf::Vector2f& Entity::getPosition() const {
+    return this->sprite->getPosition();
+}
+
 void Entity::move(const float &dt, const float dir_x, const float dir_y)
 {
     if (this->movementComponent)

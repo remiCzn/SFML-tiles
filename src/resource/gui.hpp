@@ -51,7 +51,7 @@ namespace gui {
         );
         ~Button();
 
-        void update(const sf::Vector2f& mousePose);
+        void update(const sf::Vector2i& mousePoseWindow);
         void render(sf::RenderTarget *target);
 
         const std::string getText() const;
@@ -84,7 +84,7 @@ namespace gui {
 
         const bool getKeyTime();
         void updateKeytime(const float& dt);
-        void update(const sf::Vector2f& mousePos, const float& dt);
+        void update(const sf::Vector2i& mousePoseWindow, const float& dt);
         void render(sf::RenderTarget* target);
 
         const unsigned short& getActiveElementId() const;
@@ -136,7 +136,7 @@ namespace gui {
         const bool getValue() const;
         void setValue(const bool value);
 
-        void update(const sf::Vector2f& mousePose);
+        void update(const sf::Vector2i& mousePoseWindow);
         void render(sf::RenderTarget *target);
     };
 }

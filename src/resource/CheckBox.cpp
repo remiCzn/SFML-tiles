@@ -34,8 +34,8 @@ void gui::CheckBox::setValue(const bool value) {
     this->value = value;
 }
 
-void gui::CheckBox::update(const sf::Vector2f& mousePose) {
-    if(this->box.getGlobalBounds().contains(mousePose) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+void gui::CheckBox::update(const sf::Vector2i& mousePoseWindow) {
+    if(this->box.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePoseWindow)) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
         if(this->lastState == BTN_IDLE) {
             this->value = !this->value;

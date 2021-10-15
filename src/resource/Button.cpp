@@ -85,11 +85,11 @@ gui::Button::~Button()
 {
 }
 
-void gui::Button::update(const sf::Vector2f& mousePose)
+void gui::Button::update(const sf::Vector2i& mousePoseWindow)
 {
     this->lastState = this->buttonState;
     this->buttonState = BTN_IDLE;
-    if (this->shape.getGlobalBounds().contains(mousePose))
+    if (this->shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePoseWindow)))
     // == if hover
     {
         this->buttonState = BTN_HOVER;
