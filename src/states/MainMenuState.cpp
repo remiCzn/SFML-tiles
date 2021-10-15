@@ -3,17 +3,11 @@
 MainMenuState::MainMenuState(StateData* stateData)
     : State(stateData)
 {
-    std::cout << 1 << std::endl;
     this->initVariables();
-    std::cout << 2 << std::endl;
     this->initBackground();
-    std::cout << 3 << std::endl;
     this->initFonts();
-    std::cout << 4 << std::endl;
     this->initKeybinds();
-    std::cout << 5 << std::endl;
     this->initButtons();
-    std::cout << 6 << std::endl;
 }
 
 MainMenuState::~MainMenuState()

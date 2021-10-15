@@ -149,7 +149,12 @@ void SettingsState::updateGui(const float& dt)
     if(this->buttons["APPLY"]->isClicked())
     {
         this->statedata->gfxSettings->resolution = this->modes.at(this->ddls["RESOLUTION"]->getActiveElementId());
-        this->statedata->gfxSettings->window->create(this->statedata->gfxSettings->resolution, this->statedata->gfxSettings->title, sf::Style::Titlebar | sf::Style::Close);
+        if(this->checkBoxs["FULLSCREEN"]->getValue()) {
+            this->statedata->gfxSettings->window->create(this->statedata->gfxSettings->resolution, this->statedata->gfxSettings->title, sf::Style::Fullscreen);
+        }
+        else {
+            this->statedata->gfxSettings->window->create(this->statedata->gfxSettings->resolution, this->statedata->gfxSettings->title, sf::Style::Titlebar | sf::Style::Close);
+        }
         this->statedata->gfxSettings->saveToFile("./config/window.json");
     }
 }
