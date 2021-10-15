@@ -88,7 +88,7 @@ namespace gui {
         void render(sf::RenderTarget* target);
 
         const unsigned short& getActiveElementId() const;
-    };    
+    };
 
     class TextureSelector {
     private:
@@ -118,6 +118,27 @@ namespace gui {
         void updateKeytime(const float& dt);
         void update(const sf::Vector2i& mousePosWindow, const float& dt);
         void render(sf::RenderTarget& target);
+    };
+
+    class CheckBox {
+    private:
+        sf::RectangleShape box;
+        sf::CircleShape cross;
+        bool value;
+
+        short lastState;
+
+        void initCross(float x, float y, float width);
+
+    public:
+        CheckBox(float x, float y, float width, bool defaultValue = false);
+        virtual ~CheckBox();
+
+        const bool getValue() const;
+        void setValue(const bool value);
+
+        void update(const sf::Vector2f& mousePose);
+        void render(sf::RenderTarget *target);
     };
 }
 

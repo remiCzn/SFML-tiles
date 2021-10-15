@@ -54,7 +54,7 @@ void GameState::initFonts()
 
 void GameState::initPauseMenu()
 {
-    this->pmenu = new PauseMenu(*this->statedata->window, this->font);
+    this->pmenu = new PauseMenu(*this->statedata->gfxSettings->window, this->font);
     this->pmenu->addButton("QUIT", 500.f, "Quit");
     this->pmenu->addButton("CONTINUE", 200.f, "Continue");
 }
@@ -139,7 +139,7 @@ void GameState::updatePauseMenuButtons() {
 void GameState::render(sf::RenderTarget *target)
 {
     if (!target)
-        target = this->statedata->window;
+        target = this->statedata->gfxSettings->window;
 
     this->map->render(*target);
     

@@ -75,7 +75,7 @@ void EditorState::initText()
 
 void EditorState::initPauseMenu()
 {
-    this->pmenu = new PauseMenu(*this->statedata->window, &this->font);
+    this->pmenu = new PauseMenu(*this->statedata->gfxSettings->window, &this->font);
 
     this->pmenu->addButton("QUIT", 500.f, "Quit");
     this->pmenu->addButton("SAVE", 300.f, "Save");
@@ -234,7 +234,7 @@ void EditorState::renderGui(sf::RenderTarget* target)
 void EditorState::render(sf::RenderTarget* target)
 {
     if(!target)
-        target = this->statedata->window;
+        target = this->statedata->gfxSettings->window;
 
     this->map->render(*target);
     this->renderButtons(target);

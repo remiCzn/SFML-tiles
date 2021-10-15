@@ -26,8 +26,8 @@ void MainMenuState::initBackground()
 {
     this->background.setSize(
         sf::Vector2f(
-            this->statedata->window->getSize().x,
-            this->statedata->window->getSize().y));
+            this->statedata->gfxSettings->window->getSize().x,
+            this->statedata->gfxSettings->window->getSize().y));
     if (!this->bgTexture.loadFromFile("images/background/background.png"))
     {
         throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_TEXTURE";
@@ -120,7 +120,7 @@ void MainMenuState::updateButtons()
 void MainMenuState::render(sf::RenderTarget *target)
 {
     if (!target)
-        target = this->statedata->window;
+        target = this->statedata->gfxSettings->window;
 
     target->draw(this->background);
     this->renderButtons(target);

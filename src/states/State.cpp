@@ -22,8 +22,8 @@ const bool &State::getQuit() const
 void State::updateMousePosition()
 {
     this->mousePosScreen = sf::Mouse::getPosition();
-    this->mousePosWindow = sf::Mouse::getPosition(*this->statedata->window);
-    this->mousePosView = this->statedata->window->mapPixelToCoords(sf::Mouse::getPosition(*this->statedata->window));
+    this->mousePosWindow = sf::Mouse::getPosition(*this->statedata->gfxSettings->window);
+    this->mousePosView = this->statedata->gfxSettings->window->mapPixelToCoords(sf::Mouse::getPosition(*this->statedata->gfxSettings->window));
     this->mousePosGrid = sf::Vector2u(
         static_cast<unsigned>(this->mousePosView.x) / static_cast<unsigned>(this->gridSize),
         static_cast<unsigned>(this->mousePosView.y) / static_cast<unsigned>(this->gridSize)
