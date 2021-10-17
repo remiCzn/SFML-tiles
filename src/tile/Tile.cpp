@@ -18,11 +18,6 @@ Tile::Tile(float x, float y, float gridSizeF, const sf::Texture& texture, const 
     this->type = type;
 }
 
-void Tile::loadTile(Json::Value tile)
-{
-    //TODO: Load tile from json value (from savefile)
-}
-
 Tile::~Tile()
 {
 }
@@ -34,6 +29,14 @@ const Json::Value Tile::getAsJson() const {
     result["collision"] = this->collision;
     result["type"] = this->type;
     return result;
+}
+
+const bool& Tile::getCollision() const {
+    return this->collision;
+}
+
+const sf::Vector2f& Tile::getPosition() const {
+    return this->shape.getPosition();
 }
 
 void Tile::update()

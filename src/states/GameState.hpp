@@ -13,6 +13,8 @@ private:
     PauseMenu* pmenu;
     sf::View view;
     sf::Font* font;
+    sf::RenderTexture renderTexture;
+    sf::Sprite renderSprite;
 
     Player* player;
     TileMap* map;
@@ -24,6 +26,7 @@ private:
     void initPauseMenu();
     void initTileMap();
     void initView();
+    void initDeferredRender();
 
 
     void updatePauseMenuButtons();
@@ -36,6 +39,7 @@ public:
     void updatePlayer(const float &dt);
     void update(const float &dt);
     void updateInput(const float& dt);
+    void updateTileMap(const float& dt);
     void render(sf::RenderTarget *target = nullptr);
 };
 #endif

@@ -17,7 +17,9 @@ public:
         bool collision = false, short type = TileTypes::DEFAULT);
     virtual ~Tile();
 
-    void loadTile(Json::Value tile);
+    const bool & getCollision() const;
+    const sf::Vector2f& getPosition() const;
+
     const Json::Value getAsJson() const;
 
     void update();

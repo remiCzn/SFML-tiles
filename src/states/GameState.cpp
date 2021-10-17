@@ -3,9 +3,10 @@
 GameState::GameState(StateData* stateData)
     : State(stateData)
 {
+    this->initDeferredRender();
+    this->initView();
     this->initKeybinds();
     this->initFonts();
-    this->initView();
     this->initTextures();
     this->initPauseMenu();
     this->initPlayer();
@@ -82,6 +83,22 @@ void GameState::initTileMap() {
     this->map->loadFromFile("map.json");
 }
 
+void GameState::initDeferredRender() {
+    this->renderTexture.create(
+        this->statedata->gfxSettings->resolution.width,
+        this->statedata->gfxSettings->resolution.height
+    );
+
+    this->renderSprite.setTexture(this->renderTexture.getTexture());
+    this->renderSprite.setTextureRect(
+        sf::IntRect(
+            0, 0,
+            this->statedata->gfxSettings->resolution.width,
+            this->statedata->gfxSettings->resolution.height
+        )
+    );
+}
+
 void GameState::update(const float &dt)
 {
     this->updateMousePosition();
@@ -96,13 +113,14 @@ void GameState::update(const float &dt)
         this->updateView();
         this->updatePlayer(dt);
         this->player->update(dt);
+        this->updateTileMap(dt);
     }
 }
 
 void GameState::updateView() {
     this->view.setCenter(
-        this->player->getPosition().x + 64.f,
-        this->player->getPosition().y + 64.f
+        std::floor(this->player->getPosition().x + 64.f),
+        std::floor(this->player->getPosition().y + 64.f)
     );
 }
 
@@ -158,19 +176,28 @@ void GameState::updatePauseMenuButtons() {
     }
 }
 
+void GameState::updateTileMap(const float& dt) {
+    this->map->update();
+    this->map->updateCollision(this->player);
+}
+
 
 void GameState::render(sf::RenderTarget *target)
 {
     if (!target)
         target = this->statedata->gfxSettings->window;
 
-    target->setView(this->view);
-    this->map->render(*target);
+    this->renderTexture.clear();
+    this->renderTexture.setView(this->view);
+    this->map->render(this->renderTexture);
     
-    this->player->render(target);
+    this->player->render(&this->renderTexture);
     if(this->paused)
     {
-        target->setView(this->statedata->gfxSettings->window->getDefaultView());
-        this->pmenu->render(*target);
+        this->renderTexture.setView(this->statedata->gfxSettings->window->getDefaultView());
+        this->pmenu->render(this->renderTexture);
     }
+
+    this->renderTexture.display();
+    target->draw(this->renderSprite);
 }
