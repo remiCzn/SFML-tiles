@@ -5,6 +5,7 @@ GameState::GameState(StateData* stateData)
 {
     this->initKeybinds();
     this->initFonts();
+    this->initView();
     this->initTextures();
     this->initPauseMenu();
     this->initPlayer();
@@ -52,6 +53,19 @@ void GameState::initFonts()
     }
 }
 
+void GameState::initView()
+{
+    this->view.setSize(
+        this->statedata->gfxSettings->resolution.width,
+        this->statedata->gfxSettings->resolution.height
+    );
+
+    this->view.setCenter(
+        this->statedata->gfxSettings->resolution.width / 2.f,
+        this->statedata->gfxSettings->resolution.height / 2.f
+    );
+}
+
 void GameState::initPauseMenu()
 {
     this->pmenu = new PauseMenu(*this->statedata->gfxSettings->window, this->font);
@@ -65,6 +79,7 @@ void GameState::initPlayer() {
 
 void GameState::initTileMap() {
     this->map = new TileMap(this->statedata->gridSize, 10, 10, "images/Tiles/tilesheet.png");
+    this->map->loadFromFile("map.json");
 }
 
 void GameState::update(const float &dt)
@@ -78,9 +93,17 @@ void GameState::update(const float &dt)
         this->updatePauseMenuButtons();
     }
     else {
+        this->updateView();
         this->updatePlayer(dt);
         this->player->update(dt);
     }
+}
+
+void GameState::updateView() {
+    this->view.setCenter(
+        this->player->getPosition().x + 64.f,
+        this->player->getPosition().y + 64.f
+    );
 }
 
 void GameState::updatePlayer(const float &dt)
@@ -141,11 +164,13 @@ void GameState::render(sf::RenderTarget *target)
     if (!target)
         target = this->statedata->gfxSettings->window;
 
+    target->setView(this->view);
     this->map->render(*target);
     
     this->player->render(target);
     if(this->paused)
     {
+        target->setView(this->statedata->gfxSettings->window->getDefaultView());
         this->pmenu->render(*target);
     }
 }

@@ -172,11 +172,11 @@ void SettingsState::renderGui(sf::RenderTarget* target)
     {
         it.second->render(target);
     }
-    for(auto &it : this->ddls)
+    for(auto &it : this->checkBoxs)
     {
         it.second->render(target);
     }
-    for(auto &it : this->checkBoxs)
+    for(auto &it : this->ddls)
     {
         it.second->render(target);
     }

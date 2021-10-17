@@ -11,7 +11,7 @@ class GameState : public State
 {
 private:
     PauseMenu* pmenu;
-
+    sf::View view;
     sf::Font* font;
 
     Player* player;
@@ -23,6 +23,7 @@ private:
     void initFonts();
     void initPauseMenu();
     void initTileMap();
+    void initView();
 
 
     void updatePauseMenuButtons();
@@ -31,6 +32,7 @@ public:
     GameState(StateData* statedata);
     virtual ~GameState();
 
+    void updateView();
     void updatePlayer(const float &dt);
     void update(const float &dt);
     void updateInput(const float& dt);
