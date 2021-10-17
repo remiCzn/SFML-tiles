@@ -225,10 +225,10 @@ void EditorState::updateEditorInput(const float& dt)
     {
         if(this->collision) {
             this->collision = false;
-            this->selectorRect.setOutlineColor(sf::Color::Red);
+            this->selectorRect.setOutlineColor(sf::Color::Green);
         } else {
             this->collision = true;
-            this->selectorRect.setOutlineColor(sf::Color::Green);
+            this->selectorRect.setOutlineColor(sf::Color::Red);
         }
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("INCREASE_TYPE"))) && this->getKeyTime()) {
         this->tileType++;
