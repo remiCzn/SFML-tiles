@@ -191,7 +191,7 @@ void GameState::render(sf::RenderTarget *target)
     this->renderTexture.setView(this->view);
     this->map->render(this->renderTexture);
     
-    this->player->render(&this->renderTexture);
+    this->player->render(this->renderTexture);
     if(this->paused)
     {
         this->renderTexture.setView(this->statedata->gfxSettings->window->getDefaultView());

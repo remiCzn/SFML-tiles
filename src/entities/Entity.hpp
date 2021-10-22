@@ -37,7 +37,7 @@ public:
     virtual void stopVelocityY();
 
     virtual void update(const float &dt) = 0;
-    virtual void render(sf::RenderTarget *target) = 0;
+    virtual void render(sf::RenderTarget &target) = 0;
 };
 
 #endif
