@@ -144,3 +144,9 @@ void Player::updateAttack(const float& dt)
         this->attacking = true;
     }
 }
+
+void Player::render(sf::RenderTarget& target) {
+    target.draw(*this->sprite);
+
+    this->hitboxComponent->render(target);
+}

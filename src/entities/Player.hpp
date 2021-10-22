@@ -27,7 +27,9 @@ private:
 public:
     Player(float x, float y, sf::Texture* textureSheet);
     virtual ~Player();
-    virtual void update(const float& dt);
+
+    void update(const float& dt);
+    void render(sf::RenderTarget& target);
 
     void updateAttack(const float& dt);
     void updateAnimation(const float& dt);

@@ -95,7 +95,7 @@ void Game::update()
 {
     this->updateSFMLEvent();
 
-    if (!this->states.empty())
+    if (!this->states.empty() && this->stateData.gfxSettings->window->hasFocus())
     {
         this->states.top()->update(this->dt);
         if (this->states.top()->getQuit())
