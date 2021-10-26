@@ -112,8 +112,8 @@ void GameState::update(const float &dt)
     else {
         this->updateView();
         this->updatePlayer(dt);
-        this->player->update(dt);
         this->updateTileMap(dt);
+        this->player->update(dt);
     }
 }
 
