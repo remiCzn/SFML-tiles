@@ -6,6 +6,7 @@ MainMenuState::MainMenuState(StateData* stateData)
     this->initVariables();
     this->initBackground();
     this->initFonts();
+    this->initTitle();
     this->initKeybinds();
     this->initButtons();
 }
@@ -28,12 +29,7 @@ void MainMenuState::initBackground()
         sf::Vector2f(
             this->statedata->gfxSettings->window->getSize().x,
             this->statedata->gfxSettings->window->getSize().y));
-    if (!this->bgTexture.loadFromFile("images/background/background.png"))
-    {
-        throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_TEXTURE";
-    }
-
-    this->background.setTexture(&this->bgTexture);
+    this->background.setFillColor(sf::Color::Black);
 }
 
 void MainMenuState::initFonts()
@@ -58,6 +54,14 @@ void MainMenuState::initKeybinds()
     }
 
     ifs.close();
+}
+
+void MainMenuState::initTitle() {
+    this->title.setString("Game");
+    this->title.setPosition(100.f, 100.f);
+    this->title.setFillColor(sf::Color::White);
+    this->title.setFont(this->menuFont);
+    this->title.setCharacterSize(65);
 }
 
 void MainMenuState::initButtons()
@@ -124,6 +128,7 @@ void MainMenuState::render(sf::RenderTarget *target)
 
     target->draw(this->background);
     this->renderButtons(target);
+    target->draw(this->title);
 
     // //remove later
     // sf::Text mouseText;

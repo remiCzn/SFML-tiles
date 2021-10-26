@@ -10,9 +10,10 @@
 class MainMenuState : public State
 {
 private:
-    sf::Texture bgTexture;
     sf::RectangleShape background;
     sf::Font menuFont;
+
+    sf::Text title;
 
     std::map<std::string, gui::Button *> buttons;
 
@@ -21,6 +22,7 @@ private:
     void initFonts();
     void initKeybinds();
     void initButtons();
+    void initTitle();
 
 public:
     MainMenuState(StateData* stateData);
