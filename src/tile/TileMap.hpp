@@ -27,7 +27,7 @@ public:
     const sf::Texture* getTileSheet() const;
 
     void update();
-    void updateCollision(Entity* entity);
+    void updateCollision(Entity* entity, const float& dt);
 
     void render(sf::RenderTarget& target, Entity* entity = NULL);
 

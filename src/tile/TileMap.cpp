@@ -86,18 +86,19 @@ void TileMap::update() {
 
 }
 
-void TileMap::updateCollision(Entity * entity) {
+void TileMap::updateCollision(Entity * entity, const float& dt) {
+    sf::FloatRect nextPosition = entity->getNextPosition(dt);
     //WORLD BORDER
-    if(entity->getPosition().x < 0) {
-        entity->setPosition(0.f, entity->getPosition().y);
-    } else if(entity->getPosition().x > this->maxSizeWorldF.x - gridSizeF) {
-        entity->setPosition(this->maxSizeWorldF.x - gridSizeF, entity->getPosition().y);
+    if(nextPosition.left < 0) {
+        entity->stopVelocityX();
+    } else if((nextPosition.left + nextPosition.width)> this->maxSizeWorldF.x) {
+        entity->stopVelocityX();
     }
     
-    if(entity->getPosition().y < 0.f) {
-        entity->setPosition(entity->getPosition().x, 0.f);
-    } else if(entity->getPosition().y >= this->maxSizeWorldF.y - gridSizeF) {
-        entity->setPosition(entity->getPosition().x, this->maxSizeWorldF.y - gridSizeF);
+    if(nextPosition.top < 0.f) {
+        entity->stopVelocityY();
+    } else if((nextPosition.top + nextPosition.height) >= this->maxSizeWorldF.y) {
+        entity->stopVelocityY();
     }
 }
 

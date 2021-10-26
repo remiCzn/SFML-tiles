@@ -30,6 +30,7 @@ public:
     virtual const sf::Vector2f& getPosition() const;
     virtual const sf::FloatRect getGlobalBounds() const;
     virtual void setPosition(const float x, const float y);
+    virtual const sf::FloatRect& getNextPosition(const float& dt) const;
 
     virtual void move(const float &dt, const float x, const float y);
     virtual void stopVelocity();

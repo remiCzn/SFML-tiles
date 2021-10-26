@@ -45,6 +45,14 @@ const sf::FloatRect Entity::getGlobalBounds() const
     return this->sprite->getGlobalBounds();
 }
 
+const sf::FloatRect& Entity::getNextPosition(const float& dt) const {
+    if(this->hitboxComponent && this->movementComponent) {
+        return this->hitboxComponent->getNextPosition(this->movementComponent->getVelocity() * dt);
+    }
+    std::cout << "Calculate next position need hitbox & movement component";
+    throw;
+}
+
 void Entity::move(const float &dt, const float dir_x, const float dir_y)
 {
     this->movementComponent->move(dir_x, dir_y, dt);
