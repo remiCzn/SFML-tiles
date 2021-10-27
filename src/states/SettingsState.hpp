@@ -28,6 +28,8 @@ private:
     void initKeybinds();
     void initGui();
     void initTitle();
+    void initValues();
+
 public:
     SettingsState(StateData* state_data);
     virtual ~SettingsState();

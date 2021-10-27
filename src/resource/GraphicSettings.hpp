@@ -12,7 +12,10 @@ public:
     sf::RenderWindow* window;
 
     std::string title;
+
     sf::VideoMode resolution;
+    int idResolution;
+
     bool fullscreen;
     bool verticalSync;
     unsigned framerateLimit;

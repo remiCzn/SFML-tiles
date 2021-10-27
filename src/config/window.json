@@ -1,6 +1,7 @@
 {
     "title":"Tiles RPG",
     "resolution": {
+        "id": 2,
         "width": 1280,
         "height": 720
     },

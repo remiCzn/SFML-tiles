@@ -100,3 +100,9 @@ const short unsigned& gui::DropDownList::getActiveElementId() const
 {
     return this->activeElement->getId();
 }
+
+void gui::DropDownList::setActiveElement(const short& id) {
+    Button* newActive = this->list.at(id);
+    this->activeElement->setId(newActive->getId());
+    this->activeElement->setText(newActive->getText());
+}

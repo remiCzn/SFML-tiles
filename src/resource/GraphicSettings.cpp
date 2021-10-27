@@ -23,6 +23,7 @@ void GraphicSettings::saveToFile(const std::string path)
     {
         root["title"] = this->title;
         root["resolution"] = Json::nullValue;
+        root["resolution"]["id"] = this->idResolution;
         root["resolution"]["width"] = this->resolution.width;
         root["resolution"]["height"] = this->resolution.height;
         root["fullscreen"] = this->fullscreen;
@@ -56,8 +57,6 @@ void GraphicSettings::loadFromFile(const std::string path)
     ifs.close();
 
     this->title = root["title"].asString();
-    this->resolution.width = root["resolution"]["width"].asInt();
-    this->resolution.height = root["resolution"]["height"].asInt();
     this->fullscreen = root["fullscreen"].asBool();
     this->framerateLimit = root["framerateLimit"].asInt();
     this->verticalSync = root["VSync"].asBool();
@@ -65,7 +64,11 @@ void GraphicSettings::loadFromFile(const std::string path)
     for(Json::Value &i : root["videoModes"])
     {
         this->videoModes.push_back(sf::VideoMode(i[0].asInt(), i[1].asInt()));
-    }   
+    }
+
+    this->idResolution = root["resolution"]["id"].asInt();
+    this->resolution.width = root["resolution"]["width"].asInt();
+    this->resolution.height = root["resolution"]["height"].asInt();
 }
 
 void GraphicSettings::setFullscreen(bool value) {

@@ -99,6 +99,12 @@ void SettingsState::initTitle()
     );
 }
 
+void SettingsState::initValues()
+{
+    this->checkBoxs["FULLSCREEN"]->setValue(this->statedata->gfxSettings->fullscreen);
+    this->ddls["RESOLUTION"]->setActiveElement(this->statedata->gfxSettings->idResolution);
+}
+
 SettingsState::SettingsState(StateData* state_data)
     : State(state_data)
 {
@@ -108,6 +114,7 @@ SettingsState::SettingsState(StateData* state_data)
     this->initKeybinds();
     this->initGui();
     this->initTitle();
+    this->initValues();
 }
 
 SettingsState::~SettingsState()
@@ -149,6 +156,8 @@ void SettingsState::updateGui(const float& dt)
     if(this->buttons["APPLY"]->isClicked())
     {
         this->statedata->gfxSettings->resolution = this->modes.at(this->ddls["RESOLUTION"]->getActiveElementId());
+        this->statedata->gfxSettings->idResolution = this->ddls["RESOLUTION"]->getActiveElementId();
+        this->statedata->gfxSettings->fullscreen = this->checkBoxs["FULLSCREEN"]->getValue();
         if(this->checkBoxs["FULLSCREEN"]->getValue()) {
             this->statedata->gfxSettings->window->create(this->statedata->gfxSettings->resolution, this->statedata->gfxSettings->title, sf::Style::Fullscreen);
         }

@@ -88,6 +88,7 @@ namespace gui {
         void render(sf::RenderTarget* target);
 
         const unsigned short& getActiveElementId() const;
+        void setActiveElement(const short& id);
     };
 
     class TextureSelector {
