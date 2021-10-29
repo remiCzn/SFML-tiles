@@ -38,6 +38,7 @@ endforeach()
 add_executable(main 
     src/headers/headers.cpp
     src/lib/jsoncpp.cpp
+    src/resource/algo/Noise.cpp
     
     src/main.cpp
     src/Game.cpp
@@ -48,11 +49,11 @@ add_executable(main
     src/states/EditorState.cpp
     src/entities/Entity.cpp
     src/entities/Player.cpp
-    src/resource/Button.cpp
-    src/resource/DropDownList.cpp
-    src/resource/TextureSelector.cpp
+    src/resource/gui/Button.cpp
+    src/resource/gui/DropDownList.cpp
+    src/resource/gui/TextureSelector.cpp
     src/resource/GraphicSettings.cpp
-    src/resource/CheckBox.cpp
+    src/resource/gui/CheckBox.cpp
     src/components/MovementComponent.cpp
     src/components/AnimationComponent.cpp
     src/components/HitboxComponent.cpp

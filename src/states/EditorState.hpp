@@ -3,7 +3,7 @@
 
 #include "./State.hpp"
 #include "../headers/headers.hpp"
-#include "../resource/gui.hpp"
+#include "../resource/gui/gui.hpp"
 #include "../gui/PauseMenu.hpp"
 #include "../tile/TileMap.hpp"
 

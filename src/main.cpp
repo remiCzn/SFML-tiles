@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "./resource/algo/test/run.hpp"
 
 int main()
 {
