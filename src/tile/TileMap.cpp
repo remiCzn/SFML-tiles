@@ -6,7 +6,7 @@ void TileMap::clear()
         for(size_t y = 0; y < this->maxSizeWorldGrid.y; y++) {
             for(size_t z = 0; z < this->layers; z++) {
                 delete this->map[x][y][z];
-                this->map[x][y][z] = NULL;
+                this->map[x][y][z] = new Tile();
             }
         }
     }
@@ -34,7 +34,7 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height, std::string te
             this->map[x][y].resize(this->layers);
             for(size_t z = 0; z < this->layers; z++)
             {
-                this->map[x][y].push_back(NULL);
+                this->map[x][y].push_back(new Tile());
             }
         }
     }
@@ -99,6 +99,47 @@ void TileMap::updateCollision(Entity * entity, const float& dt) {
         entity->stopVelocityY();
     } else if((nextPosition.top + nextPosition.height) >= this->maxSizeWorldF.y) {
         entity->stopVelocityY();
+    }
+
+    //TILES
+    int layer = 0;
+    sf::Vector2u pos = entity->getGridPosition(this->gridSizeU);
+    int x1 = pos.x - 1;
+    int x2 = pos.x + 3;
+    int y1 = pos.y - 1;
+    int y2 = pos.y + 3;
+
+    if(x1 < 0) {
+        x1 = 0;
+    } else if(x1 > this->maxSizeWorldGrid.x) {
+        x1 = this->maxSizeWorldGrid.x;
+    }
+
+    if(x2 < 0) {
+        x2 = 0;
+    } else if(x2 > this->maxSizeWorldGrid.x) {
+        x2 = this->maxSizeWorldGrid.x;
+    }
+
+    if(y1 < 0) {
+        y1 = 0;
+    } else if(y1 > this->maxSizeWorldGrid.y) {
+        y1 = this->maxSizeWorldGrid.y;
+    }
+
+    if(y2 < 0) {
+        y2 = 0;
+    } else if(y2 > this->maxSizeWorldGrid.y) {
+        y2 = this->maxSizeWorldGrid.y;
+    }
+
+    for(size_t x = x1; x < x2; x++) {
+        for(size_t y = y1; y < y2; y++) {
+            Tile t = *this->map[x][y][layer];
+            if(t.getCollision() && t.intersects(entity->getNextPosition(dt))) {
+                entity->stopVelocity();
+            }
+        }
     }
 }
 
@@ -190,6 +231,7 @@ void TileMap::loadFromFile(std::string filename) {
         for (int i = 0; i < root["tiles"].size(); i++)
         {
             Json::Value tile = root["tiles"][i];
+            delete this->map[tile["x"].asInt()][tile["y"].asInt()][tile["z"].asInt()];
             this->map[tile["x"].asInt()][tile["y"].asInt()][tile["z"].asInt()]
                 = new Tile(tile["x"].asInt() * this->gridSizeF, tile["y"].asInt() * this->gridSizeF, this->gridSizeF, this->tileSheet,
                 sf::IntRect(tile["trX"].asInt(), tile["trY"].asInt(), this->gridSizeU, this->gridSizeU), tile["collision"].asBool(), tile["type"].asInt());
