@@ -31,6 +31,7 @@ public:
     virtual const sf::FloatRect getGlobalBounds() const;
     virtual void setPosition(const float x, const float y);
     virtual const sf::FloatRect& getNextPosition(const float& dt) const;
+    virtual const sf::Vector2u getGridPosition(const unsigned gridSizeU) const;
 
     virtual void move(const float &dt, const float x, const float y);
     virtual void stopVelocity();

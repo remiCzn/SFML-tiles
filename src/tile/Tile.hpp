@@ -19,8 +19,10 @@ public:
 
     const bool & getCollision() const;
     const sf::Vector2f& getPosition() const;
-
+    const sf::FloatRect getGlobalBounds() const;
     const Json::Value getAsJson() const;
+
+    const bool intersects(const sf::FloatRect bounds) const;
 
     void update();
     void render(sf::RenderTarget& target);
