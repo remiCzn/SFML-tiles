@@ -137,7 +137,14 @@ void TileMap::updateCollision(Entity * entity, const float& dt) {
         for(size_t y = y1; y < y2; y++) {
             Tile t = *this->map[x][y][layer];
             if(t.getCollision() && t.intersects(entity->getNextPosition(dt))) {
-                entity->stopVelocity();
+                sf::FloatRect wallBounds = t.getGlobalBounds();
+
+                if(wallBounds.left < nextPosition.left + nextPosition.width && wallBounds.left + wallBounds.width > nextPosition.left) {
+                    entity->stopVelocityX();
+                }
+                if(wallBounds.top < nextPosition.top + nextPosition.height && wallBounds.top + wallBounds.height > nextPosition.top) {
+                    entity->stopVelocityY();
+                }
             }
         }
     }
