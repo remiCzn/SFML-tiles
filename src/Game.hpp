@@ -11,6 +11,9 @@ private:
     sf::Event sfEvent;
     GraphicSettings gfxSettings;
 
+    sf::Text dtRendered;
+    sf::Font dtFont;
+
     StateData stateData;
 
     sf::Clock dtClock;
