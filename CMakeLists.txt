@@ -39,6 +39,7 @@ add_executable(main
     src/headers/headers.cpp
     src/lib/jsoncpp.cpp
     src/resource/algo/Noise.cpp
+    src/resource/algo/test/run.cpp
     
     src/main.cpp
     src/Game.cpp
