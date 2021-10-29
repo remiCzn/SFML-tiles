@@ -11,7 +11,7 @@ void Noise::runAlgo() {
             for (int y = 0; y < 200; y++)
             {
                 float Y = y + 0.5;
-                res[x].append(Noise::noise(X, Y));
+                res[x].append(Noise::noise(X/20.f, Y/20.f));
             }
         }
         ofs << res;
