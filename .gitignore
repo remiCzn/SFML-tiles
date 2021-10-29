@@ -1,2 +1,3 @@
 build/
 .vscode/
+src/resource/algo/test/res.json

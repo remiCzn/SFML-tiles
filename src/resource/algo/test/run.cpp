@@ -5,11 +5,14 @@ void Noise::runAlgo() {
     if(ofs.is_open())
     {   
         Json::Value res;
-        res["x"] = Json::Value();
-        res["y"] = Json::Value();
-        for(int x = 0; x < 20; x++) {
-            res["x"].append(x);
-            res["y"].append(Noise::grad(123456789, x, 234));
+        for(int x = 0; x < 200; x++) {
+            float X = x + 0.5;
+            res.append(Json::Value());
+            for (int y = 0; y < 200; y++)
+            {
+                float Y = y + 0.5;
+                res[x].append(Noise::noise(X, Y));
+            }
         }
         ofs << res;
         ofs.close();
