@@ -29,7 +29,7 @@ public:
     void update();
     void updateCollision(Entity* entity, const float& dt);
 
-    void render(sf::RenderTarget& target, Entity* entity = NULL);
+    void render(sf::RenderTarget& target, bool debugMode = true);
 
     void addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect& texture_rect, bool collision, short type);
     void removeTile(const unsigned x, const unsigned y, const unsigned z);

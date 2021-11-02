@@ -150,7 +150,7 @@ void TileMap::updateCollision(Entity * entity, const float& dt) {
     }
 }
 
-void TileMap::render(sf::RenderTarget& target, Entity* entity) {
+void TileMap::render(sf::RenderTarget& target, bool debugMode) {
     for(auto &x : this->map)
     {
         for(auto &y : x)
@@ -160,7 +160,7 @@ void TileMap::render(sf::RenderTarget& target, Entity* entity) {
                 if(z != nullptr)
                 {
                     z->render(target);
-                    if(z->getCollision()) {
+                    if(z->getCollision() && debugMode) {
                         this->collisionBox.setPosition(z->getPosition());
                         target.draw(this->collisionBox);
                     }

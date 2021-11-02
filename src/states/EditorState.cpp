@@ -185,10 +185,11 @@ void EditorState::updateEditorInput(const float& dt)
 {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CAMERA_UP")))) {
         this->view.move(0, -cameraSpeed * dt);
-        std::cout << "Helo" << std::endl;
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CAMERA_DOWN")))) {
         this->view.move(0, cameraSpeed * dt);
-    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CAMERA_LEFT")))) {
+    } 
+    
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CAMERA_LEFT")))) {
         this->view.move(-cameraSpeed * dt, 0);
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CAMERA_RIGHT")))) {
         this->view.move(cameraSpeed * dt, 0);
