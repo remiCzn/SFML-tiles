@@ -145,8 +145,8 @@ void Player::updateAttack(const float& dt)
     }
 }
 
-void Player::render(sf::RenderTarget& target) {
+void Player::render(sf::RenderTarget& target, bool debugMode) {
     target.draw(*this->sprite);
 
-    this->hitboxComponent->render(target);
+    this->hitboxComponent->render(target, debugMode);
 }

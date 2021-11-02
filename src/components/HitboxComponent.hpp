@@ -26,7 +26,7 @@ public:
     bool intersects(const sf::FloatRect &frect);
 
     void update();
-    void render(sf::RenderTarget &target);
+    void render(sf::RenderTarget &target, bool debugMode);
 };
 
 #endif

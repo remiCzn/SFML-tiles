@@ -29,7 +29,7 @@ public:
     virtual ~Player();
 
     void update(const float& dt);
-    void render(sf::RenderTarget& target);
+    void render(sf::RenderTarget& target, bool debugMode);
 
     void updateAttack(const float& dt);
     void updateAnimation(const float& dt);

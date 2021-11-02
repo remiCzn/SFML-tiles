@@ -53,6 +53,9 @@ void HitboxComponent::update() {
     this->hitbox.setPosition(this->sprite.getPosition().x + this->offsetX, this->sprite.getPosition().y + this->offsetY);
 }
 
-void HitboxComponent::render(sf::RenderTarget& target) {
-    target.draw(this->hitbox);
+void HitboxComponent::render(sf::RenderTarget& target, bool debugMode) {
+    if(debugMode) {
+        target.draw(this->hitbox);
+    }
+    
 }

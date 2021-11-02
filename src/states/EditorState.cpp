@@ -126,20 +126,14 @@ void EditorState::updateInput(const float& dt)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("PAUSE"))))
     {
-        if(this->lastPauseKeyStatus == false && this->getKeyTime())
+        if(KeyState::getInstance()->PAUSE == false)
         {
-            if(this->paused)
-            {   
-                this->unpauseState();
-            }
-            else {
-                this->pauseState();
-            }
+            this->paused = !this->paused;
         }
-        this->lastPauseKeyStatus = true;
+        KeyState::getInstance()->PAUSE = true;
     }
     else {
-        this->lastPauseKeyStatus = false;
+        KeyState::getInstance()->PAUSE = false;
     }
 }
 

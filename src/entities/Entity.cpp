@@ -120,7 +120,7 @@ void Entity::stopVelocityY(){
         this->movementComponent->stopVelocityY();
 }
 
-void Entity::render(sf::RenderTarget &target)
+void Entity::render(sf::RenderTarget &target, bool debugMode)
 {
 
 }

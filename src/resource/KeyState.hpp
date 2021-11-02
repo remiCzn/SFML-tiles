@@ -13,6 +13,7 @@ class KeyState {
         static KeyState* getInstance();
 
         bool F3;
+        bool PAUSE;
 
 };
 
