@@ -14,6 +14,7 @@ public:
     GraphicSettings* gfxSettings;
     std::map<std::string,int>* supportedKeys;
     std::stack<State*>* states;
+    bool debugMode;
 };
 
 

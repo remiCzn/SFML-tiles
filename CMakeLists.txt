@@ -38,7 +38,8 @@ endforeach()
 add_executable(main 
     src/headers/headers.cpp
     src/lib/jsoncpp.cpp
-    
+    src/resource/KeyState.cpp
+
     src/main.cpp
     src/Game.cpp
     src/states/State.cpp
