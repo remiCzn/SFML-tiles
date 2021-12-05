@@ -1,5 +1,15 @@
 # SFML Game
 
+## Install (from scratch)
+
+### Ubuntu
+```
+sudo apt update
+sudo apt install g++ cmake libsfml-dev git
+git clone https://github.com/remiCzn/SFML-tiles.git
+cd SFML-tiles
+```
+
 ## Build
 
 ```
@@ -10,10 +20,3 @@ make
 ```
 
 Enjoy!
-
-## Contribute
-- Create new branch with your name inside. 
-Example: `git checkout -b "remiCzn/some-features"`
-- Create a pull request when you finish your changes
-- Wait
-- DON'T PUSH DIRECTLY TO THE MAIN BRANCH
