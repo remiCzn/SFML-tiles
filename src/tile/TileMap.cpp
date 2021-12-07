@@ -212,7 +212,14 @@ void TileMap::render(sf::RenderTarget &target, bool debugMode)
                 {
                     for (auto &k : z)
                     {
-                        k->render(target);
+                        if (k->getType() == TileTypes::DOODAD)
+                        {
+                            this->deferredRenderStack.push(k);
+                        }
+                        else
+                        {
+                            k->render(target);
+                        }
                         if (k->getCollision() && debugMode)
                         {
                             this->collisionBox.setPosition(k->getPosition());
@@ -222,6 +229,15 @@ void TileMap::render(sf::RenderTarget &target, bool debugMode)
                 }
             }
         }
+    }
+}
+
+void TileMap::renderDeferred(sf::RenderTarget &target)
+{
+    while (!this->deferredRenderStack.empty())
+    {
+        deferredRenderStack.top()->render(target);
+        deferredRenderStack.pop();
     }
 }
 
@@ -306,7 +322,6 @@ void TileMap::loadFromFile(std::string filename)
         for (int i = 0; i < root["tiles"].size(); i++)
         {
             Json::Value tile = root["tiles"][i];
-            std::cout << this->map[tile["x"].asInt()][tile["y"].asInt()][tile["z"].asInt()].size() << std::endl;
             this->map[tile["x"].asInt()][tile["y"].asInt()][tile["z"].asInt()].push_back(new Tile(tile["x"].asInt() * this->gridSizeF, tile["y"].asInt() * this->gridSizeF, this->gridSizeF, this->tileSheet,
                                                                                                   sf::IntRect(tile["trX"].asInt(), tile["trY"].asInt(), this->gridSizeU, this->gridSizeU), tile["collision"].asBool(), tile["type"].asInt()));
         }

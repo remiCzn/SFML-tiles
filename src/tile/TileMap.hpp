@@ -15,6 +15,7 @@ private:
     sf::Vector2f maxSizeWorldF;
     unsigned layers;
     std::vector<std::vector<std::vector<std::vector<Tile *>>>> map;
+    std::stack<Tile *> deferredRenderStack;
     std::string texture_file;
     sf::Texture tileSheet;
     sf::RectangleShape collisionBox;
@@ -32,6 +33,7 @@ public:
     void updateCollision(Entity *entity, const float &dt);
 
     void render(sf::RenderTarget &target, bool debugMode = true);
+    void renderDeferred(sf::RenderTarget &target);
 
     void addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect &texture_rect, bool collision, short type);
     void removeTile(const unsigned x, const unsigned y, const unsigned z);

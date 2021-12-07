@@ -1,6 +1,6 @@
 #include "GameState.hpp"
 
-GameState::GameState(StateData* stateData)
+GameState::GameState(StateData *stateData)
     : State(stateData)
 {
     this->initDeferredRender();
@@ -39,7 +39,7 @@ void GameState::initKeybinds()
 
 void GameState::initTextures()
 {
-    if(!this->textures["PLAYER_IDLE"].loadFromFile("images/character/player_sheet.png"))
+    if (!this->textures["PLAYER_IDLE"].loadFromFile("images/character/player_sheet.png"))
     {
         throw("ERROR::GAME_STATE::Could not load down idle sprite");
     }
@@ -48,7 +48,7 @@ void GameState::initTextures()
 void GameState::initFonts()
 {
     this->font = new sf::Font();
-    if(!this->font->loadFromFile("fonts/FreeSans.ttf"))
+    if (!this->font->loadFromFile("fonts/FreeSans.ttf"))
     {
         throw("ERROR::GAME_STATE::Could not load font for GUI");
     }
@@ -58,13 +58,11 @@ void GameState::initView()
 {
     this->view.setSize(
         this->statedata->gfxSettings->resolution.width,
-        this->statedata->gfxSettings->resolution.height
-    );
+        this->statedata->gfxSettings->resolution.height);
 
     this->view.setCenter(
         this->statedata->gfxSettings->resolution.width / 2.f,
-        this->statedata->gfxSettings->resolution.height / 2.f
-    );
+        this->statedata->gfxSettings->resolution.height / 2.f);
 }
 
 void GameState::initPauseMenu()
@@ -74,29 +72,29 @@ void GameState::initPauseMenu()
     this->pmenu->addButton("CONTINUE", 200.f, "Continue");
 }
 
-void GameState::initPlayer() {
-    this->player = new Player(0,0,&this->textures["PLAYER_IDLE"]);
+void GameState::initPlayer()
+{
+    this->player = new Player(0, 0, &this->textures["PLAYER_IDLE"]);
 }
 
-void GameState::initTileMap() {
-    this->map = new TileMap(this->statedata->gridSize, 10, 10, "images/Tiles/tilesheet.png");
+void GameState::initTileMap()
+{
+    this->map = new TileMap(this->statedata->gridSize, 256, 256, "images/Tiles/tilesheet1.png");
     this->map->loadFromFile("map.json");
 }
 
-void GameState::initDeferredRender() {
+void GameState::initDeferredRender()
+{
     this->renderTexture.create(
         this->statedata->gfxSettings->resolution.width,
-        this->statedata->gfxSettings->resolution.height
-    );
+        this->statedata->gfxSettings->resolution.height);
 
     this->renderSprite.setTexture(this->renderTexture.getTexture());
     this->renderSprite.setTextureRect(
         sf::IntRect(
             0, 0,
             this->statedata->gfxSettings->resolution.width,
-            this->statedata->gfxSettings->resolution.height
-        )
-    );
+            this->statedata->gfxSettings->resolution.height));
 }
 
 void GameState::update(const float &dt)
@@ -104,12 +102,13 @@ void GameState::update(const float &dt)
     this->updateMousePosition();
     this->updateKeyTime(dt);
     this->updateInput(dt);
-    if(this->paused)
+    if (this->paused)
     {
         this->pmenu->update(this->mousePosWindow);
         this->updatePauseMenuButtons();
     }
-    else {
+    else
+    {
         this->updateView();
         this->updatePlayer(dt);
         this->updateTileMap(dt);
@@ -117,11 +116,11 @@ void GameState::update(const float &dt)
     }
 }
 
-void GameState::updateView() {
+void GameState::updateView()
+{
     this->view.setCenter(
         std::floor(this->player->getPosition().x + 64.f),
-        std::floor(this->player->getPosition().y + 64.f)
-    );
+        std::floor(this->player->getPosition().y + 64.f));
 }
 
 void GameState::updatePlayer(const float &dt)
@@ -144,43 +143,46 @@ void GameState::updatePlayer(const float &dt)
     }
 }
 
-void GameState::updateInput(const float& dt)
+void GameState::updateInput(const float &dt)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("PAUSE"))))
     {
-        if(this->lastPauseKeyStatus == false && this->getKeyTime())
+        if (this->lastPauseKeyStatus == false && this->getKeyTime())
         {
-            if(this->paused)
-            {   
+            if (this->paused)
+            {
                 this->unpauseState();
             }
-            else {
+            else
+            {
                 this->pauseState();
             }
         }
         this->lastPauseKeyStatus = true;
     }
-    else {
+    else
+    {
         this->lastPauseKeyStatus = false;
     }
 }
 
-void GameState::updatePauseMenuButtons() {
-    if(this->pmenu->isButtonPressed("QUIT"))
+void GameState::updatePauseMenuButtons()
+{
+    if (this->pmenu->isButtonPressed("QUIT"))
     {
         this->endState();
     }
-    if(this->pmenu->isButtonPressed("CONTINUE"))
+    if (this->pmenu->isButtonPressed("CONTINUE"))
     {
         this->unpauseState();
     }
 }
 
-void GameState::updateTileMap(const float& dt) {
+void GameState::updateTileMap(const float &dt)
+{
     this->map->update();
     this->map->updateCollision(this->player, dt);
 }
-
 
 void GameState::render(sf::RenderTarget *target)
 {
@@ -190,9 +192,12 @@ void GameState::render(sf::RenderTarget *target)
     this->renderTexture.clear();
     this->renderTexture.setView(this->view);
     this->map->render(this->renderTexture, this->statedata->debugMode);
-    
+
     this->player->render(this->renderTexture, this->statedata->debugMode);
-    if(this->paused)
+
+    this->map->renderDeferred(this->renderTexture);
+
+    if (this->paused)
     {
         this->renderTexture.setView(this->statedata->gfxSettings->window->getDefaultView());
         this->pmenu->render(this->renderTexture);

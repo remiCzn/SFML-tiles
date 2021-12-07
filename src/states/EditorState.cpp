@@ -98,7 +98,7 @@ void EditorState::initPauseMenu()
 
 void EditorState::initTileMap()
 {
-    this->map = new TileMap(this->statedata->gridSize, 10, 10, "images/Tiles/tilesheet.png");
+    this->map = new TileMap(this->statedata->gridSize, 256, 256, "images/Tiles/tilesheet1.png");
 }
 
 void EditorState::initGui()
@@ -116,7 +116,7 @@ void EditorState::initGui()
     this->selectorRect.setTexture(this->map->getTileSheet());
     this->selectorRect.setTextureRect(this->textureRect);
 
-    this->textureSelector = new gui::TextureSelector(20.f, 20.f, 500.f, 500.f, this->statedata->gridSize, this->map->getTileSheet(), this->font, "X");
+    this->textureSelector = new gui::TextureSelector(20.f, 20.f, 1000.f, 500.f, this->statedata->gridSize, this->map->getTileSheet(), this->font, "X");
 }
 
 //Update
@@ -300,6 +300,7 @@ void EditorState::render(sf::RenderTarget *target)
 
     target->setView(this->view);
     this->map->render(*target);
+    this->map->renderDeferred(*target);
     target->setView(this->statedata->gfxSettings->window->getDefaultView());
     this->renderButtons(target);
     this->renderGui(target);

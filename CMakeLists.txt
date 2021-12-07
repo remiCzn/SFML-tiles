@@ -24,6 +24,7 @@ set(EXFILES
     images/character/player_sheet.png
     images/Tiles/grass.png
     images/Tiles/tilesheet.png
+    images/Tiles/tilesheet1.png
     images/UI/checkx48.png
 )
 

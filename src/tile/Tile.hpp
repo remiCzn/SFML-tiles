@@ -6,7 +6,8 @@
 enum TileTypes
 {
     DEFAULT = 0,
-    DAMAGING
+    DAMAGING,
+    DOODAD
 };
 
 class Tile
@@ -21,6 +22,8 @@ public:
     Tile(float x, float y, float gridSizeF, const sf::Texture &texture, const sf::IntRect &texture_rect,
          bool collision = false, short type = TileTypes::DEFAULT);
     virtual ~Tile();
+
+    const short &getType() const;
 
     const bool &getCollision() const;
     const sf::Vector2f &getPosition() const;
