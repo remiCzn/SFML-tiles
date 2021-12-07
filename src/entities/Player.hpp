@@ -3,7 +3,8 @@
 
 #include "Entity.hpp"
 
-enum Direction {
+enum Direction
+{
     DOWN,
     LEFT,
     RIGHT,
@@ -22,17 +23,17 @@ private:
     //Initializers
     void initVariables();
 
-    void playAnimations(const float& dt);
+    void playAnimations(const float &dt);
 
 public:
-    Player(float x, float y, sf::Texture* textureSheet);
+    Player(float x, float y, sf::Texture *textureSheet);
     virtual ~Player();
 
-    void update(const float& dt);
-    void render(sf::RenderTarget& target, bool debugMode);
+    void update(const float &dt);
+    void render(sf::RenderTarget &target, bool debugMode);
 
-    void updateAttack(const float& dt);
-    void updateAnimation(const float& dt);
+    void updateAttack(const float &dt);
+    void updateAnimation(const float &dt);
 };
 
 #endif

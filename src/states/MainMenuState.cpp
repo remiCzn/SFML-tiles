@@ -1,6 +1,6 @@
 #include "MainMenuState.hpp"
 
-MainMenuState::MainMenuState(StateData* stateData)
+MainMenuState::MainMenuState(StateData *stateData)
     : State(stateData)
 {
     this->initVariables();
@@ -56,15 +56,15 @@ void MainMenuState::initKeybinds()
     ifs.close();
 }
 
-void MainMenuState::initTitle() {
+void MainMenuState::initTitle()
+{
     this->title.setString("Game");
     this->title.setFillColor(sf::Color::White);
     this->title.setFont(this->menuFont);
     this->title.setCharacterSize(65);
     this->title.setPosition(
         (this->statedata->gfxSettings->window->getSize().x - this->title.getGlobalBounds().width) / 2.f,
-        100.f
-    );
+        100.f);
 }
 
 void MainMenuState::initButtons()
@@ -110,7 +110,7 @@ void MainMenuState::updateButtons()
         //push game state when pressed
         this->statedata->states->push(new GameState(this->statedata));
     }
-    if(this->buttons["SETTINGS"]->isPressed())
+    if (this->buttons["SETTINGS"]->isPressed())
     {
         this->statedata->states->push(new SettingsState(this->statedata));
     }

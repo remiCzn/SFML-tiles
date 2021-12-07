@@ -18,9 +18,9 @@ private:
     sf::Text optionsText;
     std::vector<sf::VideoMode> modes;
 
-    std::map<std::string, gui::DropDownList*> ddls;
-    std::map<std::string, gui::Button*> buttons;
-    std::map<std::string, gui::CheckBox*> checkBoxs;
+    std::map<std::string, gui::DropDownList *> ddls;
+    std::map<std::string, gui::Button *> buttons;
+    std::map<std::string, gui::CheckBox *> checkBoxs;
 
     void initVariables();
     void initBackground();
@@ -31,14 +31,14 @@ private:
     void initValues();
 
 public:
-    SettingsState(StateData* state_data);
+    SettingsState(StateData *state_data);
     virtual ~SettingsState();
 
-    void updateInput(const float& dt);
-    void updateGui(const float& dt);
-    void update(const float& dt);
-    void renderGui(sf::RenderTarget* target);
-    void render(sf::RenderTarget* target = NULL);
+    void updateInput(const float &dt);
+    void updateGui(const float &dt);
+    void update(const float &dt);
+    void renderGui(sf::RenderTarget *target);
+    void render(sf::RenderTarget *target = NULL);
 };
 
 #endif

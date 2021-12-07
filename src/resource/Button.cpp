@@ -1,15 +1,14 @@
 #include "./gui.hpp"
 
 gui::Button::Button(float x, float y, float width, float height,
-               std::string text, sf::Font *font, unsigned character_size,
-               sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor,
-               sf::Color text_idleColor, sf::Color text_hoverColor, sf::Color text_activeColor,
-               sf::Color outline_idleColor, sf::Color outline_hoverColor, sf::Color outline_ActiveColor,
-               short unsigned id
-               )
+                    std::string text, sf::Font *font, unsigned character_size,
+                    sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor,
+                    sf::Color text_idleColor, sf::Color text_hoverColor, sf::Color text_activeColor,
+                    sf::Color outline_idleColor, sf::Color outline_hoverColor, sf::Color outline_ActiveColor,
+                    short unsigned id)
 {
     this->id = id;
-    
+
     this->buttonState = BTN_IDLE;
     this->lastState = BTN_IDLE;
 
@@ -41,10 +40,9 @@ gui::Button::Button(float x, float y, float width, float height,
 }
 
 gui::Button::Button(
-        float x, float y, float width, float height,
-        std::string text, sf::Font *font, unsigned character_size,
-        short unsigned id
-    )
+    float x, float y, float width, float height,
+    std::string text, sf::Font *font, unsigned character_size,
+    short unsigned id)
 {
     this->id = id;
     this->buttonState = BTN_IDLE;
@@ -59,9 +57,9 @@ gui::Button::Button(
     this->textHoverColor = sf::Color(250, 250, 250, 250);
     this->textActiveColor = sf::Color(20, 20, 20, 50);
 
-    this->outlineHoverColor = sf::Color(0,0,0,0);
-    this->outlineActiveColor = sf::Color(0,0,0,0);
-    this->outlineIdleColor = sf::Color(0,0,0,0);
+    this->outlineHoverColor = sf::Color(0, 0, 0, 0);
+    this->outlineActiveColor = sf::Color(0, 0, 0, 0);
+    this->outlineIdleColor = sf::Color(0, 0, 0, 0);
 
     this->shape.setSize(sf::Vector2f(width, height));
     this->shape.setPosition(sf::Vector2f(x, y));
@@ -85,7 +83,7 @@ gui::Button::~Button()
 {
 }
 
-void gui::Button::update(const sf::Vector2i& mousePoseWindow)
+void gui::Button::update(const sf::Vector2i &mousePoseWindow)
 {
     this->lastState = this->buttonState;
     this->buttonState = BTN_IDLE;
@@ -137,26 +135,31 @@ const bool gui::Button::isPressed() const
     return false;
 }
 
-const bool gui::Button::isClicked() const {
-    if(this->lastState == BTN_HOVER || this->lastState == BTN_IDLE)
+const bool gui::Button::isClicked() const
+{
+    if (this->lastState == BTN_HOVER || this->lastState == BTN_IDLE)
     {
         return this->isPressed();
     }
     return false;
 }
 
-const std::string gui::Button::getText() const {
+const std::string gui::Button::getText() const
+{
     return this->text.getString();
 };
 
-const short unsigned& gui::Button::getId() const {
+const short unsigned &gui::Button::getId() const
+{
     return this->id;
 }
 
-void gui::Button::setText(const std::string newText) {
+void gui::Button::setText(const std::string newText)
+{
     this->text.setString(newText);
 }
 
-void gui::Button::setId(const short unsigned id) {
+void gui::Button::setId(const short unsigned id)
+{
     this->id = id;
 }

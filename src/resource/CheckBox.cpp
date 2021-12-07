@@ -1,14 +1,12 @@
 #include "gui.hpp"
 
-gui::CheckBox::CheckBox(float x, float y, float width, bool defaultValue) 
+gui::CheckBox::CheckBox(float x, float y, float width, bool defaultValue)
 {
     this->lastState = BTN_IDLE;
     this->box.setPosition(sf::Vector2f(
-        x, y
-    ));
+        x, y));
     this->box.setSize(sf::Vector2f(
-        width, width
-    ));
+        width, width));
     this->box.setOutlineThickness(1.f);
     this->box.setOutlineColor(sf::Color::Black);
     this->box.setFillColor(sf::Color::White);
@@ -17,39 +15,48 @@ gui::CheckBox::CheckBox(float x, float y, float width, bool defaultValue)
     this->value = defaultValue;
 }
 
-void gui::CheckBox::initCross(float x, float y, float width) {
-    cross.setPosition(sf::Vector2f(x+2, y+2));
+void gui::CheckBox::initCross(float x, float y, float width)
+{
+    cross.setPosition(sf::Vector2f(x + 2, y + 2));
     cross.setRadius((width - 4.f) / 2.f);
     cross.setFillColor(sf::Color::Black);
 }
 
-gui::CheckBox::~CheckBox() {
+gui::CheckBox::~CheckBox()
+{
 }
 
-const bool gui::CheckBox::getValue() const {
+const bool gui::CheckBox::getValue() const
+{
     return this->value;
 }
 
-void gui::CheckBox::setValue(const bool value) {
+void gui::CheckBox::setValue(const bool value)
+{
     this->value = value;
 }
 
-void gui::CheckBox::update(const sf::Vector2i& mousePoseWindow) {
-    if(this->box.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePoseWindow)) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+void gui::CheckBox::update(const sf::Vector2i &mousePoseWindow)
+{
+    if (this->box.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePoseWindow)) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        if(this->lastState == BTN_IDLE) {
+        if (this->lastState == BTN_IDLE)
+        {
             this->value = !this->value;
             this->lastState = BTN_ACTIVE;
         }
-        
-    } else {
+    }
+    else
+    {
         this->lastState = BTN_IDLE;
     }
 }
 
-void gui::CheckBox::render(sf::RenderTarget* target) {
+void gui::CheckBox::render(sf::RenderTarget *target)
+{
     target->draw(this->box);
-    if(value) {
+    if (value)
+    {
         target->draw(cross);
     }
 }

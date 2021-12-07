@@ -12,19 +12,19 @@ class EditorState : public State
 private:
     sf::Font font;
     sf::Text cursorText;
-    PauseMenu* pmenu;
+    PauseMenu *pmenu;
     sf::View view;
 
-    TileMap* map;
+    TileMap *map;
 
     sf::RectangleShape sidebar;
 
     sf::IntRect textureRect;
     sf::RectangleShape selectorRect;
 
-    gui::TextureSelector* textureSelector;
+    gui::TextureSelector *textureSelector;
 
-    std::map<std::string, gui::Button*> buttons;
+    std::map<std::string, gui::Button *> buttons;
 
     bool collision;
     short tileType;
@@ -41,20 +41,20 @@ private:
     void initButtons();
     void initGui();
     void initTileMap();
+
 public:
-    EditorState(StateData* stateData);
+    EditorState(StateData *stateData);
     virtual ~EditorState();
 
-    void updateInput(const float& dt);
-    void updateEditorInput(const float& dt);
+    void updateInput(const float &dt);
+    void updateEditorInput(const float &dt);
     void updateButtons();
-    void updateGui(const float& dt);
+    void updateGui(const float &dt);
     void updatePauseMenu();
-    void update(const float& dt);
-    void renderButtons(sf::RenderTarget* target = NULL);
-    void renderGui(sf::RenderTarget* target = NULL);
-    void render(sf::RenderTarget* target = NULL);
-
+    void update(const float &dt);
+    void renderButtons(sf::RenderTarget *target = NULL);
+    void renderGui(sf::RenderTarget *target = NULL);
+    void render(sf::RenderTarget *target = NULL);
 };
 
 #endif

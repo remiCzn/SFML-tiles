@@ -1,6 +1,6 @@
 #include "EditorState.hpp"
 
-EditorState::EditorState(StateData* stateData)
+EditorState::EditorState(StateData *stateData)
     : State(stateData)
 {
     this->initVariables();
@@ -17,7 +17,7 @@ EditorState::EditorState(StateData* stateData)
 
 EditorState::~EditorState()
 {
-    for(auto it = this->buttons.begin(); it != this->buttons.end(); ++it)
+    for (auto it = this->buttons.begin(); it != this->buttons.end(); ++it)
     {
         delete it->second;
     }
@@ -36,16 +36,15 @@ void EditorState::initVariables()
     this->cameraSpeed = 100.f;
 }
 
-void EditorState::initView() {
+void EditorState::initView()
+{
     this->view.setSize(sf::Vector2f(
         this->statedata->gfxSettings->resolution.width,
-        this->statedata->gfxSettings->resolution.height
-    ));
+        this->statedata->gfxSettings->resolution.height));
 
     this->view.setCenter(sf::Vector2f(
         this->statedata->gfxSettings->resolution.width / 2.f,
-        this->statedata->gfxSettings->resolution.height / 2.f
-    ));
+        this->statedata->gfxSettings->resolution.height / 2.f));
 }
 
 void EditorState::initBackground()
@@ -78,7 +77,6 @@ void EditorState::initKeybinds()
 
 void EditorState::initButtons()
 {
-
 }
 
 void EditorState::initText()
@@ -106,7 +104,7 @@ void EditorState::initTileMap()
 void EditorState::initGui()
 {
     this->sidebar.setSize(sf::Vector2f(80.f, static_cast<float>(this->statedata->gfxSettings->resolution.height)));
-    this->sidebar.setFillColor(sf::Color(50,50,50,100));
+    this->sidebar.setFillColor(sf::Color(50, 50, 50, 100));
     this->sidebar.setOutlineColor(sf::Color(200, 200, 200, 150));
     this->sidebar.setOutlineThickness(1.f);
 
@@ -122,121 +120,140 @@ void EditorState::initGui()
 }
 
 //Update
-void EditorState::updateInput(const float& dt)
+void EditorState::updateInput(const float &dt)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("PAUSE"))))
     {
-        if(KeyState::getInstance()->PAUSE == false)
+        if (KeyState::getInstance()->PAUSE == false)
         {
             this->paused = !this->paused;
         }
         KeyState::getInstance()->PAUSE = true;
     }
-    else {
+    else
+    {
         KeyState::getInstance()->PAUSE = false;
     }
 }
 
 void EditorState::updateButtons()
 {
-    for(auto &it : this->buttons)
+    for (auto &it : this->buttons)
     {
         it.second->update(this->mousePosWindow);
     }
 }
 
-void EditorState::update(const float& dt)
+void EditorState::update(const float &dt)
 {
     this->updateMousePosition();
     this->updateKeyTime(dt);
     this->updateInput(dt);
-    if(!this->paused)
+    if (!this->paused)
     {
         this->updateButtons();
         this->updateGui(dt);
         this->updateEditorInput(dt);
     }
-    else {
+    else
+    {
         this->pmenu->update(this->mousePosWindow);
         this->updatePauseMenu();
     }
-    
 }
 
 void EditorState::updatePauseMenu()
 {
-    if(this->pmenu->isButtonPressed("QUIT"))
+    if (this->pmenu->isButtonPressed("QUIT"))
     {
         this->endState();
     }
 
-    if(this->pmenu->isButtonPressed("SAVE"))
+    if (this->pmenu->isButtonPressed("SAVE"))
     {
         this->map->saveToFile("map.json");
     }
 
-    if(this->pmenu->isButtonPressed("LOAD"))
+    if (this->pmenu->isButtonPressed("LOAD"))
     {
         this->map->loadFromFile("map.json");
     }
 }
 
-void EditorState::updateEditorInput(const float& dt)
+void EditorState::updateEditorInput(const float &dt)
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CAMERA_UP")))) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CAMERA_UP"))))
+    {
         this->view.move(0, -cameraSpeed * dt);
-    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CAMERA_DOWN")))) {
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CAMERA_DOWN"))))
+    {
         this->view.move(0, cameraSpeed * dt);
-    } 
-    
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CAMERA_LEFT")))) {
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CAMERA_LEFT"))))
+    {
         this->view.move(-cameraSpeed * dt, 0);
-    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CAMERA_RIGHT")))) {
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CAMERA_RIGHT"))))
+    {
         this->view.move(cameraSpeed * dt, 0);
     }
 
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->getKeyTime())
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->getKeyTime())
     {
-        if(!this->sidebar.getGlobalBounds().contains(sf::Vector2f(this->mousePosWindow))) {
-            if(!this->textureSelector->getActive())
+        if (!this->sidebar.getGlobalBounds().contains(sf::Vector2f(this->mousePosWindow)))
+        {
+            if (!this->textureSelector->getActive())
             {
                 this->map->addTile(this->mousePosGrid.x, this->mousePosGrid.y, 0, this->textureRect, this->collision, this->tileType);
             }
-            else {
+            else
+            {
                 this->textureRect = this->textureSelector->getTextureRect();
             }
         }
     }
-    else if(sf::Mouse::isButtonPressed(sf::Mouse::Right) && this->getKeyTime())
+    else if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && this->getKeyTime())
     {
-        if(!this->sidebar.getGlobalBounds().contains(sf::Vector2f(this->mousePosWindow))) {
-            if(!this->textureSelector->getActive()) {
+        if (!this->sidebar.getGlobalBounds().contains(sf::Vector2f(this->mousePosWindow)))
+        {
+            if (!this->textureSelector->getActive())
+            {
                 this->map->removeTile(this->mousePosGrid.x, this->mousePosGrid.y, 0);
             }
         }
     }
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("TOGGLE_COLLISION"))) && this->getKeyTime())
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("TOGGLE_COLLISION"))) && this->getKeyTime())
     {
-        if(this->collision) {
+        if (this->collision)
+        {
             this->collision = false;
             this->selectorRect.setOutlineColor(sf::Color::Green);
-        } else {
+        }
+        else
+        {
             this->collision = true;
             this->selectorRect.setOutlineColor(sf::Color::Red);
         }
-    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("INCREASE_TYPE"))) && this->getKeyTime()) {
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("INCREASE_TYPE"))) && this->getKeyTime())
+    {
         this->tileType++;
-    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("DECREASE_TYPE"))) && this->getKeyTime()) {
-        if(this->tileType > 0) 
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("DECREASE_TYPE"))) && this->getKeyTime())
+    {
+        if (this->tileType > 0)
             this->tileType--;
     }
 }
 
-void EditorState::updateGui(const float& dt) {
+void EditorState::updateGui(const float &dt)
+{
 
     this->textureSelector->update(this->mousePosWindow, dt);
-    if(!this->textureSelector->getActive())
+    if (!this->textureSelector->getActive())
     {
         this->selectorRect.setTextureRect(this->textureRect);
         this->selectorRect.setPosition(this->mousePosGrid.x * this->statedata->gridSize, this->mousePosGrid.y * this->statedata->gridSize);
@@ -244,24 +261,27 @@ void EditorState::updateGui(const float& dt) {
 
     this->cursorText.setPosition(this->mousePosView.x + 100.f, this->mousePosView.y - 50.f);
     std::stringstream ss;
-    ss << this->mousePosView.x << " " << this->mousePosView.y 
-    << "\n" << this->mousePosGrid.x << " " << this->mousePosGrid.y
-        << "\n" << this->textureRect.left << " " << this->textureRect.top;
+    ss << this->mousePosView.x << " " << this->mousePosView.y
+       << "\n"
+       << this->mousePosGrid.x << " " << this->mousePosGrid.y
+       << "\n"
+       << this->textureRect.left << " " << this->textureRect.top;
     this->cursorText.setString(ss.str());
 }
 
 //Render
-void EditorState::renderButtons(sf::RenderTarget* target)
+void EditorState::renderButtons(sf::RenderTarget *target)
 {
-    for(auto &it : this->buttons)
+    for (auto &it : this->buttons)
     {
         it.second->render(target);
     }
 }
 
-void EditorState::renderGui(sf::RenderTarget* target)
+void EditorState::renderGui(sf::RenderTarget *target)
 {
-    if(!this->textureSelector->getActive()) {
+    if (!this->textureSelector->getActive())
+    {
         target->setView(this->view);
         target->draw(this->selectorRect);
     }
@@ -273,9 +293,9 @@ void EditorState::renderGui(sf::RenderTarget* target)
     target->draw(this->cursorText);
 }
 
-void EditorState::render(sf::RenderTarget* target)
+void EditorState::render(sf::RenderTarget *target)
 {
-    if(!target) 
+    if (!target)
         target = this->statedata->gfxSettings->window;
 
     target->setView(this->view);
@@ -284,8 +304,8 @@ void EditorState::render(sf::RenderTarget* target)
     this->renderButtons(target);
     this->renderGui(target);
 
-    if(this->paused)
-    {   
+    if (this->paused)
+    {
         target->setView(this->statedata->gfxSettings->window->getDefaultView());
         this->pmenu->render(*target);
     }

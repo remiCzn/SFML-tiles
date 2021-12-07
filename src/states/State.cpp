@@ -1,6 +1,6 @@
 #include "State.hpp"
 
-State::State(StateData* state_data)
+State::State(StateData *state_data)
 {
     this->statedata = state_data;
     this->quit = false;
@@ -19,20 +19,20 @@ const bool &State::getQuit() const
     return this->quit;
 }
 
-void State::updateMousePosition(sf::View* view)
+void State::updateMousePosition(sf::View *view)
 {
     this->mousePosScreen = sf::Mouse::getPosition();
     this->mousePosWindow = sf::Mouse::getPosition(*this->statedata->gfxSettings->window);
 
-    if(view) {
+    if (view)
+    {
         this->statedata->gfxSettings->window->setView(*view);
     }
 
     this->mousePosView = this->statedata->gfxSettings->window->mapPixelToCoords(sf::Mouse::getPosition(*this->statedata->gfxSettings->window));
     this->mousePosGrid = sf::Vector2u(
         static_cast<unsigned>(this->mousePosView.x) / static_cast<unsigned>(this->gridSize),
-        static_cast<unsigned>(this->mousePosView.y) / static_cast<unsigned>(this->gridSize)
-    );
+        static_cast<unsigned>(this->mousePosView.y) / static_cast<unsigned>(this->gridSize));
 
     this->statedata->gfxSettings->window->setView(this->statedata->gfxSettings->window->getDefaultView());
 }
@@ -45,7 +45,7 @@ void State::endState()
 void State::pauseState()
 {
     this->paused = true;
-}   
+}
 
 void State::unpauseState()
 {
@@ -54,7 +54,7 @@ void State::unpauseState()
 
 const bool State::getKeyTime()
 {
-    if(this->keyTime >= this->keyTimeMax)
+    if (this->keyTime >= this->keyTimeMax)
     {
         this->keyTime = 0.f;
         return true;
@@ -62,8 +62,8 @@ const bool State::getKeyTime()
     return false;
 }
 
-void State::updateKeyTime(const float& dt)
+void State::updateKeyTime(const float &dt)
 {
-    if(this->keyTime < this->keyTimeMax)
+    if (this->keyTime < this->keyTimeMax)
         this->keyTime += 100.f * dt;
 }

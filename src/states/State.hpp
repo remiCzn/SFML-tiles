@@ -6,22 +6,22 @@
 
 class State;
 
-class StateData {
+class StateData
+{
 public:
-    StateData() {};
+    StateData(){};
 
     float gridSize;
-    GraphicSettings* gfxSettings;
-    std::map<std::string,int>* supportedKeys;
-    std::stack<State*>* states;
+    GraphicSettings *gfxSettings;
+    std::map<std::string, int> *supportedKeys;
+    std::stack<State *> *states;
     bool debugMode;
 };
-
 
 class State
 {
 protected:
-    StateData* statedata;
+    StateData *statedata;
 
     std::map<std::string, int> keybinds;
 
@@ -44,7 +44,7 @@ protected:
     virtual void initKeybinds() = 0;
 
 public:
-    State(StateData* state_data);
+    State(StateData *state_data);
     virtual ~State();
 
     const bool &getQuit() const;
@@ -55,11 +55,11 @@ public:
     void unpauseState();
 
     virtual void updateInput(const float &dt) = 0;
-    virtual void updateMousePosition(sf::View* view = NULL);
+    virtual void updateMousePosition(sf::View *view = NULL);
     virtual void update(const float &dt) = 0;
     virtual void render(sf::RenderTarget *target = nullptr) = 0;
 
     const bool getKeyTime();
-    void updateKeyTime(const float& dt);
+    void updateKeyTime(const float &dt);
 };
 #endif

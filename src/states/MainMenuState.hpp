@@ -25,7 +25,7 @@ private:
     void initTitle();
 
 public:
-    MainMenuState(StateData* stateData);
+    MainMenuState(StateData *stateData);
     virtual ~MainMenuState();
 
     void updateInput(const float &dt);

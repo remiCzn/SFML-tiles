@@ -1,20 +1,21 @@
 #include "Game.hpp"
 
-void Game::initGraphicSettings() {
+void Game::initGraphicSettings()
+{
     this->gfxSettings.loadFromFile("./config/window.json");
 }
 
 void Game::initWindow()
 {
     this->gfxSettings.initWindow();
-    if(!this->dtFont.loadFromFile("./fonts/Dosis-Light.ttf"))
+    if (!this->dtFont.loadFromFile("./fonts/Dosis-Light.ttf"))
     {
         std::cout << "GAME:FONT NOT LOADED" << std::endl;
     }
     this->dtRendered.setFont(this->dtFont);
     this->dtRendered.setString("0");
     this->dtRendered.setCharacterSize(50);
-    this->dtRendered.setPosition(0,0);
+    this->dtRendered.setPosition(0, 0);
     this->dtRendered.setFillColor(sf::Color::White);
 }
 
@@ -82,12 +83,16 @@ Game::~Game()
 
 void Game::updateSFMLEvent()
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::F3)) {
-        if(!KeyState::getInstance()->F3) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::F3))
+    {
+        if (!KeyState::getInstance()->F3)
+        {
             this->stateData.debugMode = !this->stateData.debugMode;
             KeyState::getInstance()->F3 = true;
         }
-    } else {
+    }
+    else
+    {
         KeyState::getInstance()->F3 = false;
     }
 
@@ -116,7 +121,7 @@ void Game::update()
 
     if (!this->states.empty())
     {
-        if(this->stateData.gfxSettings->window->hasFocus())
+        if (this->stateData.gfxSettings->window->hasFocus())
         {
             this->states.top()->update(this->dt);
             if (this->states.top()->getQuit())
@@ -143,7 +148,7 @@ void Game::render()
     {
         this->states.top()->render(this->gfxSettings.window);
     }
-    if(this->stateData.debugMode)
+    if (this->stateData.debugMode)
     {
         this->gfxSettings.window->draw(this->dtRendered);
     }
@@ -154,7 +159,8 @@ void Game::updateDt()
 {
     //Update dt variable with the time between two loop
     this->dt = this->dtClock.restart().asSeconds();
-    if(this->stateData.debugMode) {
+    if (this->stateData.debugMode)
+    {
         this->dtRendered.setString(std::to_string(static_cast<int>(1 / this->dt)));
     }
 }
