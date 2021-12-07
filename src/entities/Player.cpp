@@ -23,6 +23,7 @@ Player::Player(float x, float y, sf::Texture *texture_sheet)
     this->createHitboxComponent(48.f, 32.f, 32.f, 64.f);
     this->createMovementComponent(300.f, 15.f, 7.f);
     this->createAnimationComponent(*texture_sheet);
+    this->createAttributeComponent(1);
 
     float idle_anim_timer = 8.f;
     this->animationComponent->addAnimation("IDLE_DOWN", idle_anim_timer, 4, 0, 0, 64, 64);

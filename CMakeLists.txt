@@ -58,6 +58,7 @@ add_executable(main
     src/components/MovementComponent.cpp
     src/components/AnimationComponent.cpp
     src/components/HitboxComponent.cpp
+    src/components/AttributeComponent.cpp
     src/tile/Tile.cpp
     src/tile/TileMap.cpp
     src/gui/PauseMenu.cpp
