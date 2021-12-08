@@ -8,9 +8,8 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
     this->gridSize = gridSize;
     this->active = false;
     this->hidden = false;
-    float offset = 100.f;
+    float offset = 60.f;
 
-    this->bounds.setSize(sf::Vector2f(width, height));
     this->bounds.setPosition(x + offset, y);
     this->bounds.setFillColor(sf::Color(50, 50, 50, 100));
     this->bounds.setOutlineThickness(1.f);
@@ -18,6 +17,8 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
 
     this->sheet.setTexture(*texture_sheet);
     this->sheet.setPosition(x + offset, y);
+    this->sheet.scale(sf::Vector2f(0.5f, 0.5f));
+    this->bounds.setSize(sf::Vector2f(this->sheet.getGlobalBounds().width, this->sheet.getGlobalBounds().height));
 
     if (this->sheet.getGlobalBounds().width > this->bounds.getGlobalBounds().width)
     {
@@ -29,7 +30,7 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
     }
 
     this->selector.setPosition(x + offset, y);
-    this->selector.setSize(sf::Vector2f(gridSize, gridSize));
+    this->selector.setSize(sf::Vector2f(gridSize / 2.f, gridSize / 2.f));
     this->selector.setFillColor(sf::Color::Transparent);
     this->selector.setOutlineThickness(1.f);
     this->selector.setOutlineColor(sf::Color::Red);
@@ -38,8 +39,8 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
     this->textureRect.height = static_cast<int>(gridSize);
 
     this->hide_btn = new gui::Button(
-        x, y, 50.f, 50.f,
-        text, &font, 30,
+        0.f, 0.f, 60.f, 60.f,
+        text, &font, 28,
         sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0),
         sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
         sf::Color(70, 70, 70, 120), sf::Color(200, 200, 200, 100), sf::Color(20, 20, 20, 25), 0);
@@ -95,15 +96,15 @@ void gui::TextureSelector::update(const sf::Vector2i &mousePosWindow, const floa
 
         if (this->active)
         {
-            this->mousePosGrid.x = (mousePosWindow.x - static_cast<int>(this->bounds.getPosition().x)) / static_cast<unsigned>(this->gridSize);
-            this->mousePosGrid.y = (mousePosWindow.y - static_cast<int>(this->bounds.getPosition().y)) / static_cast<unsigned>(this->gridSize);
+            this->mousePosGrid.x = (mousePosWindow.x - static_cast<int>(this->bounds.getPosition().x)) / static_cast<unsigned>(this->gridSize / 2.f);
+            this->mousePosGrid.y = (mousePosWindow.y - static_cast<int>(this->bounds.getPosition().y)) / static_cast<unsigned>(this->gridSize / 2.f);
 
             this->selector.setPosition(
-                this->bounds.getPosition().x + this->mousePosGrid.x * this->gridSize,
-                this->bounds.getPosition().y + this->mousePosGrid.y * this->gridSize);
+                this->bounds.getPosition().x + this->mousePosGrid.x * this->gridSize / 2.f,
+                this->bounds.getPosition().y + this->mousePosGrid.y * this->gridSize / 2.f);
 
-            this->textureRect.left = static_cast<int>(this->selector.getPosition().x - this->bounds.getPosition().x);
-            this->textureRect.top = static_cast<int>(this->selector.getPosition().y - this->bounds.getPosition().y);
+            this->textureRect.left = static_cast<int>(this->mousePosGrid.x * this->gridSize);
+            this->textureRect.top = static_cast<int>(this->mousePosGrid.y * this->gridSize);
         }
     }
 }
