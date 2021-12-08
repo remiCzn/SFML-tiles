@@ -27,7 +27,8 @@ std::string AttributeComponent::debugPrint() const
     ss << "Level: " << this->level << "\n"
        << "Exp: " << this->exp << "\n"
        << "Exp next: " << this->expNext << "\n"
-       << "Attp: " << this->attributePoints << "\n";
+       << "Attp: " << this->attributePoints << "\n"
+       << "HP/HPMax: " << this->hp << "/" << this->hpMax;
 
     return ss.str();
 }
@@ -67,4 +68,18 @@ void AttributeComponent::updateLevel()
 void AttributeComponent::update()
 {
     this->updateLevel();
+}
+
+void AttributeComponent::loseHp(const unsigned hp)
+{
+    this->hp -= hp;
+    if (this->hp < 0)
+        this->hp = 0;
+}
+
+void AttributeComponent::gainHp(const unsigned hp)
+{
+    this->hp += hp;
+    if (this->hp > this->hpMax)
+        this->hp = this->hpMax;
 }

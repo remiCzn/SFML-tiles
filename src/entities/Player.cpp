@@ -154,3 +154,8 @@ void Player::render(sf::RenderTarget &target, bool debugMode)
 
     this->hitboxComponent->render(target, debugMode);
 }
+
+AttributeComponent *Player::getAttributeComponent()
+{
+    return this->attributeComponent;
+}

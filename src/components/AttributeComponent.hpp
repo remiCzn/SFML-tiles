@@ -31,6 +31,9 @@ public:
     std::string debugPrint() const;
 
     void gainExp(const unsigned exp);
+    void gainHp(const unsigned hp);
+    void loseHp(const unsigned hp);
+
     void updateStats(const bool reset);
     void updateLevel();
 

@@ -62,6 +62,7 @@ add_executable(main
     src/tile/Tile.cpp
     src/tile/TileMap.cpp
     src/gui/PauseMenu.cpp
+    src/gui/PlayerGUI.cpp
 )
 
 target_link_libraries(main sfml-graphics)

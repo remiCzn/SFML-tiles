@@ -34,6 +34,12 @@ public:
 
     void updateAttack(const float &dt);
     void updateAnimation(const float &dt);
+
+    AttributeComponent *getAttributeComponent();
+
+    void loseHP(const int hp);
+    void gainHP(const int hp);
+    void gainExp(const int exp);
 };
 
 #endif

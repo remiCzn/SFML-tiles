@@ -98,4 +98,5 @@ void GraphicSettings::initWindow()
 
     this->window->setFramerateLimit(this->framerateLimit);
     this->window->setVerticalSyncEnabled(this->verticalSync);
+    this->window->setPosition(sf::Vector2i(0, 0));
 }

@@ -10,6 +10,7 @@ GameState::GameState(StateData *stateData)
     this->initTextures();
     this->initPauseMenu();
     this->initPlayer();
+    this->initPlayerGui();
     this->initTileMap();
 }
 
@@ -19,6 +20,12 @@ GameState::~GameState()
     delete this->player;
     delete this->font;
     delete this->map;
+    delete this->playerGui;
+}
+
+void GameState::initPlayerGui()
+{
+    this->playerGui = new PlayerGUI(this->player);
 }
 
 void GameState::initKeybinds()
@@ -113,6 +120,7 @@ void GameState::update(const float &dt)
         this->updatePlayer(dt);
         this->updateTileMap(dt);
         this->player->update(dt);
+        this->updatePlayerGUI(dt);
     }
 }
 
@@ -136,11 +144,26 @@ void GameState::updatePlayer(const float &dt)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP"))))
     {
         this->player->move(dt, 0.f, -1.f);
+
+        if (this->getKeyTime())
+        {
+            this->player->getAttributeComponent()->gainHp(1);
+        }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
     {
         this->player->move(dt, 0.f, 1.f);
+
+        if (this->getKeyTime())
+        {
+            this->player->getAttributeComponent()->loseHp(1);
+        }
     }
+}
+
+void GameState::updatePlayerGUI(const float &dt)
+{
+    this->playerGui->update(dt);
 }
 
 void GameState::updateInput(const float &dt)
@@ -197,9 +220,11 @@ void GameState::render(sf::RenderTarget *target)
 
     this->map->renderDeferred(this->renderTexture);
 
+    this->renderTexture.setView(this->statedata->gfxSettings->window->getDefaultView());
+    this->playerGui->render(this->renderTexture);
+
     if (this->paused)
     {
-        this->renderTexture.setView(this->statedata->gfxSettings->window->getDefaultView());
         this->pmenu->render(this->renderTexture);
     }
 
