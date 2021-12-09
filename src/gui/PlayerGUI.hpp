@@ -3,6 +3,7 @@
 
 #include "../entities/Player.hpp"
 #include "../headers/headers.hpp"
+#include "./progressBar/progressBar.hpp"
 
 class PlayerGUI
 {
@@ -14,8 +15,9 @@ private:
     sf::RectangleShape hpBarInner;
     sf::Text hpBarValue;
 
+    progressBar hpBar;
+
     void initFont();
-    void initHPBar();
 
 public:
     PlayerGUI(Player *player);

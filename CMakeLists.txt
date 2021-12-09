@@ -63,6 +63,7 @@ add_executable(main
     src/tile/TileMap.cpp
     src/gui/PauseMenu.cpp
     src/gui/PlayerGUI.cpp
+    src/gui/progressBar/progressBar.cpp
 )
 
 target_link_libraries(main sfml-graphics)
