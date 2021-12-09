@@ -127,8 +127,8 @@ void GameState::update(const float &dt)
 void GameState::updateView()
 {
     this->view.setCenter(
-        std::floor(this->player->getPosition().x + 64.f),
-        std::floor(this->player->getPosition().y + 64.f));
+        std::floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->statedata->gfxSettings->resolution.width / 2)) / 10.f),
+        std::floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->statedata->gfxSettings->resolution.height / 2)) / 10.f));
 }
 
 void GameState::updatePlayer(const float &dt)
