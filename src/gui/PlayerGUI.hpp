@@ -10,12 +10,9 @@ class PlayerGUI
 private:
     Player *player;
     sf::Font font;
-    float hpBarMaxWidth;
-    sf::RectangleShape hpBarBack;
-    sf::RectangleShape hpBarInner;
-    sf::Text hpBarValue;
 
     progressBar hpBar;
+    progressBar levelBar;
 
     void initFont();
 

@@ -10,19 +10,28 @@ enum ProgressBarType
     THICK
 };
 
+enum ProgressBarMode
+{
+    PERCENT,
+    ABSOLUTE,
+    FRAC
+};
+
 class progressBar
 {
 private:
-    sf::Font *font;
-
     float maxWidth;
     sf::RectangleShape innerBar;
     sf::RectangleShape backBar;
     sf::Text DispValue;
 
+    ProgressBarMode mode;
+
 public:
     progressBar(float x, float y, float width, ProgressBarType heightType, sf::Font &font, sf::Color backColor, sf::Color innerColor);
     ~progressBar();
+
+    void setProgressBarMode(ProgressBarMode mode);
 
     void update(int value, int maxValue);
     void render(sf::RenderTarget &target);
