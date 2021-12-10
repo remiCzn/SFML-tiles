@@ -17,6 +17,8 @@ private:
     sf::RenderTexture renderTexture;
     sf::Sprite renderSprite;
 
+    sf::Shader core_shader;
+
     Player *player;
     PlayerGUI *playerGui;
     TileMap *map;
@@ -30,6 +32,7 @@ private:
     void initTileMap();
     void initView();
     void initDeferredRender();
+    void initShaders();
 
     void updatePauseMenuButtons();
 

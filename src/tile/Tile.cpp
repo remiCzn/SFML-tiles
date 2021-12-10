@@ -9,13 +9,17 @@ Tile::Tile()
 Tile::Tile(float x, float y, float gridSizeF, const sf::Texture &texture, const sf::IntRect &texture_rect,
            bool coll, short type)
 {
-    this->shape.setSize(sf::Vector2f(gridSizeF, gridSizeF));
-    this->shape.setTexture(&texture);
-    this->shape.setPosition(x, y);
-    this->shape.setTextureRect(texture_rect);
+    // this->shape.setSize(sf::Vector2f(gridSizeF, gridSizeF));
+    // this->shape.setTexture(&texture);
+    // this->shape.setPosition(x, y);
+    // this->shape.setTextureRect(texture_rect);
 
+    // this->collision = coll;
+    // this->type = type;
+    this->shape.setPosition(x, y);
+    this->shape.setTexture(texture);
+    this->shape.setTextureRect(texture_rect);
     this->collision = coll;
-    this->type = type;
 }
 
 Tile::~Tile()
@@ -61,7 +65,18 @@ void Tile::update()
 {
 }
 
-void Tile::render(sf::RenderTarget &target)
+void Tile::render(sf::RenderTarget &target, sf::Shader *shader, sf::Vector2f playerPosition)
 {
-    target.draw(this->shape);
+
+    if (shader)
+    {
+        shader->setUniform("hasTexture", true);
+        shader->setUniform("lightPos", playerPosition);
+
+        target.draw(this->shape, shader);
+    }
+    else
+    {
+        target.draw(this->shape);
+    }
 }

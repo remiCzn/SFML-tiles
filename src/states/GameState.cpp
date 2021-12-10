@@ -9,6 +9,7 @@ GameState::GameState(StateData *stateData)
     this->initFonts();
     this->initTextures();
     this->initPauseMenu();
+    this->initShaders();
     this->initPlayer();
     this->initPlayerGui();
     this->initTileMap();
@@ -26,6 +27,14 @@ GameState::~GameState()
 void GameState::initPlayerGui()
 {
     this->playerGui = new PlayerGUI(this->player);
+}
+
+void GameState::initShaders()
+{
+    if (!sf::Shader::isAvailable() || !this->core_shader.loadFromFile("./resource/vertex_shader.vert", "./resource/fragment_shader.frag"))
+    {
+        std::cout << "ERROR::GAMESTATE::COULD NOT LOAD SHADER" << std::endl;
+    }
 }
 
 void GameState::initKeybinds()
@@ -214,7 +223,7 @@ void GameState::render(sf::RenderTarget *target)
 
     this->renderTexture.clear();
     this->renderTexture.setView(this->view);
-    this->map->render(this->renderTexture, this->statedata->debugMode);
+    this->map->render(this->renderTexture, &this->core_shader, this->player->getPosition(), this->statedata->debugMode);
 
     this->player->render(this->renderTexture, this->statedata->debugMode);
 

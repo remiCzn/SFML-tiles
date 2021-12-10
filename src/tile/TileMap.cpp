@@ -200,7 +200,7 @@ void TileMap::updateCollision(Entity *entity, const float &dt)
     }
 }
 
-void TileMap::render(sf::RenderTarget &target, bool debugMode)
+void TileMap::render(sf::RenderTarget &target, sf::Shader *shader, const sf::Vector2f playerPosition, bool debugMode)
 {
     for (auto &x : this->map)
     {
@@ -218,7 +218,10 @@ void TileMap::render(sf::RenderTarget &target, bool debugMode)
                         }
                         else
                         {
-                            k->render(target);
+                            if (shader)
+                                k->render(target, shader, playerPosition);
+                            else
+                                k->render(target);
                         }
                         if (k->getCollision() && debugMode)
                         {
@@ -232,11 +235,14 @@ void TileMap::render(sf::RenderTarget &target, bool debugMode)
     }
 }
 
-void TileMap::renderDeferred(sf::RenderTarget &target)
+void TileMap::renderDeferred(sf::RenderTarget &target, sf::Shader *shader, const sf::Vector2f playerPosition)
 {
     while (!this->deferredRenderStack.empty())
     {
-        deferredRenderStack.top()->render(target);
+        if (shader)
+            deferredRenderStack.top()->render(target, shader, playerPosition);
+        else
+            deferredRenderStack.top()->render(target);
         deferredRenderStack.pop();
     }
 }

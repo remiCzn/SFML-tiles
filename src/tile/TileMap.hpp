@@ -32,8 +32,8 @@ public:
     void update();
     void updateCollision(Entity *entity, const float &dt);
 
-    void render(sf::RenderTarget &target, bool debugMode = true);
-    void renderDeferred(sf::RenderTarget &target);
+    void render(sf::RenderTarget &target, sf::Shader *shader = NULL, const sf::Vector2f playerPosition = sf::Vector2f(), bool debugMode = true);
+    void renderDeferred(sf::RenderTarget &target, sf::Shader *shader = NULL, const sf::Vector2f playerPosition = sf::Vector2f());
 
     void addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect &texture_rect, bool collision, short type);
     void removeTile(const unsigned x, const unsigned y, const unsigned z);

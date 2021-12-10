@@ -26,6 +26,8 @@ set(EXFILES
     images/Tiles/tilesheet.png
     images/Tiles/tilesheet1.png
     images/UI/checkx48.png
+    resource/vertex_shader.vert
+    resource/fragment_shader.frag
 )
 
 foreach(file ${EXFILES})
