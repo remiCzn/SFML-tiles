@@ -3,6 +3,7 @@
 
 #include "Tile.hpp"
 #include "../entities/Entity.hpp"
+#include "./Chunk.hpp"
 
 class TileMap
 {
@@ -20,10 +21,17 @@ private:
     sf::Texture tileSheet;
     sf::RectangleShape collisionBox;
 
+    std::map<std::pair<int, int>, Chunk *> chunkMap;
+    unsigned chunkSizeInTiles;
+    unsigned worldSizeInChunks;
+    unsigned worldSizeInTiles;
+    unsigned worldSize;
+
     std::string saveFile;
 
 public:
     TileMap(float gridSize, unsigned width, unsigned height, std::string texture_file);
+    TileMap(float gridSize, unsigned worldSizeInChunks, unsigned chunkSize, std::string texture_file);
     virtual ~TileMap();
 
     const sf::Texture *getTileSheet() const;

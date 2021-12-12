@@ -16,6 +16,15 @@ void TileMap::clear()
             }
         }
     }
+
+    for (size_t x = 0; x < this->worldSizeInChunks; x++)
+    {
+        for (size_t y = 0; y < this->worldSizeInChunks; y++)
+        {
+            delete this->chunkMap.at({x, y});
+            this->chunkMap.at({x, y}) = new Chunk(this->gridSizeF, this->tileSheet, this->collisionBox);
+        }
+    }
 }
 
 TileMap::TileMap(float gridSize, unsigned width, unsigned height, std::string texture_sheet)
@@ -56,6 +65,36 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height, std::string te
     this->collisionBox.setOutlineThickness(1.f);
 }
 
+TileMap::TileMap(float gridSize, unsigned worldSizeInChunks, unsigned chunkSize, std::string texture_file)
+{
+    this->gridSizeF = gridSize;
+    this->gridSizeU = static_cast<unsigned>(gridSize);
+    this->layers = 1;
+    this->texture_file = texture_file;
+    this->chunkSizeInTiles = 16;
+    this->worldSizeInChunks = 10;
+    this->worldSizeInTiles = this->chunkSizeInTiles * this->worldSizeInChunks;
+    this->worldSize = this->worldSizeInTiles * this->gridSizeF;
+
+    if (!this->tileSheet.loadFromFile(texture_file))
+    {
+        std::cout << "ERROR::TILEMAP::FAILED TO LOAD TILESHEET" << std::endl;
+    }
+
+    this->collisionBox.setSize(sf::Vector2f(gridSize, gridSize));
+    this->collisionBox.setFillColor(sf::Color(255, 0, 0, 50));
+    this->collisionBox.setOutlineColor(sf::Color::Red);
+    this->collisionBox.setOutlineThickness(1.f);
+
+    for (size_t x = 0; x < this->worldSizeInChunks; x++)
+    {
+        for (size_t y = 0; y < this->worldSizeInChunks; y++)
+        {
+            this->chunkMap.at({x, y}) = new Chunk(this->gridSizeF, this->tileSheet, this->collisionBox);
+        }
+    }
+}
+
 TileMap::~TileMap()
 {
     this->clear();
@@ -83,11 +122,15 @@ const sf::Texture *TileMap::getTileSheet() const
 
 void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect &texture_rect, bool collision, short type)
 {
-    if (x < this->maxSizeWorldGrid.x && x >= 0 &&
-        y < this->maxSizeWorldGrid.y && y >= 0 &&
+    if (x < this->worldSizeInTiles && x >= 0 &&
+        y < this->worldSizeInTiles && y >= 0 &&
         z < this->layers && z >= 0)
     {
-        this->map[x][y][z].push_back(new Tile(x * this->gridSizeF, y * this->gridSizeF, this->gridSizeF, this->tileSheet, texture_rect, collision, type));
+        int chunkX = x / worldSizeInChunks;
+        int chunkY = y / worldSizeInChunks;
+        int localX = x % worldSizeInChunks;
+        int localY = x % worldSizeInChunks;
+        this->chunkMap.at({chunkX, chunkY})->addTile(localX, localY, chunkX * worldSizeInChunks, chunkY * worldSizeInChunks, z, texture_rect, collision, type);
     }
 }
 
@@ -97,11 +140,11 @@ void TileMap::removeTile(const unsigned x, const unsigned y, const unsigned z)
         y < this->maxSizeWorldGrid.y && y >= 0 &&
         z < this->layers && z >= 0)
     {
-        if (!this->map[x][y][z].empty())
-        {
-            delete this->map[x][y][z][this->map[x][y][z].size() - 1];
-            this->map[x][y][z].pop_back();
-        }
+        int chunkX = x / worldSizeInChunks;
+        int chunkY = y / worldSizeInChunks;
+        int localX = x % worldSizeInChunks;
+        int localY = x % worldSizeInChunks;
+        this->chunkMap.at({chunkX, chunkY})->removeTile(localX, localY, z);
     }
 }
 
@@ -202,42 +245,23 @@ void TileMap::updateCollision(Entity *entity, const float &dt)
 
 void TileMap::render(sf::RenderTarget &target, bool debugMode)
 {
-    for (auto &x : this->map)
+    for (size_t x = 0; x < worldSizeInChunks; x++)
     {
-        for (auto &y : x)
+        for (size_t y = 0; y < worldSizeInChunks; y++)
         {
-            for (auto &z : y)
-            {
-                if (!z.empty())
-                {
-                    for (auto &k : z)
-                    {
-                        if (k->getType() == TileTypes::DOODAD)
-                        {
-                            this->deferredRenderStack.push(k);
-                        }
-                        else
-                        {
-                            k->render(target);
-                        }
-                        if (k->getCollision() && debugMode)
-                        {
-                            this->collisionBox.setPosition(k->getPosition());
-                            target.draw(this->collisionBox);
-                        }
-                    }
-                }
-            }
+            this->chunkMap.at({x, y})->render(target, debugMode);
         }
     }
 }
 
 void TileMap::renderDeferred(sf::RenderTarget &target)
 {
-    while (!this->deferredRenderStack.empty())
+    for (size_t x = 0; x < worldSizeInChunks; x++)
     {
-        deferredRenderStack.top()->render(target);
-        deferredRenderStack.pop();
+        for (size_t y = 0; y < worldSizeInChunks; y++)
+        {
+            this->chunkMap.at({x, y})->renderDeferred(target);
+        }
     }
 }
 
@@ -249,32 +273,18 @@ void TileMap::saveToFile(const std::string file_name)
 
     if (out_file.is_open())
     {
-        root["size"]["x"] = this->maxSizeWorldGrid.x;
-        root["size"]["y"] = this->maxSizeWorldGrid.y;
+        root["size"]["x"] = this->worldSizeInChunks;
+        root["size"]["y"] = this->worldSizeInChunks;
         root["gridSize"] = this->gridSizeU;
         root["layers"] = this->layers;
         root["textureFile"] = this->texture_file;
-        root["tiles"] = Json::Value();
+        root["chunks"] = Json::Value();
 
-        for (size_t x = 0; x < this->maxSizeWorldGrid.x; x++)
+        for (size_t x = 0; x < this->worldSizeInChunks; x++)
         {
-            for (size_t y = 0; y < this->maxSizeWorldGrid.y; y++)
+            for (size_t y = 0; y < this->worldSizeInChunks; y++)
             {
-                for (size_t z = 0; z < this->layers; z++)
-                {
-                    if (!this->map[x][y][z].empty())
-                    {
-                        for (size_t k = 0; k < this->map[x][y][z].size(); k++)
-                        {
-                            Json::Value value = this->map[x][y][z][k]->getAsJson();
-                            value["x"] = x;
-                            value["y"] = y;
-                            value["z"] = z;
-                            value["k"] = k;
-                            root["tiles"].append(value);
-                        }
-                    }
-                }
+                root["chunks"].append(this->chunkMap.at({x, y})->getAsJson());
             }
         }
 

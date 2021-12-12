@@ -29,8 +29,8 @@ public:
     void addTile(const unsigned x, const unsigned y, const unsigned offsetX, const unsigned offsetY, const unsigned z, const sf::IntRect &texture_rect, bool collision, short type);
     void removeTile(const unsigned x, const unsigned y, const unsigned z);
 
-    void render(sf::RenderTarget &target, bool debugMode, sf::Vector2i offSet);
-    void renderDeferred(sf::RenderTarget &target, sf::Vector2i offSet);
+    void render(sf::RenderTarget &target, bool debugMode);
+    void renderDeferred(sf::RenderTarget &target);
 
     Json::Value getAsJson();
 };

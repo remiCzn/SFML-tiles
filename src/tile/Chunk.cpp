@@ -55,7 +55,7 @@ void Chunk::update()
 {
 }
 
-void Chunk::render(sf::RenderTarget &target, bool debugMode, sf::Vector2i offSet)
+void Chunk::render(sf::RenderTarget &target, bool debugMode)
 {
     for (auto &x : this->chunk)
     {
@@ -87,7 +87,7 @@ void Chunk::render(sf::RenderTarget &target, bool debugMode, sf::Vector2i offSet
     }
 }
 
-void Chunk::renderDeferred(sf::RenderTarget &target, sf::Vector2i offSet)
+void Chunk::renderDeferred(sf::RenderTarget &target)
 {
     while (!this->deferredRenderStack.empty())
     {
