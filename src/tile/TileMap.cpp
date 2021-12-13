@@ -327,7 +327,7 @@ void TileMap::loadFromFile(std::string filename)
                 Json::Value chunk = *itrY;
                 std::cout << x << y << std::endl;
                 this->chunkMap.at({x, y}) = new Chunk(this->gridSizeF, this->tileSheet, this->collisionBox);
-                this->chunkMap.at({x, y})->loadFromJson(chunk);
+                this->chunkMap.at({x, y})->loadFromJson(chunk, x * this->gridSizeU * this->chunkSizeInTiles, y * this->gridSizeU * this->chunkSizeInTiles);
             }
         }
     }

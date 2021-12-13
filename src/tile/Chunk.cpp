@@ -123,7 +123,7 @@ Json::Value Chunk::getAsJson()
     return root;
 }
 
-void Chunk::loadFromJson(Json::Value chunk)
+void Chunk::loadFromJson(Json::Value chunk, const int offsetX, const int offsetY)
 {
     this->chunk.resize(this->chunkWidthGrid, std::vector<std::vector<std::vector<Tile *>>>());
     for (size_t x = 0; x < this->chunkWidthGrid; x++)
@@ -139,8 +139,8 @@ void Chunk::loadFromJson(Json::Value chunk)
     {
         Json::Value tile = chunk["tiles"][i];
         this->chunk[tile["x"].asInt()][tile["y"].asInt()][tile["z"].asInt()].push_back(
-            new Tile(tile["x"].asInt() * this->gridSizeF,
-                     tile["y"].asInt() * this->gridSizeF,
+            new Tile(tile["x"].asInt() * this->gridSizeF + offsetX,
+                     tile["y"].asInt() * this->gridSizeF + offsetY,
                      this->gridSizeF,
                      this->tileSheet,
                      sf::IntRect(tile["trX"].asInt(), tile["trY"].asInt(), this->gridSizeU, this->gridSizeU),
