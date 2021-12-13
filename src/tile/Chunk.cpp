@@ -123,6 +123,32 @@ Json::Value Chunk::getAsJson()
     return root;
 }
 
+void Chunk::loadFromJson(Json::Value chunk)
+{
+    this->chunk.resize(this->chunkWidthGrid, std::vector<std::vector<std::vector<Tile *>>>());
+    for (size_t x = 0; x < this->chunkWidthGrid; x++)
+    {
+        this->chunk[x].resize(this->chunkWidthGrid, std::vector<std::vector<Tile *>>());
+        for (size_t y = 0; y < this->chunkWidthGrid; y++)
+        {
+            this->chunk[x][y].resize(this->layers, std::vector<Tile *>());
+        }
+    }
+
+    for (int i = 0; i < chunk["tiles"].size(); i++)
+    {
+        Json::Value tile = chunk["tiles"][i];
+        this->chunk[tile["x"].asInt()][tile["y"].asInt()][tile["z"].asInt()].push_back(
+            new Tile(tile["x"].asInt() * this->gridSizeF,
+                     tile["y"].asInt() * this->gridSizeF,
+                     this->gridSizeF,
+                     this->tileSheet,
+                     sf::IntRect(tile["trX"].asInt(), tile["trY"].asInt(), this->gridSizeU, this->gridSizeU),
+                     tile["collision"].asBool(),
+                     tile["type"].asInt()));
+    }
+}
+
 void Chunk::addTile(const unsigned x, const unsigned y, const unsigned offsetX, const unsigned offsetY, const unsigned z, const sf::IntRect &texture_rect, bool collision, short type)
 {
     if (x < this->chunkWidthGrid && x >= 0 &&

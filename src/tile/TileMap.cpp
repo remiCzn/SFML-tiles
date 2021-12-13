@@ -2,21 +2,6 @@
 
 void TileMap::clear()
 {
-    for (size_t x = 0; x < this->maxSizeWorldGrid.x; x++)
-    {
-        for (size_t y = 0; y < this->maxSizeWorldGrid.y; y++)
-        {
-            for (size_t z = 0; z < this->layers; z++)
-            {
-                for (size_t k = 0; k < this->map[x][y][z].size(); k++)
-                {
-                    delete this->map[x][y][z][k];
-                    this->map[x][y][z][k] = new Tile();
-                }
-            }
-        }
-    }
-
     for (size_t x = 0; x < this->worldSizeInChunks; x++)
     {
         for (size_t y = 0; y < this->worldSizeInChunks; y++)
@@ -27,43 +12,43 @@ void TileMap::clear()
     }
 }
 
-TileMap::TileMap(float gridSize, unsigned width, unsigned height, std::string texture_sheet)
-{
-    this->gridSizeF = gridSize;
-    this->gridSizeU = static_cast<unsigned>(this->gridSizeF);
-    this->maxSizeWorldGrid.x = width;
-    this->maxSizeWorldGrid.y = height;
-    this->maxSizeWorldF.x = static_cast<float>(width) * gridSize;
-    this->maxSizeWorldF.y = static_cast<float>(height) * gridSize;
-    this->layers = 1;
-    this->texture_file = texture_sheet;
+// TileMap::TileMap(float gridSize, unsigned width, unsigned height, std::string texture_sheet)
+// {
+//     this->gridSizeF = gridSize;
+//     this->gridSizeU = static_cast<unsigned>(this->gridSizeF);
+//     this->maxSizeWorldGrid.x = width;
+//     this->maxSizeWorldGrid.y = height;
+//     this->maxSizeWorldF.x = static_cast<float>(width) * gridSize;
+//     this->maxSizeWorldF.y = static_cast<float>(height) * gridSize;
+//     this->layers = 1;
+//     this->texture_file = texture_sheet;
 
-    this->map.resize(this->maxSizeWorldGrid.x);
-    for (size_t x = 0; x < this->maxSizeWorldGrid.x; x++)
-    {
-        this->map.push_back(std::vector<std::vector<std::vector<Tile *>>>());
-        this->map[x].resize(this->maxSizeWorldGrid.y);
-        for (size_t y = 0; y < this->maxSizeWorldGrid.y; y++)
-        {
-            this->map[x].push_back(std::vector<std::vector<Tile *>>());
-            this->map[x][y].resize(this->layers);
-            for (size_t z = 0; z < this->layers; z++)
-            {
-                this->map[x][y].push_back(std::vector<Tile *>());
-            }
-        }
-    }
+//     this->map.resize(this->maxSizeWorldGrid.x);
+//     for (size_t x = 0; x < this->maxSizeWorldGrid.x; x++)
+//     {
+//         this->map.push_back(std::vector<std::vector<std::vector<Tile *>>>());
+//         this->map[x].resize(this->maxSizeWorldGrid.y);
+//         for (size_t y = 0; y < this->maxSizeWorldGrid.y; y++)
+//         {
+//             this->map[x].push_back(std::vector<std::vector<Tile *>>());
+//             this->map[x][y].resize(this->layers);
+//             for (size_t z = 0; z < this->layers; z++)
+//             {
+//                 this->map[x][y].push_back(std::vector<Tile *>());
+//             }
+//         }
+//     }
 
-    if (!this->tileSheet.loadFromFile(texture_sheet))
-    {
-        std::cout << "ERROR::TILEMAP::FAILED TO LOAD TILESHEET" << std::endl;
-    }
+//     if (!this->tileSheet.loadFromFile(texture_sheet))
+//     {
+//         std::cout << "ERROR::TILEMAP::FAILED TO LOAD TILESHEET" << std::endl;
+//     }
 
-    this->collisionBox.setSize(sf::Vector2f(gridSize, gridSize));
-    this->collisionBox.setFillColor(sf::Color(255, 0, 0, 50));
-    this->collisionBox.setOutlineColor(sf::Color::Red);
-    this->collisionBox.setOutlineThickness(1.f);
-}
+//     this->collisionBox.setSize(sf::Vector2f(gridSize, gridSize));
+//     this->collisionBox.setFillColor(sf::Color(255, 0, 0, 50));
+//     this->collisionBox.setOutlineColor(sf::Color::Red);
+//     this->collisionBox.setOutlineThickness(1.f);
+// }
 
 TileMap::TileMap(float gridSize, unsigned worldSizeInChunks, unsigned chunkSize, std::string texture_file)
 {
@@ -90,7 +75,7 @@ TileMap::TileMap(float gridSize, unsigned worldSizeInChunks, unsigned chunkSize,
     {
         for (size_t y = 0; y < this->worldSizeInChunks; y++)
         {
-            this->chunkMap.at({x, y}) = new Chunk(this->gridSizeF, this->tileSheet, this->collisionBox);
+            this->chunkMap.insert({{x, y}, new Chunk(this->gridSizeF, this->tileSheet, this->collisionBox)});
         }
     }
 }
@@ -126,11 +111,11 @@ void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, cons
         y < this->worldSizeInTiles && y >= 0 &&
         z < this->layers && z >= 0)
     {
-        int chunkX = x / worldSizeInChunks;
-        int chunkY = y / worldSizeInChunks;
-        int localX = x % worldSizeInChunks;
-        int localY = x % worldSizeInChunks;
-        this->chunkMap.at({chunkX, chunkY})->addTile(localX, localY, chunkX * worldSizeInChunks, chunkY * worldSizeInChunks, z, texture_rect, collision, type);
+        int chunkX = x / chunkSizeInTiles;
+        int chunkY = y / chunkSizeInTiles;
+        int localX = x % chunkSizeInTiles;
+        int localY = y % chunkSizeInTiles;
+        this->chunkMap.at({chunkX, chunkY})->addTile(localX, localY, chunkX * chunkSizeInTiles, chunkY * chunkSizeInTiles, z, texture_rect, collision, type);
     }
 }
 
@@ -140,10 +125,10 @@ void TileMap::removeTile(const unsigned x, const unsigned y, const unsigned z)
         y < this->maxSizeWorldGrid.y && y >= 0 &&
         z < this->layers && z >= 0)
     {
-        int chunkX = x / worldSizeInChunks;
-        int chunkY = y / worldSizeInChunks;
-        int localX = x % worldSizeInChunks;
-        int localY = x % worldSizeInChunks;
+        int chunkX = x / chunkSizeInTiles;
+        int chunkY = y / chunkSizeInTiles;
+        int localX = x % chunkSizeInTiles;
+        int localY = x % chunkSizeInTiles;
         this->chunkMap.at({chunkX, chunkY})->removeTile(localX, localY, z);
     }
 }
@@ -278,15 +263,29 @@ void TileMap::saveToFile(const std::string file_name)
         root["gridSize"] = this->gridSizeU;
         root["layers"] = this->layers;
         root["textureFile"] = this->texture_file;
-        root["chunks"] = Json::Value();
+        Json::Value chunks;
 
         for (size_t x = 0; x < this->worldSizeInChunks; x++)
         {
+            Json::Value chunksX = Json::Value();
             for (size_t y = 0; y < this->worldSizeInChunks; y++)
             {
-                root["chunks"].append(this->chunkMap.at({x, y})->getAsJson());
+                Json::Value chunk = this->chunkMap.at({x, y})->getAsJson();
+                if (!chunk.isNull())
+                {
+                    chunksX[std::to_string(y)] = chunk;
+                }
+            }
+            if (!chunksX.isNull())
+            {
+                chunks[std::to_string(x)] = chunksX;
             }
         }
+        if (chunks.isNull())
+        {
+            chunks = Json::arrayValue;
+        }
+        root["chunks"] = chunks;
 
         out_file << root;
     }
@@ -318,22 +317,18 @@ void TileMap::loadFromFile(std::string filename)
         {
             std::cout << "ERROR::TILEMAP::Failed to load tiletexture sheet::filename: " << texture_file << std::endl;
         }
-
-        this->map.resize(this->maxSizeWorldGrid.x, std::vector<std::vector<std::vector<Tile *>>>());
-        for (size_t x = 0; x < this->maxSizeWorldGrid.x; x++)
+        for (auto itrX = root["chunks"].begin(); itrX != root["chunks"].end(); itrX++)
         {
-            this->map[x].resize(this->maxSizeWorldGrid.y, std::vector<std::vector<Tile *>>());
-            for (size_t y = 0; y < this->maxSizeWorldGrid.y; y++)
+            int x = std::stoi(itrX.key().asString());
+            Json::Value chunksByX = *itrX;
+            for (auto itrY = chunksByX.begin(); itrY != chunksByX.end(); itrY++)
             {
-                this->map[x][y].resize(this->layers, std::vector<Tile *>());
+                int y = std::stoi(itrY.key().asString());
+                Json::Value chunk = *itrY;
+                std::cout << x << y << std::endl;
+                this->chunkMap.at({x, y}) = new Chunk(this->gridSizeF, this->tileSheet, this->collisionBox);
+                this->chunkMap.at({x, y})->loadFromJson(chunk);
             }
-        }
-
-        for (int i = 0; i < root["tiles"].size(); i++)
-        {
-            Json::Value tile = root["tiles"][i];
-            this->map[tile["x"].asInt()][tile["y"].asInt()][tile["z"].asInt()].push_back(new Tile(tile["x"].asInt() * this->gridSizeF, tile["y"].asInt() * this->gridSizeF, this->gridSizeF, this->tileSheet,
-                                                                                                  sf::IntRect(tile["trX"].asInt(), tile["trY"].asInt(), this->gridSizeU, this->gridSizeU), tile["collision"].asBool(), tile["type"].asInt()));
         }
     }
     else

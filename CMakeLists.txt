@@ -60,6 +60,7 @@ add_executable(main
     src/components/HitboxComponent.cpp
     src/components/AttributeComponent.cpp
     src/tile/Tile.cpp
+    src/tile/Chunk.cpp
     src/tile/TileMap.cpp
     src/gui/PauseMenu.cpp
     src/gui/PlayerGUI.cpp

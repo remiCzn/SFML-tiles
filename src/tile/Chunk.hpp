@@ -33,6 +33,7 @@ public:
     void renderDeferred(sf::RenderTarget &target);
 
     Json::Value getAsJson();
+    void loadFromJson(Json::Value chunk);
 };
 
 #endif

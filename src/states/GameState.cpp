@@ -86,7 +86,7 @@ void GameState::initPlayer()
 
 void GameState::initTileMap()
 {
-    this->map = new TileMap(this->statedata->gridSize, 256, 256, "images/Tiles/tilesheet1.png");
+    this->map = new TileMap(this->statedata->gridSize, 10, 16, "images/Tiles/tilesheet1.png");
     this->map->loadFromFile("map.json");
 }
 
