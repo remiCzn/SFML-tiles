@@ -1,90 +1,89 @@
 #include "MovementComponent.hpp"
 
-MovementComponent::MovementComponent(sf::Sprite* sprite,
-    float maxVelocity,
-    float acceleration,
-    float decceleration)
-    : sprite(sprite), 
-      maxVelocity(maxVelocity), 
-      acceleration(acceleration), 
+MovementComponent::MovementComponent(sf::Sprite *sprite,
+                                     float maxVelocity,
+                                     float acceleration,
+                                     float decceleration)
+    : sprite(sprite),
+      maxVelocity(maxVelocity),
+      acceleration(acceleration),
       deceleration(decceleration),
       state(IDLE_DOWN)
 {
-    
 }
 
 MovementComponent::~MovementComponent()
 {
 }
 
-void MovementComponent::update(const float& dt)
+void MovementComponent::update(const float &dt)
 {
-    if(this->velocity.y > 0.f)
+    if (this->velocity.y > 0.f)
     {
-        if(this->velocity.y > this->maxVelocity)
+        if (this->velocity.y > this->maxVelocity)
             this->velocity.y = this->maxVelocity;
-        
+
         this->velocity.y -= deceleration;
-        if(abs(this->velocity.y) > abs(this->velocity.x))
+        if (abs(this->velocity.y) > abs(this->velocity.x))
         {
             this->state = MOVING_DOWN;
         }
 
-        if(this->velocity.y < 0.f)
+        if (this->velocity.y < 0.f)
         {
             this->velocity.y = 0.f;
             this->state = IDLE_DOWN;
-        } 
+        }
     }
 
-    if(this->velocity.y < 0.f)
+    if (this->velocity.y < 0.f)
     {
-        if(this->velocity.y < - this->maxVelocity)
+        if (this->velocity.y < -this->maxVelocity)
             this->velocity.y = -maxVelocity;
-        
+
         this->velocity.y += deceleration;
-        if(abs(this->velocity.y) > abs(this->velocity.x))
+        if (abs(this->velocity.y) > abs(this->velocity.x))
         {
             this->state = MOVING_UP;
         }
-    
-        if(this->velocity.y > 0.f)
+
+        if (this->velocity.y > 0.f)
         {
             this->velocity.y = 0.f;
             this->state = IDLE_UP;
         }
     }
 
-    if(this->velocity.x > 0.f)
+    if (this->velocity.x > 0.f)
     {
-        if(this->velocity.x > this->maxVelocity)
+        if (this->velocity.x > this->maxVelocity)
             this->velocity.x = this->maxVelocity;
-        
+
         this->velocity.x -= deceleration;
-        if(abs(this->velocity.x) > abs(this->velocity.y))
+        if (abs(this->velocity.x) > abs(this->velocity.y))
         {
             this->state = MOVING_RIGHT;
         }
 
-        if(this->velocity.x < 0.f)
+        if (this->velocity.x < 0.f)
         {
             this->velocity.x = 0.f;
             this->state = IDLE_RIGHT;
         }
     }
 
-    if(this->velocity.x < 0.f)
+    if (this->velocity.x < 0.f)
     {
-        if(this->velocity.x < - this->maxVelocity)
+        if (this->velocity.x < -this->maxVelocity)
             this->velocity.x = -maxVelocity;
-        
+
         this->velocity.x += deceleration;
-        if(abs(this->velocity.x) > abs(this->velocity.y))
+        if (abs(this->velocity.x) > abs(this->velocity.y))
         {
             this->state = MOVING_LEFT;
         }
-        
-        if(this->velocity.x > 0.f)
+
+        if (this->velocity.x > 0.f)
         {
             this->velocity.x = 0.f;
             this->state = IDLE_LEFT;
@@ -100,28 +99,33 @@ void MovementComponent::move(const float dir_x, const float dir_y, const float d
     this->velocity.y += this->acceleration * dir_y;
 }
 
-const sf::Vector2f & MovementComponent::getVelocity() const{
+const sf::Vector2f &MovementComponent::getVelocity() const
+{
     return this->velocity;
 }
 
-const short MovementComponent::getState() const {
+const short MovementComponent::getState() const
+{
     return this->state;
 }
 
-const float& MovementComponent::getMaxVelocity() const
+const float &MovementComponent::getMaxVelocity() const
 {
     return this->maxVelocity;
 }
 
-void MovementComponent::stopVelocity() {
+void MovementComponent::stopVelocity()
+{
     this->velocity.x = 0.f;
     this->velocity.y = 0.f;
 }
 
-void MovementComponent::stopVelocityX() {
+void MovementComponent::stopVelocityX()
+{
     this->velocity.x = 0.f;
 }
 
-void MovementComponent::stopVelocityY() {
+void MovementComponent::stopVelocityY()
+{
     this->velocity.y = 0.f;
 }

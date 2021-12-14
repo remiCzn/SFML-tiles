@@ -12,6 +12,7 @@ void Entity::initVariables()
     this->movementComponent = NULL;
     this->hitboxComponent = NULL;
     this->animationComponent = NULL;
+    this->attributeComponent = NULL;
 }
 
 Entity::~Entity()
@@ -20,18 +21,20 @@ Entity::~Entity()
     delete this->hitboxComponent;
     delete this->animationComponent;
     delete this->movementComponent;
+    delete this->attributeComponent;
 }
 
 void Entity::setPosition(const float x, const float y)
 {
-    if(this->hitboxComponent)
-        this->hitboxComponent->setPosition(x,y);
+    if (this->hitboxComponent)
+        this->hitboxComponent->setPosition(x, y);
     else
         this->sprite->setPosition(x, y);
 }
 
-const sf::Vector2f& Entity::getPosition() const {
-    if(this->hitboxComponent)
+const sf::Vector2f &Entity::getPosition() const
+{
+    if (this->hitboxComponent)
         return this->hitboxComponent->getPosition();
 
     return this->sprite->getPosition();
@@ -39,31 +42,32 @@ const sf::Vector2f& Entity::getPosition() const {
 
 const sf::FloatRect Entity::getGlobalBounds() const
 {
-    if(this->hitboxComponent)
+    if (this->hitboxComponent)
         return this->hitboxComponent->getGlobalBounds();
 
     return this->sprite->getGlobalBounds();
 }
 
-const sf::FloatRect& Entity::getNextPosition(const float& dt) const {
-    if(this->hitboxComponent && this->movementComponent) {
+const sf::FloatRect &Entity::getNextPosition(const float &dt) const
+{
+    if (this->hitboxComponent && this->movementComponent)
+    {
         return this->hitboxComponent->getNextPosition(this->movementComponent->getVelocity() * dt);
     }
     std::cout << "Calculate next position need hitbox & movement component";
     throw;
 }
 
-const sf::Vector2u Entity::getGridPosition(const unsigned gridSizeU) const {
-    if(this->hitboxComponent)
+const sf::Vector2u Entity::getGridPosition(const unsigned gridSizeU) const
+{
+    if (this->hitboxComponent)
         return sf::Vector2u(
             static_cast<unsigned>(this->hitboxComponent->getPosition().x) / gridSizeU,
-            static_cast<unsigned>(this->hitboxComponent->getPosition().y) / gridSizeU
-        );
-    
+            static_cast<unsigned>(this->hitboxComponent->getPosition().y) / gridSizeU);
+
     return sf::Vector2u(
         static_cast<unsigned>(this->sprite->getPosition().x) / gridSizeU,
-        static_cast<unsigned>(this->sprite->getPosition().y) / gridSizeU
-    );
+        static_cast<unsigned>(this->sprite->getPosition().y) / gridSizeU);
 }
 
 void Entity::move(const float &dt, const float dir_x, const float dir_y)
@@ -71,7 +75,7 @@ void Entity::move(const float &dt, const float dir_x, const float dir_y)
     this->movementComponent->move(dir_x, dir_y, dt);
 }
 
-void Entity::setTexture(sf::Texture* texture)
+void Entity::setTexture(sf::Texture *texture)
 {
     this->sprite->setTexture(*texture);
 }
@@ -86,41 +90,47 @@ void Entity::createMovementComponent(const float maxSpeed, const float accelerat
     this->movementComponent = new MovementComponent(this->sprite, maxSpeed, acceleration, decceleration);
 }
 
-void Entity::createAnimationComponent(sf::Texture& textureSheet)
+void Entity::createAnimationComponent(sf::Texture &textureSheet)
 {
     this->animationComponent = new AnimationComponent(this->sprite, textureSheet);
 }
 
+void Entity::createAttributeComponent(const unsigned level)
+{
+    this->attributeComponent = new AttributeComponent(level);
+}
+
 void Entity::createHitboxComponent(
     float offsetX, float offsetY,
-    float width, float height
-)
+    float width, float height)
 {
     this->hitboxComponent = new HitboxComponent(*this->sprite, offsetX, offsetY, width, height);
 }
 
 void Entity::update(const float &dt)
 {
-    if(this->movementComponent)
+    if (this->movementComponent)
         this->movementComponent->update(dt);
 }
 
-void Entity::stopVelocity(){
-    if(this->movementComponent)
+void Entity::stopVelocity()
+{
+    if (this->movementComponent)
         this->movementComponent->stopVelocity();
 }
 
-void Entity::stopVelocityX(){
-    if(this->movementComponent)
+void Entity::stopVelocityX()
+{
+    if (this->movementComponent)
         this->movementComponent->stopVelocityX();
 }
 
-void Entity::stopVelocityY(){
-    if(this->movementComponent)
+void Entity::stopVelocityY()
+{
+    if (this->movementComponent)
         this->movementComponent->stopVelocityY();
 }
 
-void Entity::render(sf::RenderTarget &target)
+void Entity::render(sf::RenderTarget &target, bool debugMode)
 {
-
 }

@@ -6,8 +6,8 @@ Tile::Tile()
     this->type = TileTypes::DEFAULT;
 }
 
-Tile::Tile(float x, float y, float gridSizeF, const sf::Texture& texture, const sf::IntRect& texture_rect, 
-    bool coll, short type)
+Tile::Tile(float x, float y, float gridSizeF, const sf::Texture &texture, const sf::IntRect &texture_rect,
+           bool coll, short type)
 {
     this->shape.setSize(sf::Vector2f(gridSizeF, gridSizeF));
     this->shape.setTexture(&texture);
@@ -22,7 +22,13 @@ Tile::~Tile()
 {
 }
 
-const Json::Value Tile::getAsJson() const {
+const short &Tile::getType() const
+{
+    return this->type;
+}
+
+const Json::Value Tile::getAsJson() const
+{
     Json::Value result;
     result["trX"] = this->shape.getTextureRect().left;
     result["trY"] = this->shape.getTextureRect().top;
@@ -31,28 +37,31 @@ const Json::Value Tile::getAsJson() const {
     return result;
 }
 
-const bool& Tile::getCollision() const {
+const bool &Tile::getCollision() const
+{
     return this->collision;
 }
 
-const sf::Vector2f& Tile::getPosition() const {
+const sf::Vector2f &Tile::getPosition() const
+{
     return this->shape.getPosition();
 }
 
-const sf::FloatRect Tile::getGlobalBounds() const {
+const sf::FloatRect Tile::getGlobalBounds() const
+{
     return this->shape.getGlobalBounds();
 }
 
-const bool Tile::intersects(const sf::FloatRect bounds) const {
+const bool Tile::intersects(const sf::FloatRect bounds) const
+{
     return this->shape.getGlobalBounds().intersects(bounds);
 }
 
 void Tile::update()
 {
-
 }
 
-void Tile::render(sf::RenderTarget& target)
+void Tile::render(sf::RenderTarget &target)
 {
     target.draw(this->shape);
 }

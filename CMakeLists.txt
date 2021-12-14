@@ -24,6 +24,7 @@ set(EXFILES
     images/character/player_sheet.png
     images/Tiles/grass.png
     images/Tiles/tilesheet.png
+    images/Tiles/tilesheet1.png
     images/UI/checkx48.png
 )
 
@@ -40,7 +41,8 @@ add_executable(main
     src/lib/jsoncpp.cpp
     src/resource/algo/Noise.cpp
     src/resource/algo/test/run.cpp
-    
+    src/resource/KeyState.cpp
+
     src/main.cpp
     src/Game.cpp
     src/states/State.cpp
@@ -50,17 +52,21 @@ add_executable(main
     src/states/EditorState.cpp
     src/entities/Entity.cpp
     src/entities/Player.cpp
-    src/resource/gui/Button.cpp
-    src/resource/gui/DropDownList.cpp
-    src/resource/gui/TextureSelector.cpp
+    src/gui/Button.cpp
+    src/gui/DropDownList.cpp
+    src/gui/TextureSelector.cpp
     src/resource/GraphicSettings.cpp
-    src/resource/gui/CheckBox.cpp
+    src/gui/CheckBox.cpp
     src/components/MovementComponent.cpp
     src/components/AnimationComponent.cpp
     src/components/HitboxComponent.cpp
+    src/components/AttributeComponent.cpp
     src/tile/Tile.cpp
+    src/tile/Chunk.cpp
     src/tile/TileMap.cpp
     src/gui/PauseMenu.cpp
+    src/gui/PlayerGUI.cpp
+    src/gui/progressBar/progressBar.cpp
 )
 
 target_link_libraries(main sfml-graphics)

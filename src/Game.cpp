@@ -1,20 +1,21 @@
 #include "Game.hpp"
 
-void Game::initGraphicSettings() {
+void Game::initGraphicSettings()
+{
     this->gfxSettings.loadFromFile("./config/window.json");
 }
 
 void Game::initWindow()
 {
     this->gfxSettings.initWindow();
-    if(!this->dtFont.loadFromFile("./fonts/Dosis-Light.ttf"))
+    if (!this->dtFont.loadFromFile("./fonts/Dosis-Light.ttf"))
     {
         std::cout << "GAME:FONT NOT LOADED" << std::endl;
     }
     this->dtRendered.setFont(this->dtFont);
     this->dtRendered.setString("0");
     this->dtRendered.setCharacterSize(50);
-    this->dtRendered.setPosition(0,0);
+    this->dtRendered.setPosition(0, 0);
     this->dtRendered.setFillColor(sf::Color::White);
 }
 
@@ -30,6 +31,7 @@ void Game::initStateData()
     this->stateData.gridSize = this->gridSize;
     this->stateData.states = &this->states;
     this->stateData.supportedKeys = &this->supportedKeys;
+    this->stateData.debugMode = false;
 }
 
 void Game::initStates()
@@ -81,9 +83,19 @@ Game::~Game()
 
 void Game::updateSFMLEvent()
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F3)) {
-        std::cout << "OK" << std::endl;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::F3))
+    {
+        if (!KeyState::getInstance()->F3)
+        {
+            this->stateData.debugMode = !this->stateData.debugMode;
+            KeyState::getInstance()->F3 = true;
+        }
     }
+    else
+    {
+        KeyState::getInstance()->F3 = false;
+    }
+
     while (this->gfxSettings.window->pollEvent(this->sfEvent))
     {
         if (this->sfEvent.type == sf::Event::Closed)
@@ -109,7 +121,7 @@ void Game::update()
 
     if (!this->states.empty())
     {
-        if(this->stateData.gfxSettings->window->hasFocus())
+        if (this->stateData.gfxSettings->window->hasFocus())
         {
             this->states.top()->update(this->dt);
             if (this->states.top()->getQuit())
@@ -136,7 +148,10 @@ void Game::render()
     {
         this->states.top()->render(this->gfxSettings.window);
     }
-    this->gfxSettings.window->draw(this->dtRendered);
+    if (this->stateData.debugMode)
+    {
+        this->gfxSettings.window->draw(this->dtRendered);
+    }
     this->gfxSettings.window->display();
 }
 
@@ -144,7 +159,10 @@ void Game::updateDt()
 {
     //Update dt variable with the time between two loop
     this->dt = this->dtClock.restart().asSeconds();
-    this->dtRendered.setString(std::to_string(static_cast<int>(1 / this->dt)));
+    if (this->stateData.debugMode)
+    {
+        this->dtRendered.setString(std::to_string(static_cast<int>(1 / this->dt)));
+    }
 }
 
 void Game::endApplication()

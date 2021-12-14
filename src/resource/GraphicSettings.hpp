@@ -9,7 +9,7 @@ public:
     GraphicSettings();
     virtual ~GraphicSettings();
 
-    sf::RenderWindow* window;
+    sf::RenderWindow *window;
 
     std::string title;
 

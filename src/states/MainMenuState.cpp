@@ -1,6 +1,6 @@
 #include "MainMenuState.hpp"
 
-MainMenuState::MainMenuState(StateData* stateData)
+MainMenuState::MainMenuState(StateData *stateData)
     : State(stateData)
 {
     this->initVariables();
@@ -56,30 +56,34 @@ void MainMenuState::initKeybinds()
     ifs.close();
 }
 
-void MainMenuState::initTitle() {
+void MainMenuState::initTitle()
+{
     this->title.setString("Game");
-    this->title.setPosition(100.f, 100.f);
     this->title.setFillColor(sf::Color::White);
     this->title.setFont(this->menuFont);
     this->title.setCharacterSize(65);
+    this->title.setPosition(
+        (this->statedata->gfxSettings->window->getSize().x - this->title.getGlobalBounds().width) / 2.f,
+        100.f);
 }
 
 void MainMenuState::initButtons()
 {
+    int x = this->statedata->gfxSettings->window->getSize().x / 2.f - 125.f;
     this->buttons["GAME_STATE"] = new gui::Button(
-        100, 250, 250, 65.f,
+        x, 250, 250, 65.f,
         "New Game", &this->menuFont, 50);
 
     this->buttons["SETTINGS"] = new gui::Button(
-        100, 350, 250, 65.f,
+        x, 350, 250, 65.f,
         "Settings", &this->menuFont, 50);
 
     this->buttons["EDITOR_STATE"] = new gui::Button(
-        100, 450, 250, 65.f,
+        x, 450, 250, 65.f,
         "Editor", &this->menuFont, 50);
 
     this->buttons["QUIT"] = new gui::Button(
-        100, 550, 250, 65.f,
+        x, 550, 250, 65.f,
         "Quit", &this->menuFont, 50);
 }
 
@@ -101,21 +105,21 @@ void MainMenuState::updateButtons()
         it.second->update(this->mousePosWindow);
     }
 
-    if (this->buttons["GAME_STATE"]->isPressed())
+    if (this->buttons["GAME_STATE"]->isClicked())
     {
         //push game state when pressed
         this->statedata->states->push(new GameState(this->statedata));
     }
-    if(this->buttons["SETTINGS"]->isPressed())
+    if (this->buttons["SETTINGS"]->isClicked())
     {
         this->statedata->states->push(new SettingsState(this->statedata));
     }
-    if (this->buttons["EDITOR_STATE"]->isPressed())
+    if (this->buttons["EDITOR_STATE"]->isClicked())
     {
         //push editor state when pressed
         this->statedata->states->push(new EditorState(this->statedata));
     }
-    if (this->buttons["QUIT"]->isPressed())
+    if (this->buttons["QUIT"]->isClicked())
     {
         this->endState();
     }

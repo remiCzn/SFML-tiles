@@ -4,7 +4,7 @@
 #include "GameState.hpp"
 #include "EditorState.hpp"
 #include "SettingsState.hpp"
-#include "../resource/gui/gui.hpp"
+#include "../gui/gui.hpp"
 #include "../headers/headers.hpp"
 
 class MainMenuState : public State
@@ -25,7 +25,7 @@ private:
     void initTitle();
 
 public:
-    MainMenuState(StateData* stateData);
+    MainMenuState(StateData *stateData);
     virtual ~MainMenuState();
 
     void updateInput(const float &dt);

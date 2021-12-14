@@ -29,4 +29,7 @@
 //JSONCPP
 #include "../lib/json/json.h"
 
+//LIBS
+#include "../resource/KeyState.hpp"
+
 #endif
