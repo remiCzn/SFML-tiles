@@ -69,14 +69,14 @@ void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, cons
 
 void TileMap::removeTile(const unsigned x, const unsigned y, const unsigned z)
 {
-    if (x < this->maxSizeWorldGrid.x && x >= 0 &&
-        y < this->maxSizeWorldGrid.y && y >= 0 &&
+    if (x < this->chunkSizeInTiles && x >= 0 &&
+        y < this->chunkSizeInTiles && y >= 0 &&
         z < this->layers && z >= 0)
     {
         int chunkX = x / chunkSizeInTiles;
         int chunkY = y / chunkSizeInTiles;
         int localX = x % chunkSizeInTiles;
-        int localY = x % chunkSizeInTiles;
+        int localY = y % chunkSizeInTiles;
         this->chunkMap.at({chunkX, chunkY})->removeTile(localX, localY);
     }
 }
