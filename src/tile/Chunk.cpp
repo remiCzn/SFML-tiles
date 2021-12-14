@@ -147,7 +147,7 @@ void Chunk::addTile(const unsigned x, const unsigned y, const sf::IntRect &textu
         y < this->chunkWidthGrid && y >= 0 && this->chunk[x][y].size() <= this->layers)
     {
         this->chunk[x][y].push_back(
-            new Tile((x + this->offsetX) * this->gridSizeF, (y + this->offsetY) * this->gridSizeF, this->gridSizeF, this->tileSheet, texture_rect, collision, type));
+            new Tile((x * gridSizeF) + this->offsetX, (y * this->gridSizeF) + this->offsetY, this->gridSizeF, this->tileSheet, texture_rect, collision, type));
     }
 }
 
@@ -170,16 +170,16 @@ const std::vector<Tile *> Chunk::getTileStack(const unsigned x, const unsigned y
     return std::vector<Tile *>();
 }
 
-void Chunk::generate()
+void Chunk::generate(float scale, float threshold)
 {
     for (size_t x = 0; x < this->chunkWidthGrid; x++)
     {
         for (size_t y = 0; y < this->chunkWidthGrid; y++)
         {
-            if (Noise::noise(x / 10.f, y / 10.f) > 0)
+            if (Noise::noise((x + this->offsetX / this->gridSizeF) / scale, (y + this->offsetY / this->gridSizeF) / scale) > threshold)
             {
                 this->chunk[x][y].push_back(
-                    new Tile((x + offsetX) * this->gridSizeF, (y + offsetY) * this->gridSizeF, this->gridSizeF, this->tileSheet, sf::IntRect(0, 0, gridSizeU, gridSizeU), false, TileTypes::DEFAULT));
+                    new Tile((x * this->gridSizeF) + this->offsetX, (y * this->gridSizeF) + this->offsetY, this->gridSizeF, this->tileSheet, sf::IntRect(0, 0, gridSizeU, gridSizeU), false, TileTypes::DEFAULT));
             }
         }
     }

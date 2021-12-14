@@ -41,7 +41,7 @@ public:
     Json::Value getAsJson();
     void loadFromJson(Json::Value chunk);
 
-    void generate();
+    void generate(float scale, float threshold);
 };
 
 #endif

@@ -38,7 +38,7 @@ TileMap::TileMap(float gridSize, unsigned worldSizeInChunks, unsigned chunkSize,
         for (size_t y = 0; y < this->worldSizeInChunks; y++)
         {
             this->chunkMap.insert({{x, y}, new Chunk(this->gridSizeF, this->tileSheet, this->collisionBox, x * this->gridSizeU * this->chunkSizeInTiles, y * this->gridSizeU * this->chunkSizeInTiles)});
-            this->chunkMap.at({x, y})->generate();
+            this->chunkMap.at({x, y})->generate(40.f, 0.f);
         }
     }
 }
