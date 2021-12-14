@@ -156,4 +156,5 @@ const std::vector<Tile *> Chunk::getTileStack(const unsigned x, const unsigned y
     {
         return this->chunk[x][y];
     }
+    return std::vector<Tile *>();
 }
