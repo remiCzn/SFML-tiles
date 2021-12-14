@@ -105,21 +105,21 @@ void MainMenuState::updateButtons()
         it.second->update(this->mousePosWindow);
     }
 
-    if (this->buttons["GAME_STATE"]->isPressed())
+    if (this->buttons["GAME_STATE"]->isClicked())
     {
         //push game state when pressed
         this->statedata->states->push(new GameState(this->statedata));
     }
-    if (this->buttons["SETTINGS"]->isPressed())
+    if (this->buttons["SETTINGS"]->isClicked())
     {
         this->statedata->states->push(new SettingsState(this->statedata));
     }
-    if (this->buttons["EDITOR_STATE"]->isPressed())
+    if (this->buttons["EDITOR_STATE"]->isClicked())
     {
         //push editor state when pressed
         this->statedata->states->push(new EditorState(this->statedata));
     }
-    if (this->buttons["QUIT"]->isPressed())
+    if (this->buttons["QUIT"]->isClicked())
     {
         this->endState();
     }
