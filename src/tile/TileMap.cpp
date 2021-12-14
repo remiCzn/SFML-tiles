@@ -12,44 +12,6 @@ void TileMap::clear()
     }
 }
 
-// TileMap::TileMap(float gridSize, unsigned width, unsigned height, std::string texture_sheet)
-// {
-//     this->gridSizeF = gridSize;
-//     this->gridSizeU = static_cast<unsigned>(this->gridSizeF);
-//     this->maxSizeWorldGrid.x = width;
-//     this->maxSizeWorldGrid.y = height;
-//     this->maxSizeWorldF.x = static_cast<float>(width) * gridSize;
-//     this->maxSizeWorldF.y = static_cast<float>(height) * gridSize;
-//     this->layers = 1;
-//     this->texture_file = texture_sheet;
-
-//     this->map.resize(this->maxSizeWorldGrid.x);
-//     for (size_t x = 0; x < this->maxSizeWorldGrid.x; x++)
-//     {
-//         this->map.push_back(std::vector<std::vector<std::vector<Tile *>>>());
-//         this->map[x].resize(this->maxSizeWorldGrid.y);
-//         for (size_t y = 0; y < this->maxSizeWorldGrid.y; y++)
-//         {
-//             this->map[x].push_back(std::vector<std::vector<Tile *>>());
-//             this->map[x][y].resize(this->layers);
-//             for (size_t z = 0; z < this->layers; z++)
-//             {
-//                 this->map[x][y].push_back(std::vector<Tile *>());
-//             }
-//         }
-//     }
-
-//     if (!this->tileSheet.loadFromFile(texture_sheet))
-//     {
-//         std::cout << "ERROR::TILEMAP::FAILED TO LOAD TILESHEET" << std::endl;
-//     }
-
-//     this->collisionBox.setSize(sf::Vector2f(gridSize, gridSize));
-//     this->collisionBox.setFillColor(sf::Color(255, 0, 0, 50));
-//     this->collisionBox.setOutlineColor(sf::Color::Red);
-//     this->collisionBox.setOutlineThickness(1.f);
-// }
-
 TileMap::TileMap(float gridSize, unsigned worldSizeInChunks, unsigned chunkSize, std::string texture_file)
 {
     this->gridSizeF = gridSize;
@@ -59,7 +21,7 @@ TileMap::TileMap(float gridSize, unsigned worldSizeInChunks, unsigned chunkSize,
     this->chunkSizeInTiles = 16;
     this->worldSizeInChunks = 10;
     this->worldSizeInTiles = this->chunkSizeInTiles * this->worldSizeInChunks;
-    this->worldSize = this->worldSizeInTiles * this->gridSizeF;
+    this->worldSize = static_cast<float>(this->worldSizeInTiles) * this->gridSizeF;
 
     if (!this->tileSheet.loadFromFile(texture_file))
     {
@@ -85,21 +47,6 @@ TileMap::~TileMap()
     this->clear();
 }
 
-const int TileMap::getLayerSize(const int x, const int y, const int layer) const
-{
-    if (x >= 0 && x < this->map.size())
-    {
-        if (y >= 0 && y < this->map[x].size())
-        {
-            if (layer >= 0 && layer < this->map[x][y].size())
-            {
-                return this->map[x][y][layer].size();
-            }
-        }
-    }
-    return -1;
-}
-
 const sf::Texture *TileMap::getTileSheet() const
 {
     return &this->tileSheet;
@@ -115,7 +62,7 @@ void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, cons
         int chunkY = y / chunkSizeInTiles;
         int localX = x % chunkSizeInTiles;
         int localY = y % chunkSizeInTiles;
-        this->chunkMap.at({chunkX, chunkY})->addTile(localX, localY, chunkX * chunkSizeInTiles, chunkY * chunkSizeInTiles, z, texture_rect, collision, type);
+        this->chunkMap.at({chunkX, chunkY})->addTile(localX, localY, chunkX * chunkSizeInTiles, chunkY * chunkSizeInTiles, texture_rect, collision, type);
     }
 }
 
@@ -129,7 +76,7 @@ void TileMap::removeTile(const unsigned x, const unsigned y, const unsigned z)
         int chunkY = y / chunkSizeInTiles;
         int localX = x % chunkSizeInTiles;
         int localY = x % chunkSizeInTiles;
-        this->chunkMap.at({chunkX, chunkY})->removeTile(localX, localY, z);
+        this->chunkMap.at({chunkX, chunkY})->removeTile(localX, localY);
     }
 }
 
@@ -145,7 +92,7 @@ void TileMap::updateCollision(Entity *entity, const float &dt)
     {
         entity->stopVelocityX();
     }
-    else if ((nextPosition.left + nextPosition.width) > this->maxSizeWorldF.x)
+    else if ((nextPosition.left + nextPosition.width) >= this->worldSize)
     {
         entity->stopVelocityX();
     }
@@ -154,7 +101,7 @@ void TileMap::updateCollision(Entity *entity, const float &dt)
     {
         entity->stopVelocityY();
     }
-    else if ((nextPosition.top + nextPosition.height) >= this->maxSizeWorldF.y)
+    else if ((nextPosition.top + nextPosition.height) >= this->worldSize)
     {
         entity->stopVelocityY();
     }
@@ -163,55 +110,61 @@ void TileMap::updateCollision(Entity *entity, const float &dt)
     int layer = 0;
     sf::Vector2u pos = entity->getGridPosition(this->gridSizeU);
     int x1 = pos.x - 1;
-    int x2 = pos.x + 3;
+    int x2 = pos.x + 2;
     int y1 = pos.y - 1;
-    int y2 = pos.y + 3;
+    int y2 = pos.y + 2;
 
     if (x1 < 0)
     {
         x1 = 0;
     }
-    else if (x1 > this->maxSizeWorldGrid.x)
+    else if (x1 > worldSize)
     {
-        x1 = this->maxSizeWorldGrid.x;
+        x1 = this->worldSize;
     }
 
     if (x2 < 0)
     {
         x2 = 0;
     }
-    else if (x2 > this->maxSizeWorldGrid.x)
+    else if (x2 > this->worldSize)
     {
-        x2 = this->maxSizeWorldGrid.x;
+        x2 = this->worldSize;
     }
 
     if (y1 < 0)
     {
         y1 = 0;
     }
-    else if (y1 > this->maxSizeWorldGrid.y)
+    else if (y1 > this->worldSize)
     {
-        y1 = this->maxSizeWorldGrid.y;
+        y1 = this->worldSize;
     }
 
     if (y2 < 0)
     {
         y2 = 0;
     }
-    else if (y2 > this->maxSizeWorldGrid.y)
+    else if (y2 > this->worldSize)
     {
-        y2 = this->maxSizeWorldGrid.y;
+        y2 = this->worldSize;
     }
 
     for (size_t x = x1; x < x2; x++)
     {
         for (size_t y = y1; y < y2; y++)
         {
-            for (size_t k = 0; k < this->map[x][y][layer].size(); k++)
+            int chunkX = x / chunkSizeInTiles;
+            int chunkY = y / chunkSizeInTiles;
+            int localX = x % chunkSizeInTiles;
+            int localY = y % chunkSizeInTiles;
+            std::vector<Tile *> ts = this->chunkMap.at({chunkX, chunkY})->getTileStack(localX, localY);
+            if (!ts.empty())
             {
-                Tile t = *this->map[x][y][layer][k];
+                Tile t = *(ts.at(0));
                 if (t.getCollision() && t.intersects(entity->getNextPosition(dt)))
                 {
+                    std::cout << localX << localY << std::endl;
                     sf::FloatRect wallBounds = t.getGlobalBounds();
 
                     if (wallBounds.left < nextPosition.left + nextPosition.width && wallBounds.left + wallBounds.width > nextPosition.left)

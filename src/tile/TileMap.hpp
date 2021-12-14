@@ -25,7 +25,7 @@ private:
     unsigned chunkSizeInTiles;
     unsigned worldSizeInChunks;
     unsigned worldSizeInTiles;
-    unsigned worldSize;
+    float worldSize;
 
     std::string saveFile;
 

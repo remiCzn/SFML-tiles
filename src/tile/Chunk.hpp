@@ -13,7 +13,7 @@ private:
     float chunkWidthF;
 
     unsigned layers;
-    std::vector<std::vector<std::vector<std::vector<Tile *>>>> chunk;
+    std::vector<std::vector<std::vector<Tile *>>> chunk;
     std::stack<Tile *> deferredRenderStack;
     sf::Texture &tileSheet;
     sf::RectangleShape collisionBox;
@@ -26,8 +26,9 @@ public:
 
     void update();
 
-    void addTile(const unsigned x, const unsigned y, const unsigned offsetX, const unsigned offsetY, const unsigned z, const sf::IntRect &texture_rect, bool collision, short type);
-    void removeTile(const unsigned x, const unsigned y, const unsigned z);
+    void addTile(const unsigned x, const unsigned y, const unsigned offsetX, const unsigned offsetY, const sf::IntRect &texture_rect, bool collision, short type);
+    void removeTile(const unsigned x, const unsigned y);
+    const std::vector<Tile *> getTileStack(const unsigned x, const unsigned y);
 
     void render(sf::RenderTarget &target, bool debugMode);
     void renderDeferred(sf::RenderTarget &target);
