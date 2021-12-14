@@ -141,10 +141,11 @@ void Chunk::addTile(const unsigned x, const unsigned y, const unsigned offsetX, 
 
 void Chunk::removeTile(const unsigned x, const unsigned y)
 {
+    std::cout << "b:" << x << y << this->chunk[x][y].size() << std::endl;
     if (x < this->chunkWidthGrid && x >= 0 &&
         y < this->chunkWidthGrid && y >= 0 && this->chunk[x][y].size() > 0)
     {
-
+        std::cout << "a" << std::endl;
         delete this->chunk[x][y][this->chunk[x][y].size() - 1];
         this->chunk[x][y].pop_back();
     }
