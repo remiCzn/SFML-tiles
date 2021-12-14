@@ -18,8 +18,8 @@ TileMap::TileMap(float gridSize, unsigned worldSizeInChunks, unsigned chunkSize,
     this->gridSizeU = static_cast<unsigned>(gridSize);
     this->layers = 1;
     this->texture_file = texture_file;
-    this->chunkSizeInTiles = 16;
-    this->worldSizeInChunks = 10;
+    this->chunkSizeInTiles = chunkSize;
+    this->worldSizeInChunks = worldSizeInChunks;
     this->worldSizeInTiles = this->chunkSizeInTiles * this->worldSizeInChunks;
     this->worldSize = static_cast<float>(this->worldSizeInTiles) * this->gridSizeF;
 
@@ -119,36 +119,36 @@ void TileMap::updateCollision(Entity *entity, const float &dt)
     {
         x1 = 0;
     }
-    else if (x1 > worldSize)
+    else if (x1 > worldSizeInTiles)
     {
-        x1 = this->worldSize;
+        x1 = this->worldSizeInTiles;
     }
 
     if (x2 < 0)
     {
         x2 = 0;
     }
-    else if (x2 > this->worldSize)
+    else if (x2 > this->worldSizeInTiles)
     {
-        x2 = this->worldSize;
+        x2 = this->worldSizeInTiles;
     }
 
     if (y1 < 0)
     {
         y1 = 0;
     }
-    else if (y1 > this->worldSize)
+    else if (y1 > this->worldSizeInTiles)
     {
-        y1 = this->worldSize;
+        y1 = this->worldSizeInTiles;
     }
 
     if (y2 < 0)
     {
         y2 = 0;
     }
-    else if (y2 > this->worldSize)
+    else if (y2 > this->worldSizeInTiles)
     {
-        y2 = this->worldSize;
+        y2 = this->worldSizeInTiles;
     }
 
     for (size_t x = x1; x < x2; x++)
@@ -279,7 +279,6 @@ void TileMap::loadFromFile(std::string filename)
             {
                 int y = std::stoi(itrY.key().asString());
                 Json::Value chunk = *itrY;
-                std::cout << x << y << std::endl;
                 this->chunkMap.at({x, y}) = new Chunk(this->gridSizeF, this->tileSheet, this->collisionBox, x * this->gridSizeU * this->chunkSizeInTiles, y * this->gridSizeU * this->chunkSizeInTiles);
                 this->chunkMap.at({x, y})->loadFromJson(chunk);
             }

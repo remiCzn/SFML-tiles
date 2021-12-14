@@ -37,6 +37,13 @@ Chunk::Chunk(float gridSize, sf::Texture &tilesheet, sf::RectangleShape &collisi
         }
     }
     this->collisionBox = collisionBox;
+
+    this->chunkBox.setSize(sf::Vector2f(
+        this->chunkWidthF, this->chunkWidthF));
+    this->chunkBox.setPosition(offsetX, offsetY);
+    this->chunkBox.setOutlineThickness(1.f);
+    this->chunkBox.setOutlineColor(sf::Color::White);
+    this->chunkBox.setFillColor(sf::Color::Transparent);
 }
 
 Chunk::~Chunk()
@@ -72,6 +79,10 @@ void Chunk::render(sf::RenderTarget &target, bool debugMode)
                 }
             }
         }
+    }
+    if (debugMode)
+    {
+        target.draw(chunkBox);
     }
 }
 
@@ -142,11 +153,9 @@ void Chunk::addTile(const unsigned x, const unsigned y, const sf::IntRect &textu
 
 void Chunk::removeTile(const unsigned x, const unsigned y)
 {
-    std::cout << "b:" << x << y << this->chunk[x][y].size() << std::endl;
     if (x < this->chunkWidthGrid && x >= 0 &&
         y < this->chunkWidthGrid && y >= 0 && this->chunk[x][y].size() > 0)
     {
-        std::cout << "a" << std::endl;
         delete this->chunk[x][y][this->chunk[x][y].size() - 1];
         this->chunk[x][y].pop_back();
     }
@@ -167,7 +176,7 @@ void Chunk::generate()
     {
         for (size_t y = 0; y < this->chunkWidthGrid; y++)
         {
-            if (Noise::noise(x / 5.f, y / 5.f) > 0)
+            if (Noise::noise(x / 10.f, y / 10.f) > 0)
             {
                 this->chunk[x][y].push_back(
                     new Tile((x + offsetX) * this->gridSizeF, (y + offsetY) * this->gridSizeF, this->gridSizeF, this->tileSheet, sf::IntRect(0, 0, gridSizeU, gridSizeU), false, TileTypes::DEFAULT));

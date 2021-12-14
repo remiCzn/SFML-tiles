@@ -21,6 +21,8 @@ private:
     sf::Texture &tileSheet;
     sf::RectangleShape collisionBox;
 
+    sf::RectangleShape chunkBox;
+
     void clear();
 
 public:
