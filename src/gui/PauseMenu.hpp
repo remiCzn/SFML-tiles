@@ -1,11 +1,7 @@
 #ifndef PAUSEMENU_H
 #define PAUSEMENU_H
 
-<<<<<<< HEAD
-#include "../resource/gui/gui.hpp"
-=======
 #include "./gui.hpp"
->>>>>>> main
 #include "../headers/headers.hpp"
 
 class PauseMenu

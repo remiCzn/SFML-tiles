@@ -7,7 +7,7 @@ void TileMap::clear()
         for (size_t y = 0; y < this->worldSizeInChunks; y++)
         {
             delete this->chunkMap.at({x, y});
-            this->chunkMap.at({x, y}) = new Chunk(this->gridSizeF, this->tileSheet, this->collisionBox);
+            this->chunkMap.at({x, y}) = new Chunk(this->gridSizeF, this->tileSheet, this->collisionBox, x * this->gridSizeU * this->chunkSizeInTiles, y * this->gridSizeU * this->chunkSizeInTiles);
         }
     }
 }
@@ -37,7 +37,8 @@ TileMap::TileMap(float gridSize, unsigned worldSizeInChunks, unsigned chunkSize,
     {
         for (size_t y = 0; y < this->worldSizeInChunks; y++)
         {
-            this->chunkMap.insert({{x, y}, new Chunk(this->gridSizeF, this->tileSheet, this->collisionBox)});
+            this->chunkMap.insert({{x, y}, new Chunk(this->gridSizeF, this->tileSheet, this->collisionBox, x * this->gridSizeU * this->chunkSizeInTiles, y * this->gridSizeU * this->chunkSizeInTiles)});
+            this->chunkMap.at({x, y})->generate();
         }
     }
 }
@@ -62,7 +63,7 @@ void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, cons
         int chunkY = y / chunkSizeInTiles;
         int localX = x % chunkSizeInTiles;
         int localY = y % chunkSizeInTiles;
-        this->chunkMap.at({chunkX, chunkY})->addTile(localX, localY, chunkX * chunkSizeInTiles, chunkY * chunkSizeInTiles, texture_rect, collision, type);
+        this->chunkMap.at({chunkX, chunkY})->addTile(localX, localY, texture_rect, collision, type);
     }
 }
 
@@ -279,8 +280,8 @@ void TileMap::loadFromFile(std::string filename)
                 int y = std::stoi(itrY.key().asString());
                 Json::Value chunk = *itrY;
                 std::cout << x << y << std::endl;
-                this->chunkMap.at({x, y}) = new Chunk(this->gridSizeF, this->tileSheet, this->collisionBox);
-                this->chunkMap.at({x, y})->loadFromJson(chunk, x * this->gridSizeU * this->chunkSizeInTiles, y * this->gridSizeU * this->chunkSizeInTiles);
+                this->chunkMap.at({x, y}) = new Chunk(this->gridSizeF, this->tileSheet, this->collisionBox, x * this->gridSizeU * this->chunkSizeInTiles, y * this->gridSizeU * this->chunkSizeInTiles);
+                this->chunkMap.at({x, y})->loadFromJson(chunk);
             }
         }
     }
