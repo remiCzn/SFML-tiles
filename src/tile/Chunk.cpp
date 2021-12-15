@@ -1,5 +1,6 @@
 #include "Chunk.hpp"
 #include "../resource/algo/Noise.hpp"
+#include "../resource/algo/test/run.hpp"
 
 void Chunk::clear()
 {
@@ -176,7 +177,7 @@ void Chunk::generate(float scale, float threshold)
     {
         for (size_t y = 0; y < this->chunkWidthGrid; y++)
         {
-            if (Noise::noise((x + this->offsetX / this->gridSizeF) / scale, (y + this->offsetY / this->gridSizeF) / scale) > threshold)
+            if (Noise::generate((x + this->offsetX / this->gridSizeF) / scale, (y + this->offsetY / this->gridSizeF) / scale) > threshold)
             {
                 this->chunk[x][y].push_back(
                     new Tile((x * this->gridSizeF) + this->offsetX, (y * this->gridSizeF) + this->offsetY, this->gridSizeF, this->tileSheet, sf::IntRect(0, 0, gridSizeU, gridSizeU), false, TileTypes::DEFAULT));
