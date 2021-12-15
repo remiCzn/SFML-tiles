@@ -68,8 +68,8 @@ void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, cons
 
 void TileMap::removeTile(const unsigned x, const unsigned y, const unsigned z)
 {
-    if (x < this->chunkSizeInTiles && x >= 0 &&
-        y < this->chunkSizeInTiles && y >= 0 &&
+    if (x < this->worldSizeInTiles && x >= 0 &&
+        y < this->worldSizeInTiles && y >= 0 &&
         z < this->layers && z >= 0)
     {
         int chunkX = x / chunkSizeInTiles;
