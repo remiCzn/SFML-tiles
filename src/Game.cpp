@@ -22,7 +22,7 @@ void Game::initWindow()
 void Game::initVariables()
 {
     this->dt = 0.f;
-    this->gridSize = 100.f;
+    this->gridSize = 20.f;
 }
 
 void Game::initStateData()

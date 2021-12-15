@@ -15,12 +15,12 @@ Player::Player(float x, float y, sf::Texture *texture_sheet)
 
     //this->createSprite(texture);
     //Change according to the sprite scale
-    this->sprite->setScale(sf::Vector2f(2.f, 2.f));
+    //this->sprite->setScale(sf::Vector2f(2.f, 2.f));
     //
     this->setPosition(x, y);
     // this->sprite->setOrigin(sf::Vector2f(this->sprite->getGlobalBounds().width / 2.f, this->sprite->getGlobalBounds().height / 2.f));
 
-    this->createHitboxComponent(48.f, 32.f, 32.f, 64.f);
+    this->createHitboxComponent(24.f, 16.f, 16.f, 32.f);
     this->createMovementComponent(300.f, 15.f, 7.f);
     this->createAnimationComponent(*texture_sheet);
     this->createAttributeComponent(1);

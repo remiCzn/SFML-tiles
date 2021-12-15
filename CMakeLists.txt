@@ -25,6 +25,7 @@ set(EXFILES
     images/Tiles/grass.png
     images/Tiles/tilesheet.png
     images/Tiles/tilesheet1.png
+    images/Tiles/tilesheet2.png
     images/UI/checkx48.png
 )
 

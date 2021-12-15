@@ -81,12 +81,12 @@ void GameState::initPauseMenu()
 
 void GameState::initPlayer()
 {
-    this->player = new Player(0, 0, &this->textures["PLAYER_IDLE"]);
+    this->player = new Player(24 * this->statedata->gridSize, 8 * this->statedata->gridSize, &this->textures["PLAYER_IDLE"]);
 }
 
 void GameState::initTileMap()
 {
-    this->map = new TileMap(this->statedata->gridSize, 2, 16, "images/Tiles/tilesheet1.png");
+    this->map = new TileMap(this->statedata->gridSize, 3, 16, "images/Tiles/tilesheet2.png");
     this->map->loadFromFile("map.json");
 }
 
@@ -227,7 +227,6 @@ void GameState::render(sf::RenderTarget *target)
     {
         this->pmenu->render(this->renderTexture);
     }
-
     this->renderTexture.display();
     target->draw(this->renderSprite);
 }

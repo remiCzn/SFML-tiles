@@ -180,7 +180,7 @@ void Chunk::generate(float scale, float threshold)
             if (Noise::generate((x + this->offsetX / this->gridSizeF), (y + this->offsetY / this->gridSizeF)) > threshold)
             {
                 this->chunk[x][y].push_back(
-                    new Tile((x * this->gridSizeF) + this->offsetX, (y * this->gridSizeF) + this->offsetY, this->gridSizeF, this->tileSheet, sf::IntRect(0, 0, gridSizeU, gridSizeU), false, TileTypes::DEFAULT));
+                    new Tile((x * this->gridSizeF) + this->offsetX, (y * this->gridSizeF) + this->offsetY, this->gridSizeF, this->tileSheet, sf::IntRect(0, 2 * gridSizeU, gridSizeU, gridSizeU), true, TileTypes::DEFAULT));
             }
         }
     }
