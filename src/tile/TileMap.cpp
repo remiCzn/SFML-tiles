@@ -165,7 +165,6 @@ void TileMap::updateCollision(Entity *entity, const float &dt)
                 Tile t = *(ts.at(0));
                 if (t.getCollision() && t.intersects(entity->getNextPosition(dt)))
                 {
-                    std::cout << localX << localY << std::endl;
                     sf::FloatRect wallBounds = t.getGlobalBounds();
 
                     if (wallBounds.left < nextPosition.left + nextPosition.width && wallBounds.left + wallBounds.width > nextPosition.left)

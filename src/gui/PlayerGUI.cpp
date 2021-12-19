@@ -16,7 +16,7 @@ PlayerGUI::~PlayerGUI()
 
 void PlayerGUI::initFont()
 {
-    this->font.loadFromFile("fonts/FreeSans.ttf");
+    this->font.loadFromFile("src/fonts/FreeSans.ttf");
 }
 
 void PlayerGUI::update(const float &dt)

@@ -1,3 +1,9 @@
 build/
 .vscode/
 src/resource/algo/test/res.json
+out/
+.vs/
+x64/
+Debug/
+Release/
+map.json
