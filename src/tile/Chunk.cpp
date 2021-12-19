@@ -40,8 +40,9 @@ Chunk::Chunk(float gridSize, sf::Texture &tilesheet, sf::RectangleShape &collisi
     this->collisionBox = collisionBox;
 
     this->chunkBox.setSize(sf::Vector2f(
-        this->chunkWidthF, this->chunkWidthF));
-    this->chunkBox.setPosition(offsetX, offsetY);
+        this->chunkWidthF, this->chunkWidthF
+    ));
+    this->chunkBox.setPosition(static_cast<float>(offsetX), static_cast<float>(offsetY));
     this->chunkBox.setOutlineThickness(1.f);
     this->chunkBox.setOutlineColor(sf::Color::White);
     this->chunkBox.setFillColor(sf::Color::Transparent);
@@ -128,7 +129,7 @@ void Chunk::loadFromJson(Json::Value chunk)
         this->chunk[x].resize(this->chunkWidthGrid, std::vector<Tile *>());
     }
 
-    for (int i = 0; i < chunk["tiles"].size(); i++)
+    for (unsigned int i = 0; i < chunk["tiles"].size(); i++)
     {
         Json::Value tile = chunk["tiles"][i];
         this->chunk[tile["x"].asInt()][tile["y"].asInt()].push_back(
@@ -173,11 +174,11 @@ const std::vector<Tile *> Chunk::getTileStack(const unsigned x, const unsigned y
 
 void Chunk::generate(float scale, float threshold)
 {
-    for (size_t x = 0; x < this->chunkWidthGrid; x++)
+    for (unsigned int x = 0; x < this->chunkWidthGrid; x++)
     {
-        for (size_t y = 0; y < this->chunkWidthGrid; y++)
+        for (unsigned int y = 0; y < this->chunkWidthGrid; y++)
         {
-            if (Noise::generate((x + this->offsetX / this->gridSizeF), (y + this->offsetY / this->gridSizeF)) > threshold)
+            if (Noise::generate(x + (int)(this->offsetX / this->gridSizeF), y + (int)(this->offsetY / this->gridSizeF)) > threshold)
             {
                 this->chunk[x][y].push_back(
                     new Tile((x * this->gridSizeF) + this->offsetX, (y * this->gridSizeF) + this->offsetY, this->gridSizeF, this->tileSheet, sf::IntRect(0, 2 * gridSizeU, gridSizeU, gridSizeU), true, TileTypes::DEFAULT));

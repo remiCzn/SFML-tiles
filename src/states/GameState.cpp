@@ -64,8 +64,9 @@ void GameState::initFonts()
 void GameState::initView()
 {
     this->view.setSize(
-        this->statedata->gfxSettings->resolution.width,
-        this->statedata->gfxSettings->resolution.height);
+        static_cast<float>(this->statedata->gfxSettings->resolution.width),
+        static_cast<float>(this->statedata->gfxSettings->resolution.height)
+    );
 
     this->view.setCenter(
         this->statedata->gfxSettings->resolution.width / 2.f,

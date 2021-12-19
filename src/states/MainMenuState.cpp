@@ -27,8 +27,10 @@ void MainMenuState::initBackground()
 {
     this->background.setSize(
         sf::Vector2f(
-            this->statedata->gfxSettings->window->getSize().x,
-            this->statedata->gfxSettings->window->getSize().y));
+            static_cast<float>(this->statedata->gfxSettings->window->getSize().x),
+            static_cast<float>(this->statedata->gfxSettings->window->getSize().y)
+        )
+    );
     this->background.setFillColor(sf::Color::Black);
 }
 
@@ -69,21 +71,21 @@ void MainMenuState::initTitle()
 
 void MainMenuState::initButtons()
 {
-    int x = this->statedata->gfxSettings->window->getSize().x / 2.f - 125.f;
+    float x = this->statedata->gfxSettings->window->getSize().x / 2.f - 125.f;
     this->buttons["GAME_STATE"] = new gui::Button(
-        x, 250, 250, 65.f,
+        x, 250.f, 250.f, 65.f,
         "New Game", &this->menuFont, 50);
 
     this->buttons["SETTINGS"] = new gui::Button(
-        x, 350, 250, 65.f,
+        x, 350.f, 250.f, 65.f,
         "Settings", &this->menuFont, 50);
 
     this->buttons["EDITOR_STATE"] = new gui::Button(
-        x, 450, 250, 65.f,
+        x, 450.f, 250.f, 65.f,
         "Editor", &this->menuFont, 50);
 
     this->buttons["QUIT"] = new gui::Button(
-        x, 550, 250, 65.f,
+        x, 550.f, 250.f, 65.f,
         "Quit", &this->menuFont, 50);
 }
 
