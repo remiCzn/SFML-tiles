@@ -73,9 +73,12 @@
     <ClInclude Include="src\states\MainMenuState.hpp" />
     <ClInclude Include="src\states\SettingsState.hpp" />
     <ClInclude Include="src\states\State.hpp" />
+    <ClInclude Include="src\tile\Chunk.hpp" />
+    <ClInclude Include="src\tile\Tile.hpp" />
+    <ClInclude Include="src\tile\TileMap.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\resource\algo\test\trace.py" />
+    <None Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="src\fonts\Dosis-Light.ttf" />

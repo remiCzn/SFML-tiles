@@ -19,158 +19,137 @@
     <Filter Include="Fichiers de ressources\Fonts">
       <UniqueIdentifier>{ef024d09-dfff-48b6-b5cb-7f2fd4df1d49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Components">
+      <UniqueIdentifier>{21942bb7-688e-4e51-ad9b-4bc9ee9ec58d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Components">
+      <UniqueIdentifier>{6434f3b2-7697-46ec-8ac4-dc3bdc1024f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Entities">
+      <UniqueIdentifier>{de03caa5-6376-4c05-a55d-407f63a24c63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Entities">
+      <UniqueIdentifier>{fc6b6cb2-28e3-442f-8de1-a601ca00a443}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\GUI">
+      <UniqueIdentifier>{484653c6-03eb-4125-9720-cbc4afdf5b09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Resources">
+      <UniqueIdentifier>{d3dd9be3-3907-4891-969b-0b5ec40bf1db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Resources">
+      <UniqueIdentifier>{4ca2302e-d41a-42fc-aefb-76e114b306c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\States">
+      <UniqueIdentifier>{55f32313-8faf-41eb-9ff3-d88700dfab3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\States">
+      <UniqueIdentifier>{c4b1f739-7e26-4e2a-8844-87d94abdf81a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\GUI">
+      <UniqueIdentifier>{bda569f0-7ba9-48ba-926e-f81f0921de1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Tile">
+      <UniqueIdentifier>{1ce6ff03-8bf8-4406-bf81-dabcb20d5ae1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Tile">
+      <UniqueIdentifier>{4d6e534d-f2eb-481f-a842-114a7b434787}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\tile\Chunk.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tile\Tile.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tile\TileMap.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\states\EditorState.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\states\GameState.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\states\MainMenuState.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\states\SettingsState.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\states\State.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resource\GraphicSettings.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resource\KeyState.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resource\algo\Noise.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resource\algo\test\run.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\headers\headers.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\Button.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\CheckBox.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\DropDownList.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\PauseMenu.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\PlayerGUI.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\TextureSelector.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\progressBar\progressBar.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\entities\Entity.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\entities\Player.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\AnimationComponent.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\AttributeComponent.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\HitboxComponent.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\MovementComponent.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\jsoncpp.cpp">
       <Filter>Fichiers de ressources\JsonCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\AnimationComponent.cpp">
+      <Filter>Fichiers sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\AttributeComponent.cpp">
+      <Filter>Fichiers sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\HitboxComponent.cpp">
+      <Filter>Fichiers sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\MovementComponent.cpp">
+      <Filter>Fichiers sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entities\Entity.cpp">
+      <Filter>Fichiers sources\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entities\Player.cpp">
+      <Filter>Fichiers sources\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\Button.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\CheckBox.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\DropDownList.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\PauseMenu.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\PlayerGUI.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\TextureSelector.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\progressBar\progressBar.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\headers\headers.cpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource\GraphicSettings.cpp">
+      <Filter>Fichiers sources\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource\KeyState.cpp">
+      <Filter>Fichiers sources\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource\algo\Noise.cpp">
+      <Filter>Fichiers sources\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\states\State.cpp">
+      <Filter>Fichiers sources\States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\states\SettingsState.cpp">
+      <Filter>Fichiers sources\States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\states\MainMenuState.cpp">
+      <Filter>Fichiers sources\States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\states\GameState.cpp">
+      <Filter>Fichiers sources\States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\states\EditorState.cpp">
+      <Filter>Fichiers sources\States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tile\Chunk.cpp">
+      <Filter>Fichiers sources\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tile\Tile.cpp">
+      <Filter>Fichiers sources\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tile\TileMap.cpp">
+      <Filter>Fichiers sources\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource\algo\test\run.cpp">
+      <Filter>Fichiers sources\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\states\EditorState.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\states\GameState.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\states\MainMenuState.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\states\SettingsState.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\states\State.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resource\GraphicSettings.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resource\KeyState.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resource\algo\Noise.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resource\algo\test\run.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="src\headers\headers.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\gui.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\PauseMenu.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\PlayerGUI.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\progressBar\progressBar.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\entities\Entity.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\entities\Player.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\components\AnimationComponent.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\components\AttributeComponent.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\components\HitboxComponent.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\components\MovementComponent.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="src\lib\json\json.h">
@@ -179,9 +158,77 @@
     <ClInclude Include="src\lib\json\json-forwards.h">
       <Filter>Fichiers de ressources\JsonCpp</Filter>
     </ClInclude>
+    <ClInclude Include="src\components\AnimationComponent.hpp">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\AttributeComponent.hpp">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\HitboxComponent.hpp">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\MovementComponent.hpp">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\Entity.hpp">
+      <Filter>Fichiers d%27en-tête\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\Player.hpp">
+      <Filter>Fichiers d%27en-tête\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\gui.hpp">
+      <Filter>Fichiers d%27en-tête\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\PauseMenu.hpp">
+      <Filter>Fichiers d%27en-tête\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\PlayerGUI.hpp">
+      <Filter>Fichiers d%27en-tête\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\progressBar\progressBar.hpp">
+      <Filter>Fichiers d%27en-tête\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource\GraphicSettings.hpp">
+      <Filter>Fichiers d%27en-tête\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource\KeyState.hpp">
+      <Filter>Fichiers d%27en-tête\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource\algo\Noise.hpp">
+      <Filter>Fichiers d%27en-tête\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\states\EditorState.hpp">
+      <Filter>Fichiers d%27en-tête\States</Filter>
+    </ClInclude>
+    <ClInclude Include="src\states\GameState.hpp">
+      <Filter>Fichiers d%27en-tête\States</Filter>
+    </ClInclude>
+    <ClInclude Include="src\states\MainMenuState.hpp">
+      <Filter>Fichiers d%27en-tête\States</Filter>
+    </ClInclude>
+    <ClInclude Include="src\states\SettingsState.hpp">
+      <Filter>Fichiers d%27en-tête\States</Filter>
+    </ClInclude>
+    <ClInclude Include="src\states\State.hpp">
+      <Filter>Fichiers d%27en-tête\States</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tile\Tile.hpp">
+      <Filter>Fichiers d%27en-tête\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tile\TileMap.hpp">
+      <Filter>Fichiers d%27en-tête\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tile\Chunk.hpp">
+      <Filter>Fichiers d%27en-tête\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource\algo\test\run.hpp">
+      <Filter>Fichiers d%27en-tête\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\resource\algo\test\trace.py" />
+    <None Include=".gitignore">
+      <Filter>Fichiers de ressources</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Font Include="src\fonts\Dosis-Light.ttf">
