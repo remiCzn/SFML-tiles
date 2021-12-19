@@ -30,7 +30,7 @@ void GameState::initPlayerGui()
 
 void GameState::initKeybinds()
 {
-    std::ifstream ifs("config/gamestate_keybinds");
+    std::ifstream ifs("src/config/gamestate_keybinds");
     if (ifs.is_open())
     {
         std::string key = "";
@@ -46,7 +46,7 @@ void GameState::initKeybinds()
 
 void GameState::initTextures()
 {
-    if (!this->textures["PLAYER_IDLE"].loadFromFile("images/character/player_sheet.png"))
+    if (!this->textures["PLAYER_IDLE"].loadFromFile("src/images/character/player_sheet.png"))
     {
         throw("ERROR::GAME_STATE::Could not load down idle sprite");
     }
@@ -55,7 +55,7 @@ void GameState::initTextures()
 void GameState::initFonts()
 {
     this->font = new sf::Font();
-    if (!this->font->loadFromFile("fonts/FreeSans.ttf"))
+    if (!this->font->loadFromFile("src/fonts/FreeSans.ttf"))
     {
         throw("ERROR::GAME_STATE::Could not load font for GUI");
     }
@@ -86,8 +86,8 @@ void GameState::initPlayer()
 
 void GameState::initTileMap()
 {
-    this->map = new TileMap(this->statedata->gridSize, 2, 16, "images/Tiles/tilesheet1.png");
-    this->map->loadFromFile("map.json");
+    this->map = new TileMap(this->statedata->gridSize, 2, 16, "src/images/Tiles/tilesheet1.png"); 
+    this->map->loadFromFile("src/map.json");
 }
 
 void GameState::initDeferredRender()
@@ -168,8 +168,10 @@ void GameState::updatePlayerGUI(const float &dt)
 
 void GameState::updateInput(const float &dt)
 {
+    std::cout << 2 << std::endl;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("PAUSE"))))
     {
+        std::cout << 3 << std::endl;
         if (this->lastPauseKeyStatus == false && this->getKeyTime())
         {
             if (this->paused)
@@ -185,6 +187,7 @@ void GameState::updateInput(const float &dt)
     }
     else
     {
+        std::cout << 4 << std::endl;
         this->lastPauseKeyStatus = false;
     }
 }

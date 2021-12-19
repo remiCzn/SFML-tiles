@@ -17,7 +17,7 @@ void SettingsState::initBackground()
 
 void SettingsState::initFonts()
 {
-    if (!this->font.loadFromFile("fonts/FreeSans.ttf"))
+    if (!this->font.loadFromFile("src/fonts/FreeSans.ttf"))
     {
         throw("ERROR::SETTINGS_STATE::Failed to load font");
     }
