@@ -55,6 +55,9 @@
     <Filter Include="Fichiers sources\Tile">
       <UniqueIdentifier>{4d6e534d-f2eb-481f-a842-114a7b434787}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers de ressources\Git">
+      <UniqueIdentifier>{f230e79a-7fba-467f-aadc-aa7a22943aa7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -226,16 +229,19 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include=".gitignore">
-      <Filter>Fichiers de ressources</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Font Include="src\fonts\Dosis-Light.ttf">
       <Filter>Fichiers de ressources\Fonts</Filter>
     </Font>
     <Font Include="src\fonts\FreeSans.ttf">
       <Filter>Fichiers de ressources\Fonts</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore">
+      <Filter>Fichiers de ressources\Git</Filter>
+    </None>
+    <None Include="README.md">
+      <Filter>Fichiers de ressources\Git</Filter>
+    </None>
   </ItemGroup>
 </Project>
