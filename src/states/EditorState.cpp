@@ -39,8 +39,9 @@ void EditorState::initVariables()
 void EditorState::initView()
 {
     this->view.setSize(sf::Vector2f(
-        this->statedata->gfxSettings->resolution.width,
-        this->statedata->gfxSettings->resolution.height));
+        static_cast<float>(this->statedata->gfxSettings->resolution.width),
+        static_cast<float>(this->statedata->gfxSettings->resolution.height))
+    );
 
     this->view.setCenter(sf::Vector2f(
         this->statedata->gfxSettings->resolution.width / 2.f,

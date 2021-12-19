@@ -29,8 +29,8 @@ float Noise::generate(int x, int y)
     float res = 0;
     for (int i = 0; i < 3; i++)
     {
-        float frequence = pow(lacunarity, i);
-        float amplitude = pow(persistence, i);
+        float frequence = static_cast<float>(pow(lacunarity, i));
+        float amplitude = static_cast<float>(pow(persistence, i));
         res += amplitude * Noise::noise(X * frequence / 20.f, Y * frequence / 20.f);
     }
     return res;
