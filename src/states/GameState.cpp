@@ -86,7 +86,7 @@ void GameState::initPlayer()
 
 void GameState::initTileMap()
 {
-    this->map = new TileMap(this->statedata->gridSize, 2, 16, "src/images/Tiles/tilesheet1.png"); 
+    this->map = new TileMap(this->statedata->gridSize, 2, 16, "src/images/Tiles/tilesheet1.png");
     this->map->loadFromFile("src/map.json");
 }
 
@@ -168,10 +168,8 @@ void GameState::updatePlayerGUI(const float &dt)
 
 void GameState::updateInput(const float &dt)
 {
-    std::cout << 2 << std::endl;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("PAUSE"))))
     {
-        std::cout << 3 << std::endl;
         if (this->lastPauseKeyStatus == false && this->getKeyTime())
         {
             if (this->paused)
@@ -187,7 +185,6 @@ void GameState::updateInput(const float &dt)
     }
     else
     {
-        std::cout << 4 << std::endl;
         this->lastPauseKeyStatus = false;
     }
 }

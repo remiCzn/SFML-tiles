@@ -32,7 +32,7 @@ foreach(file ${EXFILES})
     MESSAGE( STATUS "Including " ${file} )
     configure_file(
         src/${file}
-        ${file}
+        src/${file}
         COPYONLY)
 endforeach()
 
