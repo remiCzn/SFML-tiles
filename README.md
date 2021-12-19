@@ -10,6 +10,14 @@ git clone https://github.com/remiCzn/SFML-tiles.git
 cd SFML-tiles
 ```
 
+### Windows
+- Install Visual Studio
+- Clone the project:
+```
+git clone https://github.com/remiCzn/SFML-tiles.git
+```
+Open `SFML_Tiles_vs.sln`
+
 ## Build
 
 ```

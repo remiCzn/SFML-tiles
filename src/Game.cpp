@@ -2,13 +2,13 @@
 
 void Game::initGraphicSettings()
 {
-    this->gfxSettings.loadFromFile("./config/window.json");
+    this->gfxSettings.loadFromFile("src/config/window.json");
 }
 
 void Game::initWindow()
 {
     this->gfxSettings.initWindow();
-    if (!this->dtFont.loadFromFile("./fonts/Dosis-Light.ttf"))
+    if (!this->dtFont.loadFromFile("src/fonts/Dosis-Light.ttf"))
     {
         std::cout << "GAME:FONT NOT LOADED" << std::endl;
     }
@@ -42,7 +42,7 @@ void Game::initStates()
 
 void Game::initKeys()
 {
-    std::ifstream ifs("config/supported_keys");
+    std::ifstream ifs("src/config/supported_keys");
     if (ifs.is_open())
     {
         std::string key = "";

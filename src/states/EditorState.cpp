@@ -53,7 +53,7 @@ void EditorState::initBackground()
 
 void EditorState::initFonts()
 {
-    if (!this->font.loadFromFile("fonts/Dosis-Light.ttf"))
+    if (!this->font.loadFromFile("src/fonts/Dosis-Light.ttf"))
     {
         throw("ERROR::EDITORSTATE::Could not load font");
     }
@@ -61,7 +61,7 @@ void EditorState::initFonts()
 
 void EditorState::initKeybinds()
 {
-    std::ifstream ifs("config/editorstate_keybinds");
+    std::ifstream ifs("src/config/editorstate_keybinds");
     if (ifs.is_open())
     {
         std::string key = "";
@@ -98,7 +98,7 @@ void EditorState::initPauseMenu()
 
 void EditorState::initTileMap()
 {
-    this->map = new TileMap(this->statedata->gridSize, 3, 16, "images/Tiles/tilesheet2.png");
+    this->map = new TileMap(this->statedata->gridSize, 2, 16, "src/images/Tiles/tilesheet1.png");
 }
 
 void EditorState::initGui()
@@ -171,12 +171,12 @@ void EditorState::updatePauseMenu()
 
     if (this->pmenu->isButtonPressed("SAVE"))
     {
-        this->map->saveToFile("map.json");
+        this->map->saveToFile("src/map.json");
     }
 
     if (this->pmenu->isButtonPressed("LOAD"))
     {
-        this->map->loadFromFile("map.json");
+        this->map->loadFromFile("src/map.json");
     }
 }
 

@@ -34,7 +34,7 @@ void MainMenuState::initBackground()
 
 void MainMenuState::initFonts()
 {
-    if (!this->menuFont.loadFromFile("fonts/FreeSans.ttf"))
+    if (!this->menuFont.loadFromFile("src/fonts/FreeSans.ttf"))
     {
         throw("ERROR::MAINMENUSTATE::Could not load font");
     }
@@ -42,7 +42,7 @@ void MainMenuState::initFonts()
 
 void MainMenuState::initKeybinds()
 {
-    std::ifstream ifs("config/mainmenu_keybinds");
+    std::ifstream ifs("src/config/mainmenu_keybinds");
     if (ifs.is_open())
     {
         std::string key = "";
