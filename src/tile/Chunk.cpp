@@ -65,7 +65,7 @@ void Chunk::render(sf::RenderTarget &target, bool debugMode)
         {
             for (auto &z : y)
             {
-
+                //TODO: Optimize Rendering, because with 16 chunk (+ collision Box) -> 16fps
                 if (z->getType() == TileTypes::DOODAD)
                 {
                     this->deferredRenderStack.push(z);
@@ -181,7 +181,7 @@ void Chunk::generate(float scale, float threshold)
             if (Noise::generate(x + (int)(this->offsetX / this->gridSizeF), y + (int)(this->offsetY / this->gridSizeF)) > threshold)
             {
                 this->chunk[x][y].push_back(
-                    new Tile((x * this->gridSizeF) + this->offsetX, (y * this->gridSizeF) + this->offsetY, this->gridSizeF, this->tileSheet, sf::IntRect(0, 2 * gridSizeU, gridSizeU, gridSizeU), true, TileTypes::DEFAULT));
+                    new Tile((x * this->gridSizeF) + this->offsetX, (y * this->gridSizeF) + this->offsetY, this->gridSizeF, this->tileSheet, sf::IntRect(0, 0, gridSizeU, gridSizeU), true, TileTypes::DEFAULT));
             }
         }
     }

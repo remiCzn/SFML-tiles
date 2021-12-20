@@ -4,7 +4,6 @@ GameState::GameState(StateData *stateData)
     : State(stateData)
 {
     this->initDeferredRender();
-    this->initView();
     this->initKeybinds();
     this->initFonts();
     this->initTextures();
@@ -61,18 +60,6 @@ void GameState::initFonts()
     }
 }
 
-void GameState::initView()
-{
-    this->view.setSize(
-        static_cast<float>(this->statedata->gfxSettings->resolution.width),
-        static_cast<float>(this->statedata->gfxSettings->resolution.height)
-    );
-
-    this->view.setCenter(
-        this->statedata->gfxSettings->resolution.width / 2.f,
-        this->statedata->gfxSettings->resolution.height / 2.f);
-}
-
 void GameState::initPauseMenu()
 {
     this->pmenu = new PauseMenu(*this->statedata->gfxSettings->window, this->font);
@@ -87,7 +74,7 @@ void GameState::initPlayer()
 
 void GameState::initTileMap()
 {
-    this->map = new TileMap(this->statedata->gridSize, 2, 16, "src/images/Tiles/tilesheet1.png");
+    this->map = new TileMap(this->statedata->gridSize, 4, 16, "src/images/Tiles/Stonex20.png");
     this->map->loadFromFile("src/map.json");
 }
 

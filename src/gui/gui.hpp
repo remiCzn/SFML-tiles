@@ -104,6 +104,8 @@ namespace gui
         sf::RectangleShape selector;
         sf::Vector2u mousePosGrid;
         sf::IntRect textureRect;
+        
+        float scale;
 
     public:
         TextureSelector(float x, float y, float width, float height,

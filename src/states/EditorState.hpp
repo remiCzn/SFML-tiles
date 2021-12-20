@@ -13,7 +13,8 @@ private:
     sf::Font font;
     sf::Text cursorText;
     PauseMenu *pmenu;
-    sf::View view;
+    sf::RenderTexture renderTexture;
+    sf::Sprite renderSprite;
 
     TileMap *map;
 
@@ -32,7 +33,6 @@ private:
     float cameraSpeed;
 
     void initVariables();
-    void initView();
     void initBackground();
     void initFonts();
     void initText();
@@ -41,6 +41,10 @@ private:
     void initButtons();
     void initGui();
     void initTileMap();
+    void initDeferredRender();
+
+    sf::Vector2f getViewOffset();
+    sf::Vector2u getMousePosGrid();
 
 public:
     EditorState(StateData *stateData);
@@ -53,7 +57,7 @@ public:
     void updatePauseMenu();
     void update(const float &dt);
     void renderButtons(sf::RenderTarget *target = NULL);
-    void renderGui(sf::RenderTarget *target = NULL);
+    void renderGui();
     void render(sf::RenderTarget *target = NULL);
 };
 

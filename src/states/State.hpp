@@ -27,6 +27,8 @@ protected:
 
     std::map<std::string, sf::Texture> textures;
 
+    sf::View view;
+
     bool quit;
 
     bool paused;
@@ -36,12 +38,14 @@ protected:
     sf::Vector2i mousePosWindow;
     sf::Vector2f mousePosView;
     sf::Vector2u mousePosGrid;
+    sf::Vector2u mousePosGridScaled;
 
     float keyTime;
     float keyTimeMax;
     float gridSize;
 
     virtual void initKeybinds() = 0;
+    void initView();
 
 public:
     State(StateData *state_data);

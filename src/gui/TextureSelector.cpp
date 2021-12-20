@@ -10,6 +10,8 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
     this->hidden = false;
     float offset = 60.f;
 
+    this->scale = 2.f;
+
     this->bounds.setPosition(x + offset, y);
     this->bounds.setFillColor(sf::Color(50, 50, 50, 100));
     this->bounds.setOutlineThickness(1.f);
@@ -17,7 +19,7 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
 
     this->sheet.setTexture(*texture_sheet);
     this->sheet.setPosition(x + offset, y);
-    this->sheet.scale(sf::Vector2f(0.5f, 0.5f));
+    this->sheet.scale(sf::Vector2f(scale, scale));
     this->bounds.setSize(sf::Vector2f(this->sheet.getGlobalBounds().width, this->sheet.getGlobalBounds().height));
 
     if (this->sheet.getGlobalBounds().width > this->bounds.getGlobalBounds().width)
@@ -30,7 +32,7 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
     }
 
     this->selector.setPosition(x + offset, y);
-    this->selector.setSize(sf::Vector2f(gridSize / 2.f, gridSize / 2.f));
+    this->selector.setSize(sf::Vector2f(gridSize * scale, gridSize * scale));
     this->selector.setFillColor(sf::Color::Transparent);
     this->selector.setOutlineThickness(1.f);
     this->selector.setOutlineColor(sf::Color::Red);
@@ -96,12 +98,13 @@ void gui::TextureSelector::update(const sf::Vector2i &mousePosWindow, const floa
 
         if (this->active)
         {
-            this->mousePosGrid.x = (mousePosWindow.x - static_cast<int>(this->bounds.getPosition().x)) / static_cast<unsigned>(this->gridSize / 2.f);
-            this->mousePosGrid.y = (mousePosWindow.y - static_cast<int>(this->bounds.getPosition().y)) / static_cast<unsigned>(this->gridSize / 2.f);
+            this->mousePosGrid.x = (mousePosWindow.x - static_cast<int>(this->bounds.getPosition().x)) / static_cast<unsigned>(this->gridSize * scale);
+            this->mousePosGrid.y = (mousePosWindow.y - static_cast<int>(this->bounds.getPosition().y)) / static_cast<unsigned>(this->gridSize * scale);
 
             this->selector.setPosition(
-                this->bounds.getPosition().x + this->mousePosGrid.x * this->gridSize / 2.f,
-                this->bounds.getPosition().y + this->mousePosGrid.y * this->gridSize / 2.f);
+                this->bounds.getPosition().x + this->mousePosGrid.x * this->gridSize * scale,
+                this->bounds.getPosition().y + this->mousePosGrid.y * this->gridSize * scale
+            );
 
             this->textureRect.left = static_cast<int>(this->mousePosGrid.x * this->gridSize);
             this->textureRect.top = static_cast<int>(this->mousePosGrid.y * this->gridSize);

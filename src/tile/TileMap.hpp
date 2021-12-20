@@ -35,12 +35,11 @@ public:
     virtual ~TileMap();
 
     const sf::Texture *getTileSheet() const;
-    const int getLayerSize(const int x, const int y, const int layer) const;
 
     void update();
     void updateCollision(Entity *entity, const float &dt);
 
-    void render(sf::RenderTarget &target, bool debugMode = true);
+    void render(sf::RenderTarget &target, bool debugMode = true, const sf::Vector2u& mousePosition = sf::Vector2u());
     void renderDeferred(sf::RenderTarget &target);
 
     void addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect &texture_rect, bool collision, short type);

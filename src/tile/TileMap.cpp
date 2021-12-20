@@ -181,7 +181,7 @@ void TileMap::updateCollision(Entity *entity, const float &dt)
     }
 }
 
-void TileMap::render(sf::RenderTarget &target, bool debugMode)
+void TileMap::render(sf::RenderTarget &target, bool debugMode, const sf::Vector2u& mousePosition)
 {
     for (size_t x = 0; x < worldSizeInChunks; x++)
     {
