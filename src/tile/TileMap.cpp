@@ -184,9 +184,23 @@ void TileMap::updateCollision(Entity *entity, const float &dt)
 void TileMap::render(sf::RenderTarget &target, bool debugMode, const sf::Vector2u& mousePosition)
 {
     sf::Vector2u chunkCoord = mousePosition / chunkSizeInTiles;
-    for (size_t x = 0; x < worldSizeInChunks; x++)
+    int x1 = chunkCoord.x - 2;
+    int x2 = chunkCoord.x + 2;
+    int y1 = chunkCoord.y - 2;
+    int y2 = chunkCoord.y + 2;
+
+    if (x1 < 0)
+        x1 = 0;
+    if (y1 < 0)
+        y1 = 0;
+    if (x2 >= worldSizeInChunks)
+        x2 = worldSizeInChunks - 1;
+    if (y2 >= worldSizeInChunks)
+        y2 = worldSizeInChunks - 1;
+
+    for (size_t x = x1; x <= x2; x++)
     {
-        for (size_t y = 0; y < worldSizeInChunks; y++)
+        for (size_t y = y1; y <= y2; y++)
         {   
             if (chunkCoord.x == x && chunkCoord.y == y) {
                 this->chunkMap.at({(int)x, (int)y})->render(target, debugMode);

@@ -74,7 +74,7 @@ void GameState::initPlayer()
 
 void GameState::initTileMap()
 {
-    this->map = new TileMap(this->statedata->gridSize, 4, 16, "src/images/Tiles/Stonex20.png");
+    this->map = new TileMap(this->statedata->gridSize, 10, 16, "src/images/Tiles/Stonex20.png");
     this->map->loadFromFile("src/map.json");
 }
 
