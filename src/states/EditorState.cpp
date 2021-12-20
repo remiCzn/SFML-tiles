@@ -282,7 +282,7 @@ void EditorState::updateGui(const float &dt)
     std::stringstream ss;
     ss << this->mousePosView.x << " " << this->mousePosView.y
        << "\n"
-       << this->mousePosGrid.x + (int)(getViewOffset().x / gridSize) << " " << this->mousePosGrid.y + (int)(getViewOffset().y / gridSize)
+       << this->mousePosGridScaled.x << " " << this->mousePosGridScaled.y
        << "\n"
        << this->textureRect.left << " " << this->textureRect.top;
     this->cursorText.setString(ss.str());
@@ -319,7 +319,7 @@ void EditorState::render(sf::RenderTarget *target)
 
     this->renderTexture.clear();
     this->renderTexture.setView(this->view);
-    this->map->render(this->renderTexture, true, this->mousePosGrid);
+    this->map->render(this->renderTexture, true, this->mousePosGridScaled);
     this->map->renderDeferred(this->renderTexture);
     this->renderTexture.setView(this->statedata->gfxSettings->window->getDefaultView());
     this->renderButtons(&this->renderTexture);
