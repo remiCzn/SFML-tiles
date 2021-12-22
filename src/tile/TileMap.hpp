@@ -22,16 +22,16 @@ private:
     sf::RectangleShape collisionBox;
 
     std::map<std::pair<int, int>, Chunk *> chunkMap;
-    unsigned chunkSizeInTiles;
-    unsigned worldSizeInChunks;
-    unsigned worldSizeInTiles;
+    int chunkSizeInTiles;
+    int worldSizeInChunks;
+    int worldSizeInTiles;
     float worldSize;
 
     std::string saveFile;
 
 public:
     // TileMap(float gridSize, unsigned width, unsigned height, std::string texture_file);
-    TileMap(float gridSize, unsigned worldSizeInChunks, unsigned chunkSize, std::string texture_file);
+    TileMap(float gridSize, int worldSizeInChunks, unsigned chunkSize, std::string texture_file);
     virtual ~TileMap();
 
     const sf::Texture *getTileSheet() const;
@@ -39,11 +39,11 @@ public:
     void update();
     void updateCollision(Entity *entity, const float &dt);
 
-    void render(sf::RenderTarget &target, bool debugMode = true, const sf::Vector2u& mousePosition = sf::Vector2u());
+    void render(sf::RenderTarget &target, bool debugMode = true, const sf::Vector2i& mousePosition = sf::Vector2i(), const sf::Vector2i& chunkCenter = sf::Vector2i());
     void renderDeferred(sf::RenderTarget &target);
 
-    void addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect &texture_rect, bool collision, short type);
-    void removeTile(const unsigned x, const unsigned y, const unsigned z);
+    void addTile(const int x, const int y, const unsigned z, const sf::IntRect &texture_rect, bool collision, short type);
+    void removeTile(const int x, const int y, const unsigned z);
     void saveToFile(const std::string file_name);
     void loadFromFile(const std::string file_name);
 };

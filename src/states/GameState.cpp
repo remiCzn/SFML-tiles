@@ -69,12 +69,12 @@ void GameState::initPauseMenu()
 
 void GameState::initPlayer()
 {
-    this->player = new Player(24 * this->statedata->gridSize, 8 * this->statedata->gridSize, &this->textures["PLAYER_IDLE"]);
+    this->player = new Player(8 * this->statedata->gridSize, 24 * this->statedata->gridSize, &this->textures["PLAYER_IDLE"]);
 }
 
 void GameState::initTileMap()
 {
-    this->map = new TileMap(this->statedata->gridSize, 10, 16, "src/images/Tiles/Stonex20.png");
+    this->map = new TileMap(this->statedata->gridSize, 5, 16, "src/images/Tiles/Stonex20.png");
     this->map->loadFromFile("src/map.json");
 }
 
@@ -202,7 +202,7 @@ void GameState::render(sf::RenderTarget *target)
 
     this->renderTexture.clear();
     this->renderTexture.setView(this->view);
-    this->map->render(this->renderTexture, this->statedata->debugMode, sf::Vector2u(this->player->getPosition() / this->gridSize));
+    this->map->render(this->renderTexture, this->statedata->debugMode, sf::Vector2i(this->player->getPosition() / this->gridSize), sf::Vector2i(this->player->getPosition() / this->gridSize));
 
     this->player->render(this->renderTexture, this->statedata->debugMode);
 
