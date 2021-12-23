@@ -3,6 +3,7 @@
 
 #include "../headers/headers.hpp"
 #include "Tile.hpp"
+#include "TileRegistry.hpp"
 
 class Chunk
 {

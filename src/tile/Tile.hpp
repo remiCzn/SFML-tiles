@@ -23,10 +23,14 @@ public:
          bool collision = false, short type = TileTypes::DEFAULT);
     virtual ~Tile();
 
+    void setTexture(const sf::Texture& texture);
+
     const short &getType() const;
 
     const bool &getCollision() const;
+    void setCollision(const bool& isCollision);
     const sf::Vector2f &getPosition() const;
+    void setPosition(const float x, const float y);
     const sf::FloatRect getGlobalBounds() const;
     const Json::Value getAsJson() const;
 

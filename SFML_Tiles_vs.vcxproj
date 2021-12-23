@@ -46,8 +46,11 @@
     <ClCompile Include="src\states\SettingsState.cpp" />
     <ClCompile Include="src\states\State.cpp" />
     <ClCompile Include="src\tile\Chunk.cpp" />
+    <ClCompile Include="src\tile\Custom\Stone.cpp" />
     <ClCompile Include="src\tile\Tile.cpp" />
     <ClCompile Include="src\tile\TileMap.cpp" />
+    <ClCompile Include="src\tile\TileRegistry.cpp" />
+    <ClCompile Include="src\tile\_CustomTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\AnimationComponent.hpp" />
@@ -74,8 +77,11 @@
     <ClInclude Include="src\states\SettingsState.hpp" />
     <ClInclude Include="src\states\State.hpp" />
     <ClInclude Include="src\tile\Chunk.hpp" />
+    <ClInclude Include="src\tile\Custom\Stone.hpp" />
     <ClInclude Include="src\tile\Tile.hpp" />
     <ClInclude Include="src\tile\TileMap.hpp" />
+    <ClInclude Include="src\tile\TileRegistry.hpp" />
+    <ClInclude Include="src\tile\_CustomTile.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -84,6 +90,9 @@
   <ItemGroup>
     <Font Include="src\fonts\Dosis-Light.ttf" />
     <Font Include="src\fonts\FreeSans.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

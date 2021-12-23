@@ -133,13 +133,15 @@ void Chunk::loadFromJson(Json::Value chunk)
     {
         Json::Value tile = chunk["tiles"][i];
         this->chunk[tile["x"].asInt()][tile["y"].asInt()].push_back(
-            new Tile(tile["x"].asInt() * this->gridSizeF + this->offsetX,
+            /*new Tile(tile["x"].asInt() * this->gridSizeF + this->offsetX,
                      tile["y"].asInt() * this->gridSizeF + this->offsetY,
                      this->gridSizeF,
                      this->tileSheet,
                      sf::IntRect(tile["trX"].asInt(), tile["trY"].asInt(), this->gridSizeU, this->gridSizeU),
                      tile["collision"].asBool(),
-                     tile["type"].asInt()));
+                     tile["type"].asInt())*/
+            TileRegistry::Instance()->CreateTile(TileType::STONE, tile["x"].asInt() + this->offsetX / gridSizeF, tile["y"].asInt() + this->offsetY / gridSizeF, gridSizeF)
+        );
     }
 }
 

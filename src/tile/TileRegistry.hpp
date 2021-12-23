@@ -2,7 +2,7 @@
 #define TILE_REGISTRY_H
 
 #include "../headers/headers.hpp"
-#include "./_CustomTile.hpp"
+#include "./Custom/Stone.hpp"
 
 enum class TileType {
 	STONE
@@ -15,6 +15,7 @@ private:
 	virtual ~TileRegistry();
 
 	std::map<TileType, _CustomTile*> registry;
+	std::map<TileType, sf::Texture*> texture_registry;
 
 	static TileRegistry* _instance;
 
@@ -23,9 +24,7 @@ public:
 	void operator=(const TileRegistry&) = delete;
 	static TileRegistry* Instance();
 
-	_CustomTile* CreateTile(TileType type);
+	_CustomTile* CreateTile(TileType type, const int x, const int y, const float gridSizeF);
 };
-
-TileRegistry* TileRegistry::_instance = nullptr;
 
 #endif // !TILE_REGISTRY_H

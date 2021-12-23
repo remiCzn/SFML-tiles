@@ -10,14 +10,16 @@ class _CustomTile : public Tile
 {
 protected:
 	std::string name;
+	std::string tilesheet_name;
 
 public:
-	_CustomTile() {};
-	_CustomTile(std::string name) : name(name) {};
+	_CustomTile();
+	_CustomTile(std::string name, std::string tilesheetFile);
 	virtual ~_CustomTile() {};
-	virtual _CustomTile* Clone() const = 0;
+	virtual _CustomTile* Clone(const int x, const int y, float gridSizeF) const = 0;
+
+	void setTexture(const sf::Texture* texture, const sf::IntRect& texture_rect);
 
 };
 
 #endif
-

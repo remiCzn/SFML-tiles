@@ -42,9 +42,22 @@ const bool &Tile::getCollision() const
     return this->collision;
 }
 
+void Tile::setCollision(const bool& isCollision) {
+    this->collision = isCollision;
+}
+
+void Tile::setTexture(const sf::Texture& texture) {
+    this->shape.setTexture(&texture);
+}
+
 const sf::Vector2f &Tile::getPosition() const
 {
     return this->shape.getPosition();
+}
+
+void Tile::setPosition(const float x, const float y)
+{
+    this->shape.setPosition(x, y);
 }
 
 const sf::FloatRect Tile::getGlobalBounds() const

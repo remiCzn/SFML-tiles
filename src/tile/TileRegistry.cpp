@@ -1,7 +1,10 @@
 #include "TileRegistry.hpp"
 
+TileRegistry* TileRegistry::_instance = nullptr;
+
 TileRegistry::TileRegistry() {
-    registry[TileType::STONE] = new _CustomTile("Stone");
+    registry[TileType::STONE] = new Stone();
+    
 }
 
 TileRegistry::~TileRegistry()
@@ -18,6 +21,8 @@ TileRegistry* TileRegistry::Instance()
     return _instance;
 }
 
-_CustomTile* TileRegistry::CreateTile(TileType type){}
+_CustomTile* TileRegistry::CreateTile(TileType type,const int x, const int y, const float gridSizeF){
+    return this->registry[type]->Clone(x, y, gridSizeF);
+}
 
 
