@@ -22,7 +22,7 @@ TileMap::TileMap(float gridSize, int worldSizeInChunks, unsigned chunkSize, std:
     this->worldSizeInChunks = worldSizeInChunks;
     this->worldSizeInTiles = this->chunkSizeInTiles * this->worldSizeInChunks;
     this->worldSize = static_cast<float>(this->worldSizeInTiles) * this->gridSizeF;
-
+    
     if (!this->tileSheet.loadFromFile(texture_file))
     {
         std::cout << "ERROR::TILEMAP::FAILED TO LOAD TILESHEET" << std::endl;
@@ -38,7 +38,7 @@ TileMap::TileMap(float gridSize, int worldSizeInChunks, unsigned chunkSize, std:
         for (int y = -worldSizeInChunks; y < this->worldSizeInChunks; y++)
         {
             this->chunkMap.insert({{x, y}, new Chunk(this->gridSizeF, this->tileSheet, this->collisionBox, (int)x * this->gridSizeU * this->chunkSizeInTiles, (int)y * this->gridSizeU * this->chunkSizeInTiles)});
-            this->chunkMap.at({x, y})->generate(40.f, 0.f);
+            //this->chunkMap.at({x, y})->generate(40.f, 0.f);
         }
     }
 }
@@ -159,13 +159,12 @@ void TileMap::updateCollision(Entity *entity, const float &dt)
             int chunkY = y >= 0 ?y / (int)chunkSizeInTiles : ((y + 1) / (int)chunkSizeInTiles) - 1;
             int localX = ((x % chunkSizeInTiles) + chunkSizeInTiles) % chunkSizeInTiles;
             int localY = ((y % chunkSizeInTiles) + chunkSizeInTiles) % chunkSizeInTiles;
-            std::vector<Tile *> ts = this->chunkMap.at({chunkX, chunkY})->getTileStack(localX, localY);
-            if (!ts.empty())
+            const Tile * ts = this->chunkMap.at({chunkX, chunkY})->getTile(localX, localY);
+            if (ts != nullptr)
             {
-                Tile t = *(ts.at(0));
-                if (t.getCollision() && t.intersects(entity->getNextPosition(dt)))
+                if (ts->getCollision() && ts->intersects(entity->getNextPosition(dt)))
                 {
-                    sf::FloatRect wallBounds = t.getGlobalBounds();
+                    sf::FloatRect wallBounds = ts->getGlobalBounds();
 
                     if (wallBounds.left < nextPosition.left + nextPosition.width && wallBounds.left + wallBounds.width > nextPosition.left)
                     {

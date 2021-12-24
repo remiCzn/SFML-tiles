@@ -1,10 +1,9 @@
 #include "Dirt.hpp"
 
-_CustomTile* Dirt::Clone(const int x, const int y, float gridSizeF) const {
-	_CustomTile* tile = new Dirt();
-	tile->setPosition(x * gridSizeF, y * gridSizeF);
-	tile->setCollision(true);
+Tile* Dirt::Clone(const int x, const int y) const {
+	Tile* tile = new Dirt(*this);
+	tile->setPosition(x * this->gridSizeF, y * this->gridSizeF);
 	return tile;
 }
 
-Dirt::Dirt() : _CustomTile("Dirt", "src/images/Tiles/Dirtx20.png", TileType::DIRT) {};
+Dirt::Dirt() : Tile("Dirt", TileType::DIRT, "src/images/Tiles/Dirtx20.png", true, 20.f) {};

@@ -1,17 +1,17 @@
 #ifndef DIRT_TILE_H
 #define DIRT_TILE_H
 
-#include "../_CustomTile.hpp"
+#include "../Tile.hpp"
 
 class Dirt :
-    public _CustomTile
+    public Tile
 {
 private:
 public:
     Dirt();
     virtual ~Dirt() {};
 
-    _CustomTile* Clone(const int x, const int y, float gridSizeF) const override;
+    Tile* Clone(const int x, const int y) const override;
 
 };
 

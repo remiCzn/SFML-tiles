@@ -3,17 +3,25 @@
 Tile::Tile()
 {
     this->collision = false;
+    this->gridSizeF = 20.f;
+    this->type = TileType::NONE;
 }
 
 Tile::Tile(float x, float y, float gridSizeF, const sf::Texture &texture, const sf::IntRect &texture_rect,
            bool coll)
 {
+    this->gridSizeF = gridSizeF;
     this->shape.setSize(sf::Vector2f(gridSizeF, gridSizeF));
     this->shape.setTexture(&texture);
     this->shape.setPosition(x, y);
     this->shape.setTextureRect(texture_rect);
-
+    this->type = TileType::NONE;
     this->collision = coll;
+}
+
+Tile::Tile(std::string name, TileType type, std::string tilesheet_name, bool collision, float gridSizeF)
+    : name(name), type(type), tilesheet_name(tilesheet_name), collision(collision), gridSizeF(gridSizeF)
+{
 }
 
 Tile::~Tile()
@@ -23,9 +31,9 @@ Tile::~Tile()
 const Json::Value Tile::getAsJson() const
 {
     Json::Value result;
-    result["trX"] = this->shape.getTextureRect().left;
-    result["trY"] = this->shape.getTextureRect().top;
-    result["collision"] = this->collision;
+    if (this->type != TileType::NONE) {
+        result["id"] = static_cast<int>(this->type);
+    }
     return result;
 }
 
@@ -69,4 +77,15 @@ void Tile::update()
 void Tile::render(sf::RenderTarget &target)
 {
     target.draw(this->shape);
+}
+
+void Tile::setTexture(const sf::Texture* texture, const sf::IntRect& texture_rect)
+{
+    this->shape.setTexture(texture);
+    this->shape.setTextureRect(texture_rect);
+}
+
+const std::string& Tile::getTextureFile() const
+{
+    return this->tilesheet_name;
 }

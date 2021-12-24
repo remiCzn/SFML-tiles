@@ -1,17 +1,17 @@
 #ifndef STONE_TILE_H
 #define STONE_TILE_H
 
-#include "../_CustomTile.hpp"
+#include "../Tile.hpp"
 
 class Stone :
-    public _CustomTile
+    public Tile
 {
 private:
 public:
     Stone();
     virtual ~Stone() {};
 
-    _CustomTile* Clone(const int x, const int y, float gridSizeF) const override;
+    Tile* Clone(const int x, const int y) const override;
 };
 
 #endif

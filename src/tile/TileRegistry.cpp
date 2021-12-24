@@ -26,9 +26,9 @@ TileRegistry *TileRegistry::Instance()
     return _instance;
 }
 
-_CustomTile *TileRegistry::CreateTile(TileType type, const int x, const int y, const float gridSizeF)
+Tile *TileRegistry::CreateTile(TileType type, const int x, const int y)
 {
-    _CustomTile *tile = this->registry[type]->Clone(x, y, gridSizeF);
+    Tile *tile = this->registry[type]->Clone(x, y);
     tile->setTexture(this->texture_registry[type], sf::IntRect(0, 0, 20, 20));
     return tile;
 }

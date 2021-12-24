@@ -1,10 +1,16 @@
 #include "Stone.hpp"
 
-_CustomTile* Stone::Clone(const int x, const int y, float gridSizeF) const {
-	_CustomTile* stone = new Stone();
-	stone->setPosition(x * gridSizeF, y * gridSizeF);
-	stone->setCollision(true);
+Tile* Stone::Clone(const int x, const int y) const {
+	Tile* stone = new Stone(*this);
+	stone->setPosition(x * this->gridSizeF, y * this->gridSizeF);
 	return stone;
 }
 
-Stone::Stone() : _CustomTile("Stone", "src/images/Tiles/Stonex20.png", TileType::STONE) {};
+Stone::Stone() 
+	: Tile(
+		"Stone", 
+		TileType::STONE, 
+		"src/images/Tiles/Stonex20.png", 
+		true, 
+		20.f
+	) {};
