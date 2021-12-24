@@ -7,4 +7,4 @@ _CustomTile* Stone::Clone(const int x, const int y, float gridSizeF) const {
 	return stone;
 }
 
-Stone::Stone() : _CustomTile("Stone", "src/images/Tiles/Stonex20.png") {};
+Stone::Stone() : _CustomTile("Stone", "src/images/Tiles/Stonex20.png", TileType::STONE) {};

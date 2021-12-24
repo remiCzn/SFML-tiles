@@ -3,29 +3,19 @@
 
 #include "../headers/headers.hpp"
 
-enum TileTypes
-{
-    DEFAULT = 0,
-    DAMAGING,
-    DOODAD
-};
-
 class Tile
 {
 protected:
     sf::RectangleShape shape;
     bool collision;
-    short type;
 
 public:
     Tile();
     Tile(float x, float y, float gridSizeF, const sf::Texture &texture, const sf::IntRect &texture_rect,
-         bool collision = false, short type = TileTypes::DEFAULT);
+         bool collision = false);
     virtual ~Tile();
 
     void setTexture(const sf::Texture& texture);
-
-    const short &getType() const;
 
     const bool &getCollision() const;
     void setCollision(const bool& isCollision);

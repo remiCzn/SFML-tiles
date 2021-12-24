@@ -260,6 +260,9 @@
     <ClInclude Include="src\tile\Custom\Dirt.hpp">
       <Filter>Fichiers d%27en-tête\Tile\CustomTile</Filter>
     </ClInclude>
+    <ClInclude Include="src\tile\Custom\Tiletype.hpp">
+      <Filter>Fichiers d%27en-tête\Tile\CustomTile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="src\fonts\Dosis-Light.ttf">

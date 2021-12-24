@@ -4,12 +4,7 @@
 #include "../headers/headers.hpp"
 #include "./Custom/Stone.hpp"
 #include "./Custom/Dirt.hpp"
-
-enum class TileType
-{
-	STONE,
-	DIRT
-};
+#include "./Custom/Tiletype.hpp"
 
 class TileRegistry
 {

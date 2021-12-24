@@ -80,6 +80,7 @@
     <ClInclude Include="src\tile\Chunk.hpp" />
     <ClInclude Include="src\tile\Custom\Dirt.hpp" />
     <ClInclude Include="src\tile\Custom\Stone.hpp" />
+    <ClInclude Include="src\tile\Custom\Tiletype.hpp" />
     <ClInclude Include="src\tile\Tile.hpp" />
     <ClInclude Include="src\tile\TileMap.hpp" />
     <ClInclude Include="src\tile\TileRegistry.hpp" />

@@ -7,4 +7,4 @@ _CustomTile* Dirt::Clone(const int x, const int y, float gridSizeF) const {
 	return tile;
 }
 
-Dirt::Dirt() : _CustomTile("Dirt", "src/images/Tiles/Dirtx20.png") {};
+Dirt::Dirt() : _CustomTile("Dirt", "src/images/Tiles/Dirtx20.png", TileType::DIRT) {};

@@ -12,6 +12,7 @@ public:
     virtual ~Dirt() {};
 
     _CustomTile* Clone(const int x, const int y, float gridSizeF) const override;
+
 };
 
 #endif // !DIRT_TILE_HPP

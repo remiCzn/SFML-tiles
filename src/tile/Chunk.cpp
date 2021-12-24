@@ -66,14 +66,8 @@ void Chunk::render(sf::RenderTarget &target, bool debugMode)
             for (auto &z : y)
             {
                 //TODO: Optimize Rendering, because with 16 chunk (+ collision Box) -> 16fps
-                if (z->getType() == TileTypes::DOODAD)
-                {
-                    this->deferredRenderStack.push(z);
-                }
-                else
-                {
-                    z->render(target);
-                }
+                z->render(target);
+                
                 if (z->getCollision() && debugMode)
                 {
                     this->collisionBox.setPosition(z->getPosition());
@@ -151,8 +145,18 @@ void Chunk::addTile(const unsigned x, const unsigned y, const sf::IntRect &textu
         y < this->chunkWidthGrid && y >= 0 && this->chunk[x][y].size() <= this->layers)
     {
         this->chunk[x][y].push_back(
-            //new Tile((x * gridSizeF) + this->offsetX, (y * this->gridSizeF) + this->offsetY, this->gridSizeF, this->tileSheet, texture_rect, collision, type)
-            TileRegistry::Instance()->CreateTile(TileType::STONE, x + static_cast<int>(this->offsetX / gridSizeF), y + static_cast<int>(this->offsetY / gridSizeF), gridSizeF)
+            new Tile((x * gridSizeF) + this->offsetX, (y * this->gridSizeF) + this->offsetY, this->gridSizeF, this->tileSheet, texture_rect, collision)
+        );
+    }
+}
+
+void Chunk::addTile(const unsigned x, const unsigned y, TileType type)
+{
+    if (x < this->chunkWidthGrid && x >= 0 &&
+        y < this->chunkWidthGrid && y >= 0 && this->chunk[x][y].size() <= this->layers)
+    {
+        this->chunk[x][y].push_back(
+            TileRegistry::Instance()->CreateTile(type, x + static_cast<int>(this->offsetX / gridSizeF), y + static_cast<int>(this->offsetY / gridSizeF), gridSizeF)
         );
     }
 }
