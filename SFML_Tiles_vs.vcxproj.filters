@@ -165,6 +165,9 @@
     <ClCompile Include="src\tile\Custom\Stone.cpp">
       <Filter>Fichiers sources\Tile\CustomTile</Filter>
     </ClCompile>
+    <ClCompile Include="src\tile\Custom\Dirt.cpp">
+      <Filter>Fichiers sources\Tile\CustomTile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game.hpp">
@@ -252,6 +255,9 @@
       <Filter>Fichiers d%27en-tête\Tile\CustomTile</Filter>
     </ClInclude>
     <ClInclude Include="src\tile\Custom\Stone.hpp">
+      <Filter>Fichiers d%27en-tête\Tile\CustomTile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tile\Custom\Dirt.hpp">
       <Filter>Fichiers d%27en-tête\Tile\CustomTile</Filter>
     </ClInclude>
   </ItemGroup>

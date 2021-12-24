@@ -5,12 +5,16 @@ TileRegistry *TileRegistry::_instance = nullptr;
 TileRegistry::TileRegistry()
 {
     this->registerTile<Stone>(TileType::STONE);
+    this->registerTile<Dirt>(TileType::DIRT);
+
 }
 
 TileRegistry::~TileRegistry()
 {
     delete registry[TileType::STONE];
+    delete registry[TileType::DIRT];
     registry[TileType::STONE] = NULL;
+    registry[TileType::DIRT] = NULL;
 }
 
 TileRegistry *TileRegistry::Instance()

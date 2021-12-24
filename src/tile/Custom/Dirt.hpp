@@ -1,18 +1,18 @@
-#ifndef STONE_TILE_H
-#define STONE_TILE_H
+#ifndef DIRT_TILE_H
+#define DIRT_TILE_H
 
 #include "../_CustomTile.hpp"
 
-class Stone :
+class Dirt :
     public _CustomTile
 {
 private:
 public:
-    Stone();
-    virtual ~Stone() {};
+    Dirt();
+    virtual ~Dirt() {};
 
     _CustomTile* Clone(const int x, const int y, float gridSizeF) const override;
 };
 
-#endif
+#endif // !DIRT_TILE_HPP
 

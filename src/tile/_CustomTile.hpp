@@ -19,7 +19,7 @@ public:
 	virtual _CustomTile *Clone(const int x, const int y, float gridSizeF) const = 0;
 
 	void setTexture(const sf::Texture *texture, const sf::IntRect &texture_rect);
-	const std::string &getTextureFile() const;
+	const std::string& getTextureFile() const;
 };
 
 #endif

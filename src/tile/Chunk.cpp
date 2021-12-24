@@ -140,7 +140,7 @@ void Chunk::loadFromJson(Json::Value chunk)
                      sf::IntRect(tile["trX"].asInt(), tile["trY"].asInt(), this->gridSizeU, this->gridSizeU),
                      tile["collision"].asBool(),
                      tile["type"].asInt())*/
-            TileRegistry::Instance()->CreateTile(TileType::STONE, tile["x"].asInt() + this->offsetX / gridSizeF, tile["y"].asInt() + this->offsetY / gridSizeF, gridSizeF)
+            TileRegistry::Instance()->CreateTile(TileType::STONE, tile["x"].asInt() + static_cast<int>(this->offsetX / gridSizeF), tile["y"].asInt() + static_cast<int>(this->offsetY / gridSizeF), gridSizeF)
         );
     }
 }
@@ -151,7 +151,9 @@ void Chunk::addTile(const unsigned x, const unsigned y, const sf::IntRect &textu
         y < this->chunkWidthGrid && y >= 0 && this->chunk[x][y].size() <= this->layers)
     {
         this->chunk[x][y].push_back(
-            new Tile((x * gridSizeF) + this->offsetX, (y * this->gridSizeF) + this->offsetY, this->gridSizeF, this->tileSheet, texture_rect, collision, type));
+            //new Tile((x * gridSizeF) + this->offsetX, (y * this->gridSizeF) + this->offsetY, this->gridSizeF, this->tileSheet, texture_rect, collision, type)
+            TileRegistry::Instance()->CreateTile(TileType::STONE, x + static_cast<int>(this->offsetX / gridSizeF), y + static_cast<int>(this->offsetY / gridSizeF), gridSizeF)
+        );
     }
 }
 
@@ -180,10 +182,18 @@ void Chunk::generate(float scale, float threshold)
     {
         for (unsigned int y = 0; y < this->chunkWidthGrid; y++)
         {
-            if (Noise::generate(x + (int)(this->offsetX / this->gridSizeF), y + (int)(this->offsetY / this->gridSizeF)) > threshold)
+            float value = Noise::generate(x + (int)(this->offsetX / this->gridSizeF), y + (int)(this->offsetY / this->gridSizeF));
+            if (value > threshold + 0.1) {
+                this->chunk[x][y].push_back(
+                    TileRegistry::Instance()->CreateTile(TileType::STONE, x + static_cast<int>(this->offsetX / gridSizeF), y + static_cast<int>(this->offsetY / gridSizeF), gridSizeF)
+                );
+            }
+            else if (value > threshold)
             {
                 this->chunk[x][y].push_back(
-                    new Tile((x * this->gridSizeF) + this->offsetX, (y * this->gridSizeF) + this->offsetY, this->gridSizeF, this->tileSheet, sf::IntRect(0, 0, gridSizeU, gridSizeU), true, TileTypes::DEFAULT));
+                    //new Tile((x * this->gridSizeF) + this->offsetX, (y * this->gridSizeF) + this->offsetY, this->gridSizeF, this->tileSheet, sf::IntRect(0, 0, gridSizeU, gridSizeU), true, TileTypes::DEFAULT)
+                    TileRegistry::Instance()->CreateTile(TileType::DIRT, x + static_cast<int>(this->offsetX / gridSizeF), y + static_cast<int>(this->offsetY / gridSizeF), gridSizeF)
+                );
             }
         }
     }

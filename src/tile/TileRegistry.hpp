@@ -3,10 +3,12 @@
 
 #include "../headers/headers.hpp"
 #include "./Custom/Stone.hpp"
+#include "./Custom/Dirt.hpp"
 
 enum class TileType
 {
-	STONE
+	STONE,
+	DIRT
 };
 
 class TileRegistry
