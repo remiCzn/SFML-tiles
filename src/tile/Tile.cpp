@@ -22,6 +22,7 @@ Tile::Tile(float x, float y, float gridSizeF, const sf::Texture &texture, const 
 Tile::Tile(std::string name, TileType type, std::string tilesheet_name, bool collision, float gridSizeF)
     : name(name), type(type), tilesheet_name(tilesheet_name), collision(collision), gridSizeF(gridSizeF)
 {
+    this->shape.setSize(sf::Vector2f(gridSizeF, gridSizeF));
 }
 
 Tile::~Tile()

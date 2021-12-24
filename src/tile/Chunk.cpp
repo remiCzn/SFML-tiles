@@ -115,7 +115,7 @@ void Chunk::loadFromJson(Json::Value chunk)
     {
         Json::Value tile = chunk["tiles"][i];
         this->chunk[tile["x"].asInt()][tile["y"].asInt()] = 
-            TileRegistry::Instance()->CreateTile(TileType::STONE, tile["x"].asInt() + static_cast<int>(this->offsetX / gridSizeF), tile["y"].asInt() + static_cast<int>(this->offsetY / gridSizeF));
+            TileRegistry::Instance()->CreateTile(static_cast<TileType>(tile["id"].asInt()), tile["x"].asInt() + static_cast<int>(this->offsetX / gridSizeF), tile["y"].asInt() + static_cast<int>(this->offsetY / gridSizeF));
             /*new Tile(tile["x"].asInt() * this->gridSizeF + this->offsetX,
                      tile["y"].asInt() * this->gridSizeF + this->offsetY,
                      this->gridSizeF,
@@ -179,7 +179,6 @@ void Chunk::generate(float scale, float threshold)
             else if (value > threshold)
             {
                 this->chunk[x][y] =
-                    //new Tile((x * this->gridSizeF) + this->offsetX, (y * this->gridSizeF) + this->offsetY, this->gridSizeF, this->tileSheet, sf::IntRect(0, 0, gridSizeU, gridSizeU), true, TileTypes::DEFAULT)
                     TileRegistry::Instance()->CreateTile(TileType::DIRT, x + static_cast<int>(this->offsetX / gridSizeF), y + static_cast<int>(this->offsetY / gridSizeF));
             }
         }

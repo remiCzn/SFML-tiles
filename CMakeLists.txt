@@ -69,7 +69,6 @@ add_executable(main
     src/gui/PauseMenu.cpp
     src/gui/PlayerGUI.cpp
     src/gui/progressBar/progressBar.cpp
-    src/tile/_CustomTile.cpp
     src/tile/TileRegistry.cpp
     src/tile/Custom/Stone.cpp
     src/tile/Custom/Dirt.cpp

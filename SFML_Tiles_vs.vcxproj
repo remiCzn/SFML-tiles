@@ -51,7 +51,6 @@
     <ClCompile Include="src\tile\Tile.cpp" />
     <ClCompile Include="src\tile\TileMap.cpp" />
     <ClCompile Include="src\tile\TileRegistry.cpp" />
-    <ClCompile Include="src\tile\_CustomTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\AnimationComponent.hpp" />
@@ -84,7 +83,6 @@
     <ClInclude Include="src\tile\Tile.hpp" />
     <ClInclude Include="src\tile\TileMap.hpp" />
     <ClInclude Include="src\tile\TileRegistry.hpp" />
-    <ClInclude Include="src\tile\_CustomTile.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

@@ -159,9 +159,6 @@
     <ClCompile Include="src\tile\TileRegistry.cpp">
       <Filter>Fichiers sources\Tile</Filter>
     </ClCompile>
-    <ClCompile Include="src\tile\_CustomTile.cpp">
-      <Filter>Fichiers sources\Tile\CustomTile</Filter>
-    </ClCompile>
     <ClCompile Include="src\tile\Custom\Stone.cpp">
       <Filter>Fichiers sources\Tile\CustomTile</Filter>
     </ClCompile>
@@ -250,9 +247,6 @@
     </ClInclude>
     <ClInclude Include="src\tile\TileRegistry.hpp">
       <Filter>Fichiers d%27en-tête\Tile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tile\_CustomTile.hpp">
-      <Filter>Fichiers d%27en-tête\Tile\CustomTile</Filter>
     </ClInclude>
     <ClInclude Include="src\tile\Custom\Stone.hpp">
       <Filter>Fichiers d%27en-tête\Tile\CustomTile</Filter>
