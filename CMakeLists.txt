@@ -72,6 +72,7 @@ add_executable(main
     src/tile/_CustomTile.cpp
     src/tile/TileRegistry.cpp
     src/tile/Custom/Stone.cpp
+    src/tile/Custom/Dirt.cpp
 )
 
 target_link_libraries(main sfml-graphics)
