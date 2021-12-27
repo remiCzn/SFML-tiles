@@ -58,6 +58,15 @@
     <Filter Include="Fichiers de ressources\Git">
       <UniqueIdentifier>{f230e79a-7fba-467f-aadc-aa7a22943aa7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Tile\CustomTile">
+      <UniqueIdentifier>{3a8bef89-8b66-453b-9da0-1b56edc6336a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Tile\CustomTile">
+      <UniqueIdentifier>{46ce6a71-57f9-4542-9e5e-b8fc15efa55a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\CMake">
+      <UniqueIdentifier>{e00a2760-c882-4502-9f53-45e214c6b0ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -147,6 +156,15 @@
     <ClCompile Include="src\resource\algo\test\run.cpp">
       <Filter>Fichiers sources\Resources</Filter>
     </ClCompile>
+    <ClCompile Include="src\tile\TileRegistry.cpp">
+      <Filter>Fichiers sources\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tile\Custom\Stone.cpp">
+      <Filter>Fichiers sources\Tile\CustomTile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tile\Custom\Dirt.cpp">
+      <Filter>Fichiers sources\Tile\CustomTile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game.hpp">
@@ -227,6 +245,18 @@
     <ClInclude Include="src\resource\algo\test\run.hpp">
       <Filter>Fichiers d%27en-tête\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="src\tile\TileRegistry.hpp">
+      <Filter>Fichiers d%27en-tête\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tile\Custom\Stone.hpp">
+      <Filter>Fichiers d%27en-tête\Tile\CustomTile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tile\Custom\Dirt.hpp">
+      <Filter>Fichiers d%27en-tête\Tile\CustomTile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tile\Custom\Tiletype.hpp">
+      <Filter>Fichiers d%27en-tête\Tile\CustomTile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="src\fonts\Dosis-Light.ttf">
@@ -243,5 +273,10 @@
     <None Include="README.md">
       <Filter>Fichiers de ressources\Git</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt">
+      <Filter>Fichiers de ressources\CMake</Filter>
+    </Text>
   </ItemGroup>
 </Project>

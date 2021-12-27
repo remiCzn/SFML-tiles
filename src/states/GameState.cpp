@@ -4,7 +4,6 @@ GameState::GameState(StateData *stateData)
     : State(stateData)
 {
     this->initDeferredRender();
-    this->initView();
     this->initKeybinds();
     this->initFonts();
     this->initTextures();
@@ -61,18 +60,6 @@ void GameState::initFonts()
     }
 }
 
-void GameState::initView()
-{
-    this->view.setSize(
-        static_cast<float>(this->statedata->gfxSettings->resolution.width),
-        static_cast<float>(this->statedata->gfxSettings->resolution.height)
-    );
-
-    this->view.setCenter(
-        this->statedata->gfxSettings->resolution.width / 2.f,
-        this->statedata->gfxSettings->resolution.height / 2.f);
-}
-
 void GameState::initPauseMenu()
 {
     this->pmenu = new PauseMenu(*this->statedata->gfxSettings->window, this->font);
@@ -82,12 +69,12 @@ void GameState::initPauseMenu()
 
 void GameState::initPlayer()
 {
-    this->player = new Player(0, 0, &this->textures["PLAYER_IDLE"]);
+    this->player = new Player(8 * this->statedata->gridSize, 24 * this->statedata->gridSize, &this->textures["PLAYER_IDLE"]);
 }
 
 void GameState::initTileMap()
 {
-    this->map = new TileMap(this->statedata->gridSize, 2, 16, "src/images/Tiles/tilesheet1.png");
+    this->map = new TileMap(this->statedata->gridSize, 5, 16, "src/images/Tiles/Stonex20.png");
     this->map->loadFromFile("src/map.json");
 }
 
@@ -215,7 +202,7 @@ void GameState::render(sf::RenderTarget *target)
 
     this->renderTexture.clear();
     this->renderTexture.setView(this->view);
-    this->map->render(this->renderTexture, this->statedata->debugMode);
+    this->map->render(this->renderTexture, this->statedata->debugMode, sf::Vector2i(this->player->getPosition() / this->gridSize), sf::Vector2i(this->player->getPosition() / this->gridSize));
 
     this->player->render(this->renderTexture, this->statedata->debugMode);
 
@@ -228,7 +215,6 @@ void GameState::render(sf::RenderTarget *target)
     {
         this->pmenu->render(this->renderTexture);
     }
-
     this->renderTexture.display();
     target->draw(this->renderSprite);
 }

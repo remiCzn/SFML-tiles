@@ -8,17 +8,14 @@ void Chunk::clear()
     {
         for (size_t y = 0; y < this->chunkWidthGrid; y++)
         {
-            for (size_t z = 0; z < this->chunk[x][y].size(); z++)
-            {
-                delete this->chunk[x][y][z];
-                this->chunk[x][y][z] = new Tile();
-            }
+            delete this->chunk[x][y];
+            this->chunk[x][y] = nullptr;
         }
     }
 }
 
-Chunk::Chunk(float gridSize, sf::Texture &tilesheet, sf::RectangleShape &collisionBox, int offsetX, int offsetY)
-    : tileSheet(tilesheet), offsetX(offsetX), offsetY(offsetY)
+Chunk::Chunk(float gridSize, sf::RectangleShape &collisionBox, int offsetX, int offsetY)
+    : offsetX(offsetX), offsetY(offsetY)
 {
     this->gridSizeF = gridSize;
     this->gridSizeU = static_cast<unsigned>(this->gridSizeF);
@@ -30,12 +27,8 @@ Chunk::Chunk(float gridSize, sf::Texture &tilesheet, sf::RectangleShape &collisi
     this->chunk.resize(this->chunkWidthGrid);
     for (size_t x = 0; x < this->chunkWidthGrid; x++)
     {
-        this->chunk.push_back(std::vector<std::vector<Tile *>>());
+        this->chunk.push_back(std::vector<Tile *>());
         this->chunk[x].resize(this->chunkWidthGrid);
-        for (size_t y = 0; y < this->chunkWidthGrid; y++)
-        {
-            this->chunk[x].push_back(std::vector<Tile *>());
-        }
     }
     this->collisionBox = collisionBox;
 
@@ -63,23 +56,16 @@ void Chunk::render(sf::RenderTarget &target, bool debugMode)
     {
         for (auto &y : x)
         {
-            for (auto &z : y)
-            {
-
-                if (z->getType() == TileTypes::DOODAD)
+            if (y != nullptr) {
+                y->render(target);
+                
+                if (y->getCollision() && debugMode)
                 {
-                    this->deferredRenderStack.push(z);
-                }
-                else
-                {
-                    z->render(target);
-                }
-                if (z->getCollision() && debugMode)
-                {
-                    this->collisionBox.setPosition(z->getPosition());
+                    this->collisionBox.setPosition(y->getPosition());
                     target.draw(this->collisionBox);
                 }
             }
+            //TODO: Optimize Rendering, because with 16 chunk (+ collision Box) -> 16fps
         }
     }
     if (debugMode)
@@ -104,16 +90,12 @@ Json::Value Chunk::getAsJson()
     {
         for (size_t y = 0; y < this->chunkWidthGrid; y++)
         {
-            if (!this->chunk[x][y].empty())
+            if (this->chunk[x][y] != nullptr)
             {
-                for (size_t z = 0; z < this->chunk[x][y].size(); z++)
-                {
-                    Json::Value value = this->chunk[x][y][z]->getAsJson();
-                    value["x"] = x;
-                    value["y"] = y;
-                    value["z"] = z;
-                    root["tiles"].append(value);
-                }
+                Json::Value value = this->chunk[x][y]->getAsJson();
+                value["x"] = x;
+                value["y"] = y;
+                root["tiles"].append(value);
             }
         }
     }
@@ -123,53 +105,54 @@ Json::Value Chunk::getAsJson()
 
 void Chunk::loadFromJson(Json::Value chunk)
 {
-    this->chunk.resize(this->chunkWidthGrid, std::vector<std::vector<Tile *>>());
+    this->chunk.resize(this->chunkWidthGrid, std::vector<Tile *>());
     for (size_t x = 0; x < this->chunkWidthGrid; x++)
     {
-        this->chunk[x].resize(this->chunkWidthGrid, std::vector<Tile *>());
+        this->chunk[x].resize(this->chunkWidthGrid);
     }
 
     for (unsigned int i = 0; i < chunk["tiles"].size(); i++)
     {
         Json::Value tile = chunk["tiles"][i];
-        this->chunk[tile["x"].asInt()][tile["y"].asInt()].push_back(
-            new Tile(tile["x"].asInt() * this->gridSizeF + this->offsetX,
+        this->chunk[tile["x"].asInt()][tile["y"].asInt()] = 
+            TileRegistry::Instance()->CreateTile(static_cast<TileType>(tile["id"].asInt()), tile["x"].asInt() + static_cast<int>(this->offsetX / gridSizeF), tile["y"].asInt() + static_cast<int>(this->offsetY / gridSizeF));
+            /*new Tile(tile["x"].asInt() * this->gridSizeF + this->offsetX,
                      tile["y"].asInt() * this->gridSizeF + this->offsetY,
                      this->gridSizeF,
                      this->tileSheet,
                      sf::IntRect(tile["trX"].asInt(), tile["trY"].asInt(), this->gridSizeU, this->gridSizeU),
                      tile["collision"].asBool(),
-                     tile["type"].asInt()));
+                     tile["type"].asInt())*/
     }
 }
 
-void Chunk::addTile(const unsigned x, const unsigned y, const sf::IntRect &texture_rect, bool collision, short type)
+void Chunk::addTile(const unsigned x, const unsigned y, TileType type)
 {
     if (x < this->chunkWidthGrid && x >= 0 &&
-        y < this->chunkWidthGrid && y >= 0 && this->chunk[x][y].size() <= this->layers)
+        y < this->chunkWidthGrid && y >= 0)
     {
-        this->chunk[x][y].push_back(
-            new Tile((x * gridSizeF) + this->offsetX, (y * this->gridSizeF) + this->offsetY, this->gridSizeF, this->tileSheet, texture_rect, collision, type));
+        this->chunk[x][y] =
+            TileRegistry::Instance()->CreateTile(type, x + static_cast<int>(this->offsetX / gridSizeF), y + static_cast<int>(this->offsetY / gridSizeF));
     }
 }
 
 void Chunk::removeTile(const unsigned x, const unsigned y)
 {
     if (x < this->chunkWidthGrid && x >= 0 &&
-        y < this->chunkWidthGrid && y >= 0 && this->chunk[x][y].size() > 0)
+        y < this->chunkWidthGrid && y >= 0 && this->chunk[x][y] != nullptr)
     {
-        delete this->chunk[x][y][this->chunk[x][y].size() - 1];
-        this->chunk[x][y].pop_back();
+        delete this->chunk[x][y];
+        this->chunk[x][y] = nullptr;
     }
 }
 
-const std::vector<Tile *> Chunk::getTileStack(const unsigned x, const unsigned y)
+const Tile* Chunk::getTile(const unsigned x, const unsigned y)
 {
     if (x >= 0 && x < chunkWidthGrid && y >= 0 && y < chunkWidthGrid)
     {
         return this->chunk[x][y];
     }
-    return std::vector<Tile *>();
+    return nullptr;
 }
 
 void Chunk::generate(float scale, float threshold)
@@ -178,10 +161,15 @@ void Chunk::generate(float scale, float threshold)
     {
         for (unsigned int y = 0; y < this->chunkWidthGrid; y++)
         {
-            if (Noise::generate(x + (int)(this->offsetX / this->gridSizeF), y + (int)(this->offsetY / this->gridSizeF)) > threshold)
+            float value = Noise::generate(x + (int)(this->offsetX / this->gridSizeF), y + (int)(this->offsetY / this->gridSizeF));
+            if (value > threshold + 0.1) {
+                this->chunk[x][y] =
+                    TileRegistry::Instance()->CreateTile(TileType::STONE, x + static_cast<int>(this->offsetX / gridSizeF), y + static_cast<int>(this->offsetY / gridSizeF));
+            }
+            else if (value > threshold)
             {
-                this->chunk[x][y].push_back(
-                    new Tile((x * this->gridSizeF) + this->offsetX, (y * this->gridSizeF) + this->offsetY, this->gridSizeF, this->tileSheet, sf::IntRect(0, 0, gridSizeU, gridSizeU), false, TileTypes::DEFAULT));
+                this->chunk[x][y] =
+                    TileRegistry::Instance()->CreateTile(TileType::DIRT, x + static_cast<int>(this->offsetX / gridSizeF), y + static_cast<int>(this->offsetY / gridSizeF));
             }
         }
     }

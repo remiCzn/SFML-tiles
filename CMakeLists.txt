@@ -25,7 +25,9 @@ set(EXFILES
     images/Tiles/grass.png
     images/Tiles/tilesheet.png
     images/Tiles/tilesheet1.png
+    images/Tiles/tilesheet2.png
     images/UI/checkx48.png
+    images/Tiles/Stonex20.png
 )
 
 foreach(file ${EXFILES})
@@ -67,6 +69,9 @@ add_executable(main
     src/gui/PauseMenu.cpp
     src/gui/PlayerGUI.cpp
     src/gui/progressBar/progressBar.cpp
+    src/tile/TileRegistry.cpp
+    src/tile/Custom/Stone.cpp
+    src/tile/Custom/Dirt.cpp
 )
 
 target_link_libraries(main sfml-graphics)

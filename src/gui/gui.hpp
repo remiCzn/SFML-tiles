@@ -2,6 +2,7 @@
 #define GUI_H
 
 #include "../headers/headers.hpp"
+#include "../tile/TileRegistry.hpp"
 
 enum button_states
 {
@@ -100,20 +101,23 @@ namespace gui
         bool hidden;
         gui::Button *hide_btn;
         sf::RectangleShape bounds;
-        sf::Sprite sheet;
+        std::vector<sf::Sprite> sheets;
         sf::RectangleShape selector;
         sf::Vector2u mousePosGrid;
-        sf::IntRect textureRect;
+
+        TileType type;
+        int nbCols;
+
+        
+        float scale;
 
     public:
         TextureSelector(float x, float y, float width, float height,
-                        float gridSize, const sf::Texture *texture_sheet,
-                        sf::Font &font, std::string text);
+                        float gridSize, int nbCols, sf::Font &font, std::string text);
         ~TextureSelector();
 
         const bool &getActive() const;
-        const sf::IntRect &getTextureRect() const;
-
+        const TileType& getType() const;
         const bool getKeytime();
         void updateKeytime(const float &dt);
         void update(const sf::Vector2i &mousePosWindow, const float &dt);

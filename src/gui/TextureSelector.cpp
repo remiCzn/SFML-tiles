@@ -1,42 +1,48 @@
 #include "./gui.hpp"
 
 gui::TextureSelector::TextureSelector(float x, float y, float width, float height,
-                                      float gridSize, const sf::Texture *texture_sheet,
+                                      float gridSize, int nbCols,
                                       sf::Font &font, std::string text)
-    : keyTimeMax(1.f), keytime(0.f)
+    : keyTimeMax(1.f), keytime(0.f), nbCols(nbCols)
 {
     this->gridSize = gridSize;
     this->active = false;
     this->hidden = false;
     float offset = 60.f;
 
+    this->scale = 2.f;
+
     this->bounds.setPosition(x + offset, y);
     this->bounds.setFillColor(sf::Color(50, 50, 50, 100));
     this->bounds.setOutlineThickness(1.f);
     this->bounds.setOutlineColor(sf::Color(255, 255, 255, 200));
 
-    this->sheet.setTexture(*texture_sheet);
-    this->sheet.setPosition(x + offset, y);
-    this->sheet.scale(sf::Vector2f(0.5f, 0.5f));
-    this->bounds.setSize(sf::Vector2f(this->sheet.getGlobalBounds().width, this->sheet.getGlobalBounds().height));
+    short index = 0;
+    for (const auto e : TileTypeNs::All) {
+        this->sheets.push_back(sf::Sprite());
+        sf::Sprite& tile = this->sheets.back();
+        tile.setTexture(*TileRegistry::Instance()->getTexture(e));
+        tile.setTextureRect(sf::IntRect(0, 0, static_cast<int>(gridSize), static_cast<int>(gridSize)));
+        tile.setPosition(x + offset + gridSize * this->scale * index, y);
+        tile.scale(sf::Vector2f(scale, scale));
 
-    if (this->sheet.getGlobalBounds().width > this->bounds.getGlobalBounds().width)
-    {
-        this->sheet.setTextureRect(sf::IntRect(0, 0, static_cast<int>(this->bounds.getGlobalBounds().width), static_cast<int>(this->sheet.getGlobalBounds().height)));
+        index++;
     }
-    if (this->sheet.getGlobalBounds().height > this->bounds.getGlobalBounds().height)
-    {
-        this->sheet.setTextureRect(sf::IntRect(0, 0, static_cast<int>(this->bounds.getGlobalBounds().width), static_cast<int>(this->sheet.getGlobalBounds().height)));
+
+    if (index < 10) {
+        index = 10;
     }
+    int rows = (index/nbCols) + 1;
+
+    this->bounds.setSize(sf::Vector2f(this->scale * this->nbCols * gridSize, this->scale * rows * gridSize));
 
     this->selector.setPosition(x + offset, y);
-    this->selector.setSize(sf::Vector2f(gridSize / 2.f, gridSize / 2.f));
+    this->selector.setSize(sf::Vector2f(gridSize * scale, gridSize * scale));
     this->selector.setFillColor(sf::Color::Transparent);
     this->selector.setOutlineThickness(1.f);
     this->selector.setOutlineColor(sf::Color::Red);
 
-    this->textureRect.width = static_cast<int>(gridSize);
-    this->textureRect.height = static_cast<int>(gridSize);
+    this->type = TileType::STONE;
 
     this->hide_btn = new gui::Button(
         0.f, 0.f, 60.f, 60.f,
@@ -56,10 +62,11 @@ const bool &gui::TextureSelector::getActive() const
     return this->active;
 }
 
-const sf::IntRect &gui::TextureSelector::getTextureRect() const
+const TileType& gui::TextureSelector::getType() const
 {
-    return this->textureRect;
+    return this->type;
 }
+
 const bool gui::TextureSelector::getKeytime()
 {
     if (this->keytime >= this->keyTimeMax)
@@ -96,15 +103,17 @@ void gui::TextureSelector::update(const sf::Vector2i &mousePosWindow, const floa
 
         if (this->active)
         {
-            this->mousePosGrid.x = (mousePosWindow.x - static_cast<int>(this->bounds.getPosition().x)) / static_cast<unsigned>(this->gridSize / 2.f);
-            this->mousePosGrid.y = (mousePosWindow.y - static_cast<int>(this->bounds.getPosition().y)) / static_cast<unsigned>(this->gridSize / 2.f);
+            this->mousePosGrid.x = (mousePosWindow.x - static_cast<int>(this->bounds.getPosition().x)) / static_cast<unsigned>(this->gridSize * scale);
+            this->mousePosGrid.y = (mousePosWindow.y - static_cast<int>(this->bounds.getPosition().y)) / static_cast<unsigned>(this->gridSize * scale);
 
             this->selector.setPosition(
-                this->bounds.getPosition().x + this->mousePosGrid.x * this->gridSize / 2.f,
-                this->bounds.getPosition().y + this->mousePosGrid.y * this->gridSize / 2.f);
-
-            this->textureRect.left = static_cast<int>(this->mousePosGrid.x * this->gridSize);
-            this->textureRect.top = static_cast<int>(this->mousePosGrid.y * this->gridSize);
+                this->bounds.getPosition().x + this->mousePosGrid.x * this->gridSize * scale,
+                this->bounds.getPosition().y + this->mousePosGrid.y * this->gridSize * scale
+            );
+            unsigned int typeNum = this->mousePosGrid.y * this->nbCols + this->mousePosGrid.x;
+            if (typeNum < (int)TileType::NONE) {
+                this->type = static_cast<TileType>(typeNum);
+            }
         }
     }
 }
@@ -114,7 +123,9 @@ void gui::TextureSelector::render(sf::RenderTarget &target)
     if (!this->hidden)
     {
         target.draw(this->bounds);
-        target.draw(this->sheet);
+        for (size_t i = 0; i < this->sheets.size(); i++) {
+            target.draw(this->sheets.at(i));
+        }
 
         if (this->active)
             target.draw(this->selector);
