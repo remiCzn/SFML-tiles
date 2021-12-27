@@ -1,6 +1,18 @@
 #include "State.hpp"
 
-State::State(StateData *state_data)
+void State::initView()
+{
+    this->view.setSize(sf::Vector2f(
+        static_cast<float>(this->statedata->gfxSettings->resolution.width),
+        static_cast<float>(this->statedata->gfxSettings->resolution.height))
+    );
+
+    this->view.setCenter(sf::Vector2f(
+        this->statedata->gfxSettings->resolution.width / 2.f,
+        this->statedata->gfxSettings->resolution.height / 2.f));
+}
+
+State::State(StateData* state_data)
 {
     this->statedata = state_data;
     this->quit = false;
@@ -8,6 +20,8 @@ State::State(StateData *state_data)
     this->keyTime = 0.f;
     this->keyTimeMax = 20.f;
     this->gridSize = state_data->gridSize;
+
+    this->initView();
 }
 
 State::~State()
@@ -30,9 +44,13 @@ void State::updateMousePosition(sf::View *view)
     }
 
     this->mousePosView = this->statedata->gfxSettings->window->mapPixelToCoords(sf::Mouse::getPosition(*this->statedata->gfxSettings->window));
-    this->mousePosGrid = sf::Vector2u(
+    this->mousePosGrid = sf::Vector2i(
         static_cast<unsigned>(this->mousePosView.x) / static_cast<unsigned>(this->gridSize),
         static_cast<unsigned>(this->mousePosView.y) / static_cast<unsigned>(this->gridSize));
+    this->mousePosGridScaled = sf::Vector2i(
+        this->mousePosGrid.x + static_cast<int>((this->view.getCenter().x - this->view.getSize().x /2.f) / gridSize),
+        this->mousePosGrid.y + static_cast<int>((this->view.getCenter().y - this->view.getSize().y / 2.f) / gridSize)
+    );
 
     this->statedata->gfxSettings->window->setView(this->statedata->gfxSettings->window->getDefaultView());
 }

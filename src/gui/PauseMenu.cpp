@@ -64,7 +64,7 @@ std::map<std::string, gui::Button *> &PauseMenu::getButtons()
 
 const bool PauseMenu::isButtonPressed(std::string key)
 {
-    return this->buttons[key]->isPressed();
+    return this->buttons[key]->isClicked();
 }
 
 void PauseMenu::addButton(const std::string key, float y, const std::string text)

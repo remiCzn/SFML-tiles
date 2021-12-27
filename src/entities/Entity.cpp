@@ -58,16 +58,19 @@ const sf::FloatRect &Entity::getNextPosition(const float &dt) const
     throw;
 }
 
-const sf::Vector2u Entity::getGridPosition(const unsigned gridSizeU) const
+const sf::Vector2i Entity::getGridPosition(const int gridSizeU) const
 {
-    if (this->hitboxComponent)
-        return sf::Vector2u(
-            static_cast<unsigned>(this->hitboxComponent->getPosition().x) / gridSizeU,
-            static_cast<unsigned>(this->hitboxComponent->getPosition().y) / gridSizeU);
+    if (this->hitboxComponent) {
+        return sf::Vector2i(
+            static_cast<int>(this->hitboxComponent->getPosition().x) / gridSizeU,
+            static_cast<int>(this->hitboxComponent->getPosition().y) / gridSizeU
+        );
+    }
+        
 
-    return sf::Vector2u(
-        static_cast<unsigned>(this->sprite->getPosition().x) / gridSizeU,
-        static_cast<unsigned>(this->sprite->getPosition().y) / gridSizeU);
+    return sf::Vector2i(
+        static_cast<int>(this->sprite->getPosition().x) / gridSizeU,
+        static_cast<int>(this->sprite->getPosition().y) / gridSizeU);
 }
 
 void Entity::move(const float &dt, const float dir_x, const float dir_y)

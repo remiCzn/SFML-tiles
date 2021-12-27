@@ -25,22 +25,26 @@ set(EXFILES
     images/Tiles/grass.png
     images/Tiles/tilesheet.png
     images/Tiles/tilesheet1.png
+    images/Tiles/tilesheet2.png
     images/UI/checkx48.png
     resource/vertex_shader.vert
     resource/fragment_shader.frag
+    images/Tiles/Stonex20.png
 )
 
 foreach(file ${EXFILES})
     MESSAGE( STATUS "Including " ${file} )
     configure_file(
         src/${file}
-        ${file}
+        src/${file}
         COPYONLY)
 endforeach()
 
 add_executable(main 
     src/headers/headers.cpp
     src/lib/jsoncpp.cpp
+    src/resource/algo/Noise.cpp
+    src/resource/algo/test/run.cpp
     src/resource/KeyState.cpp
 
     src/main.cpp
@@ -62,10 +66,14 @@ add_executable(main
     src/components/HitboxComponent.cpp
     src/components/AttributeComponent.cpp
     src/tile/Tile.cpp
+    src/tile/Chunk.cpp
     src/tile/TileMap.cpp
     src/gui/PauseMenu.cpp
     src/gui/PlayerGUI.cpp
     src/gui/progressBar/progressBar.cpp
+    src/tile/TileRegistry.cpp
+    src/tile/Custom/Stone.cpp
+    src/tile/Custom/Dirt.cpp
 )
 
 target_link_libraries(main sfml-graphics)

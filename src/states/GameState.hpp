@@ -12,7 +12,6 @@ class GameState : public State
 {
 private:
     PauseMenu *pmenu;
-    sf::View view;
     sf::Font *font;
     sf::RenderTexture renderTexture;
     sf::Sprite renderSprite;
@@ -30,7 +29,6 @@ private:
     void initFonts();
     void initPauseMenu();
     void initTileMap();
-    void initView();
     void initDeferredRender();
     void initShaders();
 

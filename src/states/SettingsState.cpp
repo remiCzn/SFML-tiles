@@ -17,7 +17,7 @@ void SettingsState::initBackground()
 
 void SettingsState::initFonts()
 {
-    if (!this->font.loadFromFile("fonts/FreeSans.ttf"))
+    if (!this->font.loadFromFile("src/fonts/FreeSans.ttf"))
     {
         throw("ERROR::SETTINGS_STATE::Failed to load font");
     }
@@ -59,18 +59,18 @@ void SettingsState::initGui()
     }
     this->ddls["RESOLUTION"] = new gui::DropDownList(
         x, 200.f, 200.f, 40.f,
-        &this->font, modes_str.data(), modes_str.size());
+        &this->font, modes_str.data(), static_cast<int>(modes_str.size()));
 
     this->checkBoxs["FULLSCREEN"] = new gui::CheckBox(
         x + 82.f, 265.f, 36, false);
 
     this->buttons["VSYNC"] = new gui::Button(
         x, 330.f, 200.f, 40.f,
-        "VSync", &this->font, 16.f);
+        "VSync", &this->font, 16);
 
     this->buttons["ANTIALIASING"] = new gui::Button(
         x, 395.f, 200.f, 40.f,
-        "Antialiasing", &this->font, 16.f);
+        "Antialiasing", &this->font, 16);
 }
 
 void SettingsState::initTitle()

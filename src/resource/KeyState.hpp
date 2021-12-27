@@ -4,7 +4,10 @@
 class KeyState
 {
 protected:
-    KeyState(){};
+    KeyState(){
+        KeyState::F3 = false;
+        KeyState::PAUSE = false;
+    };
 
     static KeyState *_keystate;
 

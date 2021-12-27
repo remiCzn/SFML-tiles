@@ -2,6 +2,7 @@
 #define GUI_H
 
 #include "../headers/headers.hpp"
+#include "../tile/TileRegistry.hpp"
 
 enum button_states
 {
@@ -9,7 +10,8 @@ enum button_states
     BTN_HOVER,
     BTN_ACTIVE
 };
-namespace gui {
+namespace gui
+{
 
     class Button
     {
@@ -41,24 +43,22 @@ namespace gui {
             std::string text, sf::Font *font, unsigned character_size,
             sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor,
             sf::Color text_idleColor, sf::Color text_hoverColor, sf::Color text_activeColor,
-               sf::Color outline_idleColor, sf::Color outline_hoverColor, sf::Color outline_ActiveColor,
-               short unsigned id
-        );
+            sf::Color outline_idleColor, sf::Color outline_hoverColor, sf::Color outline_ActiveColor,
+            short unsigned id);
         Button(
             float x, float y, float width, float height,
             std::string text, sf::Font *font, unsigned character_size,
-            short unsigned id = 0
-        );
+            short unsigned id = 0);
         ~Button();
 
-        void update(const sf::Vector2i& mousePoseWindow);
+        void update(const sf::Vector2i &mousePoseWindow);
         void render(sf::RenderTarget *target);
 
         const std::string getText() const;
-        const short unsigned& getId() const;
+        const short unsigned &getId() const;
 
         void setText(const std::string newText);
-        void setId(const short unsigned id); 
+        void setId(const short unsigned id);
 
         const bool isPressed() const;
         const bool isClicked() const;
@@ -70,57 +70,62 @@ namespace gui {
         float keytime;
         float keytimeMax;
 
-        sf::Font* font;
-        gui::Button* activeElement;
-        std::vector<gui::Button*> list;
+        sf::Font *font;
+        gui::Button *activeElement;
+        std::vector<gui::Button *> list;
         bool showList;
+
     public:
         DropDownList(
             float x, float y, float width, float height,
-            sf::Font* font, std::string list[],
-            unsigned nrOfElements, unsigned default_index = 0
-        );
+            sf::Font *font, std::string list[],
+            unsigned nrOfElements, unsigned default_index = 0);
         ~DropDownList();
 
         const bool getKeyTime();
-        void updateKeytime(const float& dt);
-        void update(const sf::Vector2i& mousePoseWindow, const float& dt);
-        void render(sf::RenderTarget* target);
+        void updateKeytime(const float &dt);
+        void update(const sf::Vector2i &mousePoseWindow, const float &dt);
+        void render(sf::RenderTarget *target);
 
-        const unsigned short& getActiveElementId() const;
-        void setActiveElement(const short& id);
+        const unsigned short &getActiveElementId() const;
+        void setActiveElement(const short &id);
     };
 
-    class TextureSelector {
+    class TextureSelector
+    {
     private:
         float keytime;
         const float keyTimeMax;
         float gridSize;
         bool active;
         bool hidden;
-        gui::Button* hide_btn;
+        gui::Button *hide_btn;
         sf::RectangleShape bounds;
-        sf::Sprite sheet;
+        std::vector<sf::Sprite> sheets;
         sf::RectangleShape selector;
         sf::Vector2u mousePosGrid;
-        sf::IntRect textureRect;
+
+        TileType type;
+        int nbCols;
+
+        
+        float scale;
 
     public:
-        TextureSelector(float x, float y, float width, float height, 
-        float gridSize, const sf::Texture* texture_sheet,
-        sf::Font& font, std::string text);
+        TextureSelector(float x, float y, float width, float height,
+                        float gridSize, int nbCols, sf::Font &font, std::string text);
         ~TextureSelector();
 
-        const bool& getActive() const;
-        const sf::IntRect& getTextureRect() const;
-
+        const bool &getActive() const;
+        const TileType& getType() const;
         const bool getKeytime();
-        void updateKeytime(const float& dt);
-        void update(const sf::Vector2i& mousePosWindow, const float& dt);
-        void render(sf::RenderTarget& target);
+        void updateKeytime(const float &dt);
+        void update(const sf::Vector2i &mousePosWindow, const float &dt);
+        void render(sf::RenderTarget &target);
     };
 
-    class CheckBox {
+    class CheckBox
+    {
     private:
         sf::RectangleShape box;
         sf::CircleShape cross;
@@ -137,10 +142,9 @@ namespace gui {
         const bool getValue() const;
         void setValue(const bool value);
 
-        void update(const sf::Vector2i& mousePoseWindow);
+        void update(const sf::Vector2i &mousePoseWindow);
         void render(sf::RenderTarget *target);
     };
 }
-
 
 #endif

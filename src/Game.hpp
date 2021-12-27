@@ -18,6 +18,9 @@ private:
 
     sf::Clock dtClock;
     float dt;
+    float dtRefresh;
+    float dtRefreshMax;
+
     float gridSize;
 
     std::stack<State *> states;
