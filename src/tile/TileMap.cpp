@@ -48,16 +48,16 @@ const sf::Texture *TileMap::getTileSheet() const
     return new sf::Texture();
 }
 
-void TileMap::addTile(const int x, const int y, const unsigned z, const sf::IntRect &texture_rect, bool collision, short type)
+void TileMap::addTile(const int x, const int y, TileType type)
 {
-    if (x < this->worldSizeInTiles && x >= - worldSizeInTiles &&
-        y < this->worldSizeInTiles && y >= - worldSizeInTiles)
+    if (x < this->worldSizeInTiles && x >= -worldSizeInTiles &&
+        y < this->worldSizeInTiles && y >= -worldSizeInTiles)
     {
         int chunkX = x >= 0 ? x / (int)chunkSizeInTiles : ((x + 1) / (int)chunkSizeInTiles) - 1;
         int chunkY = y >= 0 ? y / (int)chunkSizeInTiles : ((y + 1) / (int)chunkSizeInTiles) - 1;
         int localX = ((x % chunkSizeInTiles) + chunkSizeInTiles) % chunkSizeInTiles;
         int localY = ((y % chunkSizeInTiles) + chunkSizeInTiles) % chunkSizeInTiles;
-        this->chunkMap.at({chunkX, chunkY})->addTile(localX, localY, TileType::DIRT);
+        this->chunkMap.at({ chunkX, chunkY })->addTile(localX, localY, type);
     }
 }
 

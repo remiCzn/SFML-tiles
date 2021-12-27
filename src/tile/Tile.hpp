@@ -4,6 +4,8 @@
 #include "../headers/headers.hpp"
 #include "./Custom/Tiletype.hpp"
 
+using namespace TileTypeNs;
+
 class Tile
 {
 protected:

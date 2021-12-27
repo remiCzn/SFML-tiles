@@ -6,6 +6,8 @@
 #include "./Custom/Dirt.hpp"
 #include "./Custom/Tiletype.hpp"
 
+using namespace TileTypeNs;
+
 class TileRegistry
 {
 private:
@@ -26,6 +28,8 @@ public:
 	static TileRegistry *Instance();
 
 	Tile *CreateTile(TileType type, const int x, const int y);
+	const sf::Texture* getTexture(TileType type) const;
+	const bool& isCollision(TileType type) const;
 };
 
 #endif // !TILE_REGISTRY_H

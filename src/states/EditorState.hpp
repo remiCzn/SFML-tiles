@@ -19,16 +19,12 @@ private:
     TileMap *map;
 
     sf::RectangleShape sidebar;
-
-    sf::IntRect textureRect;
+    TileType type;
     sf::RectangleShape selectorRect;
 
     gui::TextureSelector *textureSelector;
 
     std::map<std::string, gui::Button *> buttons;
-
-    bool collision;
-    short tileType;
 
     float cameraSpeed;
 

@@ -43,3 +43,11 @@ void TileRegistry::registerTile(TileType type)
         std::cout << "ERROR:TILEREGISTRY::COULD NOT LOAD FONT FOR " << (int)type << std::endl;
     }
 }
+
+const sf::Texture* TileRegistry::getTexture(TileType type) const {
+    return this->texture_registry.at(type);
+}
+
+const bool& TileRegistry::isCollision(TileType type) const {
+    return this->registry.at(type)->getCollision();
+}

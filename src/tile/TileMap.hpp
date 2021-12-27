@@ -40,7 +40,7 @@ public:
     void render(sf::RenderTarget &target, bool debugMode = true, const sf::Vector2i& mousePosition = sf::Vector2i(), const sf::Vector2i& chunkCenter = sf::Vector2i());
     void renderDeferred(sf::RenderTarget &target);
 
-    void addTile(const int x, const int y, const unsigned z, const sf::IntRect &texture_rect, bool collision, short type);
+    void addTile(const int x, const int y, TileType type);
     void removeTile(const int x, const int y, const unsigned z);
     void saveToFile(const std::string file_name);
     void loadFromFile(const std::string file_name);
