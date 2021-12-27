@@ -1,9 +1,9 @@
 #include "./gui.hpp"
 
 gui::TextureSelector::TextureSelector(float x, float y, float width, float height,
-                                      float gridSize,
+                                      float gridSize, int nbCols,
                                       sf::Font &font, std::string text)
-    : keyTimeMax(1.f), keytime(0.f)
+    : keyTimeMax(1.f), keytime(0.f), nbCols(nbCols)
 {
     this->gridSize = gridSize;
     this->active = false;
@@ -29,12 +29,12 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
         index++;
     }
 
-    index = 10;
+    if (index < 10) {
+        index = 10;
+    }
+    int rows = (index/nbCols) + 1;
 
-    int cols = 4;
-    int rows = (index/cols) + 1;
-
-    this->bounds.setSize(sf::Vector2f(this->scale * cols * gridSize, this->scale * rows * gridSize));
+    this->bounds.setSize(sf::Vector2f(this->scale * this->nbCols * gridSize, this->scale * rows * gridSize));
 
     this->selector.setPosition(x + offset, y);
     this->selector.setSize(sf::Vector2f(gridSize * scale, gridSize * scale));
@@ -110,7 +110,7 @@ void gui::TextureSelector::update(const sf::Vector2i &mousePosWindow, const floa
                 this->bounds.getPosition().x + this->mousePosGrid.x * this->gridSize * scale,
                 this->bounds.getPosition().y + this->mousePosGrid.y * this->gridSize * scale
             );
-            unsigned int typeNum = this->mousePosGrid.y * 4 + this->mousePosGrid.x;
+            unsigned int typeNum = this->mousePosGrid.y * this->nbCols + this->mousePosGrid.x;
             if (typeNum < (int)TileType::NONE) {
                 this->type = static_cast<TileType>(typeNum);
             }

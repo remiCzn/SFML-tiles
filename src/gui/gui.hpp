@@ -106,14 +106,14 @@ namespace gui
         sf::Vector2u mousePosGrid;
 
         TileType type;
-
+        int nbCols;
 
         
         float scale;
 
     public:
         TextureSelector(float x, float y, float width, float height,
-                        float gridSize, sf::Font &font, std::string text);
+                        float gridSize, int nbCols, sf::Font &font, std::string text);
         ~TextureSelector();
 
         const bool &getActive() const;

@@ -124,7 +124,7 @@ void EditorState::initGui()
     this->selectorRect.setTexture(TileRegistry::Instance()->getTexture(this->type));
     this->selectorRect.setTextureRect(sf::IntRect(0,0, static_cast<int>(this->statedata->gridSize), static_cast<int>(this->statedata->gridSize)));
 
-    this->textureSelector = new gui::TextureSelector(10.f, 10.f, 400.f, 500.f, this->statedata->gridSize, this->font, "Tex");
+    this->textureSelector = new gui::TextureSelector(10.f, 10.f, 400.f, 500.f, this->statedata->gridSize, 4, this->font, "Tex");
 }
 
 //Update
