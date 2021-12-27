@@ -19,7 +19,6 @@ private:
     unsigned layers;
     std::vector<std::vector<Tile *>> chunk;
     std::stack<Tile *> deferredRenderStack;
-    sf::Texture &tileSheet;
     sf::RectangleShape collisionBox;
 
     sf::RectangleShape chunkBox;
@@ -27,12 +26,11 @@ private:
     void clear();
 
 public:
-    Chunk(float gridSize, sf::Texture &tilesheet, sf::RectangleShape &collisionBox, int offsetX, int offsetY);
+    Chunk(float gridSize, sf::RectangleShape &collisionBox, int offsetX, int offsetY);
     virtual ~Chunk();
 
     void update();
 
-    void addTile(const unsigned x, const unsigned y, const sf::IntRect &texture_rect, bool collision, short type);
     void addTile(const unsigned x, const unsigned y, TileType type);
     void removeTile(const unsigned x, const unsigned y);
     const Tile * getTile(const unsigned x, const unsigned y);

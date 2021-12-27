@@ -14,8 +14,8 @@ void Chunk::clear()
     }
 }
 
-Chunk::Chunk(float gridSize, sf::Texture &tilesheet, sf::RectangleShape &collisionBox, int offsetX, int offsetY)
-    : tileSheet(tilesheet), offsetX(offsetX), offsetY(offsetY)
+Chunk::Chunk(float gridSize, sf::RectangleShape &collisionBox, int offsetX, int offsetY)
+    : offsetX(offsetX), offsetY(offsetY)
 {
     this->gridSizeF = gridSize;
     this->gridSizeU = static_cast<unsigned>(this->gridSizeF);
@@ -123,16 +123,6 @@ void Chunk::loadFromJson(Json::Value chunk)
                      sf::IntRect(tile["trX"].asInt(), tile["trY"].asInt(), this->gridSizeU, this->gridSizeU),
                      tile["collision"].asBool(),
                      tile["type"].asInt())*/
-    }
-}
-
-void Chunk::addTile(const unsigned x, const unsigned y, const sf::IntRect &texture_rect, bool collision, short type)
-{
-    if (x < this->chunkWidthGrid && x >= 0 &&
-        y < this->chunkWidthGrid && y >= 0)
-    {
-        this->chunk[x][y] =
-            TileRegistry::Instance()->CreateTile(TileType::STONE, x + static_cast<int>(this->offsetX / this->gridSizeF), y + static_cast<int>(this->offsetY / this->gridSizeF));
     }
 }
 
