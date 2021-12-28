@@ -33,7 +33,7 @@ public:
 
     void addTile(const unsigned x, const unsigned y, TileType type);
     void removeTile(const unsigned x, const unsigned y);
-    const Tile * getTile(const unsigned x, const unsigned y);
+    const Tile *getTile(const unsigned x, const unsigned y);
 
     void render(sf::RenderTarget &target, bool debugMode);
     void renderDeferred(sf::RenderTarget &target);

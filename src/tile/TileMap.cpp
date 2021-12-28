@@ -57,7 +57,7 @@ void TileMap::addTile(const int x, const int y, TileType type)
         int chunkY = y >= 0 ? y / (int)chunkSizeInTiles : ((y + 1) / (int)chunkSizeInTiles) - 1;
         int localX = ((x % chunkSizeInTiles) + chunkSizeInTiles) % chunkSizeInTiles;
         int localY = ((y % chunkSizeInTiles) + chunkSizeInTiles) % chunkSizeInTiles;
-        this->chunkMap.at({ chunkX, chunkY })->addTile(localX, localY, type);
+        this->chunkMap.at({chunkX, chunkY})->addTile(localX, localY, type);
     }
 }
 
@@ -68,8 +68,8 @@ void TileMap::removeTile(const int x, const int y, const unsigned z)
     {
         int chunkX = x >= 0 ? x / (int)chunkSizeInTiles : ((x + 1) / (int)chunkSizeInTiles) - 1;
         int chunkY = y >= 0 ? y / (int)chunkSizeInTiles : ((y + 1) / (int)chunkSizeInTiles) - 1;
-        int localX = ((x % chunkSizeInTiles) + chunkSizeInTiles)% chunkSizeInTiles;
-        int localY = ((y % chunkSizeInTiles) + chunkSizeInTiles)% chunkSizeInTiles;
+        int localX = ((x % chunkSizeInTiles) + chunkSizeInTiles) % chunkSizeInTiles;
+        int localY = ((y % chunkSizeInTiles) + chunkSizeInTiles) % chunkSizeInTiles;
         this->chunkMap.at({chunkX, chunkY})->removeTile(localX, localY);
     }
 }
@@ -108,18 +108,18 @@ void TileMap::updateCollision(Entity *entity, const float &dt)
     int y1 = pos.y - 2;
     int y2 = pos.y + 3;
 
-    if (x1 < - (this->worldSizeInTiles))
+    if (x1 < -(this->worldSizeInTiles))
     {
-        x1 =  - (this->worldSizeInTiles);
+        x1 = -(this->worldSizeInTiles);
     }
     else if (x1 > (int)this->worldSizeInTiles)
     {
         x1 = this->worldSizeInTiles;
     }
 
-    if (x2 < - (this->worldSizeInTiles))
+    if (x2 < -(this->worldSizeInTiles))
     {
-        x2 = - (this->worldSizeInTiles);
+        x2 = -(this->worldSizeInTiles);
     }
     else if (x2 > (int)this->worldSizeInTiles)
     {
@@ -149,10 +149,10 @@ void TileMap::updateCollision(Entity *entity, const float &dt)
         for (int y = y1; y < y2; y++)
         {
             int chunkX = x >= 0 ? x / (int)chunkSizeInTiles : ((x + 1) / (int)chunkSizeInTiles) - 1;
-            int chunkY = y >= 0 ?y / (int)chunkSizeInTiles : ((y + 1) / (int)chunkSizeInTiles) - 1;
+            int chunkY = y >= 0 ? y / (int)chunkSizeInTiles : ((y + 1) / (int)chunkSizeInTiles) - 1;
             int localX = ((x % chunkSizeInTiles) + chunkSizeInTiles) % chunkSizeInTiles;
             int localY = ((y % chunkSizeInTiles) + chunkSizeInTiles) % chunkSizeInTiles;
-            const Tile * ts = this->chunkMap.at({chunkX, chunkY})->getTile(localX, localY);
+            const Tile *ts = this->chunkMap.at({chunkX, chunkY})->getTile(localX, localY);
             if (ts != nullptr)
             {
                 if (ts->getCollision() && ts->intersects(entity->getNextPosition(dt)))
@@ -173,12 +173,15 @@ void TileMap::updateCollision(Entity *entity, const float &dt)
     }
 }
 
-void TileMap::render(sf::RenderTarget &target, bool debugMode, const sf::Vector2i& mousePosition, const sf::Vector2i& chunkCenter)
+void TileMap::render(sf::RenderTarget &target,
+                     bool debugMode,
+                     const sf::Vector2i &mousePosition,
+                     const sf::Vector2i &chunkCenter)
 {
-    int chunkX = mousePosition.x >= 0 ? mousePosition.x / (int)chunkSizeInTiles : ((mousePosition.x + 1)/ (int)chunkSizeInTiles) - 1 ;
-    int chunkY = mousePosition.y >= 0 ? mousePosition.y / (int)chunkSizeInTiles : ((mousePosition.y + 1)/ (int)chunkSizeInTiles) - 1;
+    int chunkX = mousePosition.x >= 0 ? mousePosition.x / (int)chunkSizeInTiles : ((mousePosition.x + 1) / (int)chunkSizeInTiles) - 1;
+    int chunkY = mousePosition.y >= 0 ? mousePosition.y / (int)chunkSizeInTiles : ((mousePosition.y + 1) / (int)chunkSizeInTiles) - 1;
     int x1 = chunkX - 2;
-    int x2 = chunkX + 2 ;
+    int x2 = chunkX + 2;
     int y1 = chunkY - 2;
     int y2 = chunkY + 2;
 
@@ -194,14 +197,15 @@ void TileMap::render(sf::RenderTarget &target, bool debugMode, const sf::Vector2
     for (int x = x1; x <= x2; x++)
     {
         for (int y = y1; y <= y2; y++)
-        {   
-            if (chunkX == x && chunkY == y) {
+        {
+            if (chunkX == x && chunkY == y)
+            {
                 this->chunkMap.at({(int)x, (int)y})->render(target, debugMode);
             }
-            else {
+            else
+            {
                 this->chunkMap.at({(int)x, (int)y})->render(target, false);
             }
-            
         }
     }
 }

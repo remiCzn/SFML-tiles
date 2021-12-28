@@ -87,6 +87,7 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="README.md" />
+    <None Include="src\resource\fragment_shader.frag" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="src\fonts\Dosis-Light.ttf" />

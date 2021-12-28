@@ -59,7 +59,7 @@ void progressBar::update(int value, int maxValue)
 
     switch (this->mode)
     {
-    case ProgressBarMode::ABSOLUTE:
+    case ProgressBarMode::ABSOLUT:
         this->DispValue.setString(std::to_string(value));
         break;
     case ProgressBarMode::FRAC:

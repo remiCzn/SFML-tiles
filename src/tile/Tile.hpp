@@ -9,14 +9,13 @@ using namespace TileTypeNs;
 class Tile
 {
 protected:
-    sf::RectangleShape shape;
+    sf::Sprite shape;
     float gridSizeF;
     bool collision;
 
     std::string name;
     std::string tilesheet_name;
     TileType type;
-    
 
 public:
     Tile();
@@ -25,10 +24,10 @@ public:
     Tile(std::string name, TileType type, std::string tilesheet_name, bool collision, float gridSizeF);
     virtual ~Tile();
 
-    void setTexture(const sf::Texture& texture);
+    void setTexture(const sf::Texture &texture);
 
     const bool &getCollision() const;
-    void setCollision(const bool& isCollision);
+    void setCollision(const bool &isCollision);
     const sf::Vector2f &getPosition() const;
     void setPosition(const float x, const float y);
     const sf::FloatRect getGlobalBounds() const;
@@ -38,9 +37,9 @@ public:
     void update();
     void render(sf::RenderTarget &target);
 
-    virtual Tile* Clone(const int x, const int y) const = 0;
-    void setTexture(const sf::Texture* texture, const sf::IntRect& texture_rect);
-    const std::string& getTextureFile() const;
+    virtual Tile *Clone(const int x, const int y) const = 0;
+    void setTexture(const sf::Texture *texture, const sf::IntRect &texture_rect);
+    const std::string &getTextureFile() const;
 };
 
 #endif

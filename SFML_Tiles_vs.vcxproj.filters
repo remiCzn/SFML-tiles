@@ -67,6 +67,9 @@
     <Filter Include="Fichiers de ressources\CMake">
       <UniqueIdentifier>{e00a2760-c882-4502-9f53-45e214c6b0ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers de ressources\Shaders">
+      <UniqueIdentifier>{a9ea4b51-bc1f-45e0-91a1-4d8d4f6d3e19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -272,6 +275,9 @@
     </None>
     <None Include="README.md">
       <Filter>Fichiers de ressources\Git</Filter>
+    </None>
+    <None Include="src\resource\fragment_shader.frag">
+      <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

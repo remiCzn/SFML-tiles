@@ -37,8 +37,12 @@ public:
     void update();
     void updateCollision(Entity *entity, const float &dt);
 
-    void render(sf::RenderTarget &target, bool debugMode = true, const sf::Vector2i& mousePosition = sf::Vector2i(), const sf::Vector2i& chunkCenter = sf::Vector2i());
     void renderDeferred(sf::RenderTarget &target);
+    void render(
+        sf::RenderTarget &target,
+        bool debugMode = true,
+        const sf::Vector2i &mousePosition = sf::Vector2i(),
+        const sf::Vector2i &chunkCenter = sf::Vector2i());
 
     void addTile(const int x, const int y, TileType type);
     void removeTile(const int x, const int y, const unsigned z);

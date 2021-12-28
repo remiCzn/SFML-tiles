@@ -3,7 +3,6 @@
 
 int main()
 {
-    //Noise::runAlgo();
     Game game;
     game.run();
     return 0;

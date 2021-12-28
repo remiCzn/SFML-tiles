@@ -33,8 +33,7 @@ Chunk::Chunk(float gridSize, sf::RectangleShape &collisionBox, int offsetX, int 
     this->collisionBox = collisionBox;
 
     this->chunkBox.setSize(sf::Vector2f(
-        this->chunkWidthF, this->chunkWidthF
-    ));
+        this->chunkWidthF, this->chunkWidthF));
     this->chunkBox.setPosition(static_cast<float>(offsetX), static_cast<float>(offsetY));
     this->chunkBox.setOutlineThickness(1.f);
     this->chunkBox.setOutlineColor(sf::Color::White);
@@ -56,9 +55,10 @@ void Chunk::render(sf::RenderTarget &target, bool debugMode)
     {
         for (auto &y : x)
         {
-            if (y != nullptr) {
+            if (y != nullptr)
+            {
                 y->render(target);
-                
+
                 if (y->getCollision() && debugMode)
                 {
                     this->collisionBox.setPosition(y->getPosition());
@@ -77,7 +77,7 @@ void Chunk::render(sf::RenderTarget &target, bool debugMode)
 void Chunk::renderDeferred(sf::RenderTarget &target)
 {
     while (!this->deferredRenderStack.empty())
-    {
+    {        
         deferredRenderStack.top()->render(target);
         deferredRenderStack.pop();
     }
@@ -114,15 +114,8 @@ void Chunk::loadFromJson(Json::Value chunk)
     for (unsigned int i = 0; i < chunk["tiles"].size(); i++)
     {
         Json::Value tile = chunk["tiles"][i];
-        this->chunk[tile["x"].asInt()][tile["y"].asInt()] = 
+        this->chunk[tile["x"].asInt()][tile["y"].asInt()] =
             TileRegistry::Instance()->CreateTile(static_cast<TileType>(tile["id"].asInt()), tile["x"].asInt() + static_cast<int>(this->offsetX / gridSizeF), tile["y"].asInt() + static_cast<int>(this->offsetY / gridSizeF));
-            /*new Tile(tile["x"].asInt() * this->gridSizeF + this->offsetX,
-                     tile["y"].asInt() * this->gridSizeF + this->offsetY,
-                     this->gridSizeF,
-                     this->tileSheet,
-                     sf::IntRect(tile["trX"].asInt(), tile["trY"].asInt(), this->gridSizeU, this->gridSizeU),
-                     tile["collision"].asBool(),
-                     tile["type"].asInt())*/
     }
 }
 
@@ -146,7 +139,7 @@ void Chunk::removeTile(const unsigned x, const unsigned y)
     }
 }
 
-const Tile* Chunk::getTile(const unsigned x, const unsigned y)
+const Tile *Chunk::getTile(const unsigned x, const unsigned y)
 {
     if (x >= 0 && x < chunkWidthGrid && y >= 0 && y < chunkWidthGrid)
     {
@@ -162,7 +155,8 @@ void Chunk::generate(float scale, float threshold)
         for (unsigned int y = 0; y < this->chunkWidthGrid; y++)
         {
             float value = Noise::generate(x + (int)(this->offsetX / this->gridSizeF), y + (int)(this->offsetY / this->gridSizeF));
-            if (value > threshold + 0.1) {
+            if (value > threshold + 0.1)
+            {
                 this->chunk[x][y] =
                     TileRegistry::Instance()->CreateTile(TileType::STONE, x + static_cast<int>(this->offsetX / gridSizeF), y + static_cast<int>(this->offsetY / gridSizeF));
             }

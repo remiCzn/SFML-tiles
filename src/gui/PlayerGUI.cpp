@@ -6,7 +6,7 @@ PlayerGUI::PlayerGUI(Player *player)
 {
     this->player = player;
     this->initFont();
-    this->hpBar.setProgressBarMode(ProgressBarMode::ABSOLUTE);
+    this->hpBar.setProgressBarMode(ProgressBarMode::ABSOLUT);
     this->levelBar.setProgressBarMode(ProgressBarMode::FRAC);
 }
 

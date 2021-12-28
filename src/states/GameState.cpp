@@ -8,6 +8,7 @@ GameState::GameState(StateData *stateData)
     this->initFonts();
     this->initTextures();
     this->initPauseMenu();
+    this->initShaders();
     this->initPlayer();
     this->initPlayerGui();
     this->initTileMap();
@@ -25,6 +26,14 @@ GameState::~GameState()
 void GameState::initPlayerGui()
 {
     this->playerGui = new PlayerGUI(this->player);
+}
+
+void GameState::initShaders()
+{
+    if (!sf::Shader::isAvailable() || !this->core_shader.loadFromFile("src/resource/fragment_shader.frag", sf::Shader::Fragment))
+    {
+        std::cout << "ERROR::GAMESTATE::COULD NOT LOAD SHADER" << std::endl;
+    }
 }
 
 void GameState::initKeybinds()
@@ -86,6 +95,16 @@ void GameState::initDeferredRender()
 
     this->renderSprite.setTexture(this->renderTexture.getTexture());
     this->renderSprite.setTextureRect(
+        sf::IntRect(
+            0, 0,
+            this->statedata->gfxSettings->resolution.width,
+            this->statedata->gfxSettings->resolution.height));
+    this->shaderTexture.create(
+        this->statedata->gfxSettings->resolution.width,
+        this->statedata->gfxSettings->resolution.height);
+
+    this->shaderSprite.setTexture(this->shaderTexture.getTexture());
+    this->shaderSprite.setTextureRect(
         sf::IntRect(
             0, 0,
             this->statedata->gfxSettings->resolution.width,
@@ -200,13 +219,29 @@ void GameState::render(sf::RenderTarget *target)
     if (!target)
         target = this->statedata->gfxSettings->window;
 
+    this->core_shader.setUniform("winSize", sf::Vector2f(this->statedata->gfxSettings->window->getSize().x, this->statedata->gfxSettings->window->getSize().y));
+    this->core_shader.setUniform("hasTexture", true);
+    this->core_shader.setUniform("light", sf::Vector3f(
+        this->statedata->gfxSettings->window->getSize().x / 2.f,
+        this->statedata->gfxSettings->window->getSize().y / 2.f,
+        this->statedata->gfxSettings->window->getSize().y * 3.f / 4.f)
+    );
+
     this->renderTexture.clear();
-    this->renderTexture.setView(this->view);
-    this->map->render(this->renderTexture, this->statedata->debugMode, sf::Vector2i(this->player->getPosition() / this->gridSize), sf::Vector2i(this->player->getPosition() / this->gridSize));
+    this->shaderTexture.clear();
+    this->shaderTexture.setView(this->view);
+    this->map->render(
+        this->shaderTexture,
+        this->statedata->debugMode,
+        sf::Vector2i(this->player->getPosition() / this->gridSize),
+        sf::Vector2i(this->player->getPosition() / this->gridSize));
 
-    this->player->render(this->renderTexture, this->statedata->debugMode);
+    this->player->render(this->shaderTexture, this->statedata->debugMode);
 
-    this->map->renderDeferred(this->renderTexture);
+    this->map->renderDeferred(this->shaderTexture);
+
+    this->shaderTexture.display();
+    this->renderTexture.draw(this->shaderSprite, &this->core_shader);
 
     this->renderTexture.setView(this->statedata->gfxSettings->window->getDefaultView());
     this->playerGui->render(this->renderTexture);
@@ -215,6 +250,7 @@ void GameState::render(sf::RenderTarget *target)
     {
         this->pmenu->render(this->renderTexture);
     }
+    
     this->renderTexture.display();
     target->draw(this->renderSprite);
 }
