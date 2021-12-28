@@ -176,9 +176,7 @@ void TileMap::updateCollision(Entity *entity, const float &dt)
 void TileMap::render(sf::RenderTarget &target,
                      bool debugMode,
                      const sf::Vector2i &mousePosition,
-                     const sf::Vector2i &chunkCenter,
-                     sf::Shader *shader,
-                     const sf::Vector2f playerPosition)
+                     const sf::Vector2i &chunkCenter)
 {
     int chunkX = mousePosition.x >= 0 ? mousePosition.x / (int)chunkSizeInTiles : ((mousePosition.x + 1) / (int)chunkSizeInTiles) - 1;
     int chunkY = mousePosition.y >= 0 ? mousePosition.y / (int)chunkSizeInTiles : ((mousePosition.y + 1) / (int)chunkSizeInTiles) - 1;
@@ -212,7 +210,7 @@ void TileMap::render(sf::RenderTarget &target,
     }
 }
 
-void TileMap::renderDeferred(sf::RenderTarget &target, sf::Shader *shader, const sf::Vector2f playerPosition)
+void TileMap::renderDeferred(sf::RenderTarget &target)
 {
     for (int x = -worldSizeInChunks; x < worldSizeInChunks; x++)
     {

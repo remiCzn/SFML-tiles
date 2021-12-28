@@ -35,7 +35,7 @@ public:
     const bool intersects(const sf::FloatRect bounds) const;
 
     void update();
-    void render(sf::RenderTarget &target, sf::Shader *shader = NULL, sf::Vector2f playerPosition = sf::Vector2f());
+    void render(sf::RenderTarget &target);
 
     virtual Tile *Clone(const int x, const int y) const = 0;
     void setTexture(const sf::Texture *texture, const sf::IntRect &texture_rect);

@@ -49,7 +49,7 @@ void Chunk::update()
 {
 }
 
-void Chunk::render(sf::RenderTarget &target, bool debugMode, sf::Shader *shader, const sf::Vector2f playerPosition)
+void Chunk::render(sf::RenderTarget &target, bool debugMode)
 {
     for (auto &x : this->chunk)
     {
@@ -57,14 +57,7 @@ void Chunk::render(sf::RenderTarget &target, bool debugMode, sf::Shader *shader,
         {
             if (y != nullptr)
             {
-                if (shader)
-                {
-                    y->render(target, shader, playerPosition);
-                }
-                else
-                {
-                    y->render(target);
-                }
+                y->render(target);
 
                 if (y->getCollision() && debugMode)
                 {
@@ -81,14 +74,11 @@ void Chunk::render(sf::RenderTarget &target, bool debugMode, sf::Shader *shader,
     }
 }
 
-void Chunk::renderDeferred(sf::RenderTarget &target, sf::Shader *shader, const sf::Vector2f playerPosition)
+void Chunk::renderDeferred(sf::RenderTarget &target)
 {
     while (!this->deferredRenderStack.empty())
-    {
-        if (shader)
-            deferredRenderStack.top()->render(target, shader, playerPosition);
-        else
-            deferredRenderStack.top()->render(target);
+    {        
+        deferredRenderStack.top()->render(target);
         deferredRenderStack.pop();
     }
 }
@@ -126,13 +116,6 @@ void Chunk::loadFromJson(Json::Value chunk)
         Json::Value tile = chunk["tiles"][i];
         this->chunk[tile["x"].asInt()][tile["y"].asInt()] =
             TileRegistry::Instance()->CreateTile(static_cast<TileType>(tile["id"].asInt()), tile["x"].asInt() + static_cast<int>(this->offsetX / gridSizeF), tile["y"].asInt() + static_cast<int>(this->offsetY / gridSizeF));
-        /*new Tile(tile["x"].asInt() * this->gridSizeF + this->offsetX,
-                     tile["y"].asInt() * this->gridSizeF + this->offsetY,
-                     this->gridSizeF,
-                     this->tileSheet,
-                     sf::IntRect(tile["trX"].asInt(), tile["trY"].asInt(), this->gridSizeU, this->gridSizeU),
-                     tile["collision"].asBool(),
-                     tile["type"].asInt())*/
     }
 }
 

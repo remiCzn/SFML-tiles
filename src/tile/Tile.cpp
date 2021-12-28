@@ -78,9 +78,8 @@ void Tile::update()
 {
 }
 
-void Tile::render(sf::RenderTarget &target, sf::Shader *shader, sf::Vector2f playerPosition)
+void Tile::render(sf::RenderTarget &target)
 {
-
         target.draw(this->shape);
 }
 

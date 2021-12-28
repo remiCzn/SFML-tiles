@@ -37,14 +37,12 @@ public:
     void update();
     void updateCollision(Entity *entity, const float &dt);
 
-    void renderDeferred(sf::RenderTarget &target, sf::Shader *shader = NULL, const sf::Vector2f playerPosition = sf::Vector2f());
+    void renderDeferred(sf::RenderTarget &target);
     void render(
         sf::RenderTarget &target,
         bool debugMode = true,
         const sf::Vector2i &mousePosition = sf::Vector2i(),
-        const sf::Vector2i &chunkCenter = sf::Vector2i(),
-        sf::Shader *shader = NULL,
-        const sf::Vector2f playerPosition = sf::Vector2f());
+        const sf::Vector2i &chunkCenter = sf::Vector2i());
 
     void addTile(const int x, const int y, TileType type);
     void removeTile(const int x, const int y, const unsigned z);

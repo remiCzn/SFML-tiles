@@ -35,8 +35,8 @@ public:
     void removeTile(const unsigned x, const unsigned y);
     const Tile *getTile(const unsigned x, const unsigned y);
 
-    void render(sf::RenderTarget &target, bool debugMode, sf::Shader *shader = NULL, const sf::Vector2f playerPosition = sf::Vector2f());
-    void renderDeferred(sf::RenderTarget &target, sf::Shader *shader = NULL, const sf::Vector2f playerPosition = sf::Vector2f());
+    void render(sf::RenderTarget &target, bool debugMode);
+    void renderDeferred(sf::RenderTarget &target);
 
     virtual Json::Value getAsJson();
     void loadFromJson(Json::Value chunk);
