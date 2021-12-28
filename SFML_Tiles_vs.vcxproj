@@ -88,7 +88,6 @@
     <None Include=".gitignore" />
     <None Include="README.md" />
     <None Include="src\resource\fragment_shader.frag" />
-    <None Include="src\resource\vertex_shader.vert" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="src\fonts\Dosis-Light.ttf" />

@@ -1,34 +1,28 @@
-varying in vec4 vert_pos;
+#version 110
 
+uniform vec3 light;
+uniform vec2 winSize;
 uniform sampler2D texture;
 uniform bool hasTexture;
-uniform vec2 lightPos;
+ 
+void main(void) {
+    float dx = gl_FragCoord.x - light.x;
+    float dy = winSize.y - gl_FragCoord.y - light.y;
+    float distanceCarre = dx * dx + dy * dy;
+    float alpha = 1.;
+  
+    alpha = 1. - sqrt(distanceCarre) / light.z;
+    alpha = 1.0 / (1.0 + exp(-(alpha * 7.0 - 3.0)));
 
-void main()
-{
-	//Ambient light
-	vec4 ambient = vec4(0.02, 0.02, 0.02, 1);
-	
-	//Convert light to view coords
-	lightPos = (gl_ModelViewProjectionMatrix * vec4(lightPos, 0, 1)).xy;
-	
-	//Calculate the vector from light to pixel (Make circular)
-	vec2 lightToFrag = lightPos - vert_pos.xy;
-	lightToFrag.y = lightToFrag.y / 1.7;
-
-	//Length of the vector (distance)
-	float vecLength = clamp(length(lightToFrag) * 4, 0, 1);
-
-    // lookup the pixel in the texture
     vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);
 
-    // multiply it by the color and lighting
-	if(hasTexture == true)
-	{
-		gl_FragColor = gl_Color * pixel * (clamp(ambient + vec4(1-vecLength, 1-vecLength, 1-vecLength, 1), 0, 1));
-	}
-	else
-	{
-		gl_FragColor = gl_Color;
-	}
+    vec4 color = vec4(1.0,0.92,0.78,1.);
+
+    if(hasTexture == true) {
+        gl_FragColor = color * pixel * alpha;
+    } else {
+        gl_FragColor = color * pixel;
+    }
+   
+      
 }

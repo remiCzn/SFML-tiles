@@ -279,9 +279,6 @@
     <None Include="src\resource\fragment_shader.frag">
       <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
-    <None Include="src\resource\vertex_shader.vert">
-      <Filter>Fichiers de ressources\Shaders</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt">

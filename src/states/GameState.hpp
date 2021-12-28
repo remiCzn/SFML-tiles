@@ -14,7 +14,9 @@ private:
     PauseMenu *pmenu;
     sf::Font *font;
     sf::RenderTexture renderTexture;
+    sf::RenderTexture shaderTexture;
     sf::Sprite renderSprite;
+    sf::Sprite shaderSprite;
 
     sf::Shader core_shader;
 

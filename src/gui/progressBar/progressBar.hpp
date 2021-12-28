@@ -13,7 +13,7 @@ enum ProgressBarType
 enum ProgressBarMode
 {
     PERCENT,
-    ABSOLUTE,
+    ABSOLUT,
     FRAC
 };
 
