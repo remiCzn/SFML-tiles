@@ -27,7 +27,6 @@ set(EXFILES
     images/Tiles/tilesheet1.png
     images/Tiles/tilesheet2.png
     images/UI/checkx48.png
-    resource/vertex_shader.vert
     resource/fragment_shader.frag
     images/Tiles/Stonex20.png
 )
