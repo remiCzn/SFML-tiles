@@ -14,6 +14,11 @@ void main(void) {
     alpha = 1. - sqrt(distanceCarre) / light.z;
     alpha = 1.0 / (1.0 + exp(-(alpha * 7.0 - 3.0)));
 
+    float threshold = 0.2;
+    if(alpha < threshold) {
+        alpha = threshold;
+    }
+
     vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);
 
     vec4 color = vec4(1.0,0.92,0.78,1.);

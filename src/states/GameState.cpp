@@ -224,7 +224,7 @@ void GameState::render(sf::RenderTarget *target)
     this->core_shader.setUniform("light", sf::Vector3f(
         this->statedata->gfxSettings->window->getSize().x / 2.f,
         this->statedata->gfxSettings->window->getSize().y / 2.f,
-        this->statedata->gfxSettings->window->getSize().y)
+        this->statedata->gfxSettings->window->getSize().y * 3.f / 4.f)
     );
 
     this->renderTexture.clear();
@@ -234,8 +234,7 @@ void GameState::render(sf::RenderTarget *target)
         this->shaderTexture,
         this->statedata->debugMode,
         sf::Vector2i(this->player->getPosition() / this->gridSize),
-        sf::Vector2i(this->player->getPosition() / this->gridSize),
-        &this->core_shader, this->player->getPosition());
+        sf::Vector2i(this->player->getPosition() / this->gridSize));
 
     this->player->render(this->shaderTexture, this->statedata->debugMode);
 
