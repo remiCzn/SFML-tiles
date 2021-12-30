@@ -82,7 +82,7 @@ void TileMap::updateCollision(Entity *entity, const float &dt)
 {
     sf::FloatRect nextPosition = entity->getNextPosition(dt);
     //WORLD BORDER
-    if (nextPosition.left < -this->worldSize + (chunkSizeInTiles * gridSizeF))
+    if (nextPosition.left < -this->worldSize)
     {
         entity->stopVelocityX();
     }
@@ -91,7 +91,7 @@ void TileMap::updateCollision(Entity *entity, const float &dt)
         entity->stopVelocityX();
     }
 
-    if (nextPosition.top < -this->worldSize + (chunkSizeInTiles * gridSizeF))
+    if (nextPosition.top < -this->worldSize)
     {
         entity->stopVelocityY();
     }
@@ -178,8 +178,8 @@ void TileMap::render(sf::RenderTarget &target,
                      const sf::Vector2i &mousePosition,
                      const sf::Vector2i &chunkCenter)
 {
-    int chunkX = mousePosition.x >= 0 ? mousePosition.x / (int)chunkSizeInTiles : ((mousePosition.x + 1) / (int)chunkSizeInTiles) - 1;
-    int chunkY = mousePosition.y >= 0 ? mousePosition.y / (int)chunkSizeInTiles : ((mousePosition.y + 1) / (int)chunkSizeInTiles) - 1;
+    int chunkX = chunkCenter.x >= 0 ? chunkCenter.x / (int)chunkSizeInTiles : ((chunkCenter.x + 1) / (int)chunkSizeInTiles) - 1;
+    int chunkY = chunkCenter.y >= 0 ? chunkCenter.y / (int)chunkSizeInTiles : ((chunkCenter.y + 1) / (int)chunkSizeInTiles) - 1;
     int x1 = chunkX - 2;
     int x2 = chunkX + 2;
     int y1 = chunkY - 2;
@@ -194,11 +194,13 @@ void TileMap::render(sf::RenderTarget &target,
     if (y2 >= worldSizeInChunks)
         y2 = worldSizeInChunks - 1;
 
+    int mouseChunkX = mousePosition.x >= 0 ? mousePosition.x / (int)chunkSizeInTiles : ((mousePosition.x + 1) / (int)chunkSizeInTiles) - 1;
+    int mouseChunkY = mousePosition.y >= 0 ? mousePosition.y / (int)chunkSizeInTiles : ((mousePosition.y + 1) / (int)chunkSizeInTiles) - 1;
     for (int x = x1; x <= x2; x++)
     {
         for (int y = y1; y <= y2; y++)
         {
-            if (chunkX == x && chunkY == y)
+            if (x == mouseChunkX && y == mouseChunkY)
             {
                 this->chunkMap.at({(int)x, (int)y})->render(target, debugMode);
             }
@@ -274,8 +276,6 @@ void TileMap::loadFromFile(std::string filename)
     {
         ifs >> root;
 
-        this->maxSizeWorldGrid.x = root["size"]["x"].asInt();
-        this->maxSizeWorldGrid.y = root["size"]["y"].asInt();
         this->gridSizeU = root["gridSize"].asInt();
 
         this->clear();
@@ -298,4 +298,9 @@ void TileMap::loadFromFile(std::string filename)
         std::cout << "ERROR::TILEMAP::COULD NOT LOAD FROM FILE::FILENAME: " << filename << std::endl;
     }
     ifs.close();
+}
+
+const float& TileMap::getWorldSize() const
+{
+    return this->worldSize;
 }

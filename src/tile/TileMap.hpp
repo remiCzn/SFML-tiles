@@ -12,8 +12,6 @@ private:
 
     float gridSizeF;
     unsigned gridSizeU;
-    sf::Vector2u maxSizeWorldGrid;
-    sf::Vector2f maxSizeWorldF;
     std::vector<std::vector<std::vector<std::vector<Tile *>>>> map;
     std::stack<Tile *> deferredRenderStack;
     std::string texture_file;
@@ -48,6 +46,8 @@ public:
     void removeTile(const int x, const int y, const unsigned z);
     void saveToFile(const std::string file_name);
     void loadFromFile(const std::string file_name);
+
+    const float& getWorldSize() const;
 };
 
 #endif

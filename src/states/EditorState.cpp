@@ -297,7 +297,7 @@ void EditorState::render(sf::RenderTarget *target)
 
     this->renderTexture.clear();
     this->renderTexture.setView(this->view);
-    this->map->render(this->renderTexture, true, this->mousePosGridScaled);
+    this->map->render(this->renderTexture, true, this->mousePosGridScaled, sf::Vector2i(this->view.getCenter() / this->gridSize));
     this->map->renderDeferred(this->renderTexture);
     this->renderTexture.setView(this->statedata->gfxSettings->window->getDefaultView());
     this->renderButtons(&this->renderTexture);

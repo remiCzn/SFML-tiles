@@ -23,7 +23,7 @@ private:
     //Initializers
     void initVariables();
 
-    void playAnimations(const float &dt);
+    void updateAnimation(const float& dt);
 
 public:
     Player(float x, float y, sf::Texture *textureSheet);
@@ -33,7 +33,6 @@ public:
     void render(sf::RenderTarget &target, bool debugMode);
 
     void updateAttack(const float &dt);
-    void updateAnimation(const float &dt);
 
     AttributeComponent *getAttributeComponent();
 

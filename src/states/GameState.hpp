@@ -24,6 +24,8 @@ private:
     PlayerGUI *playerGui;
     TileMap *map;
 
+    sf::Vector2i viewGridPosition;
+
     void initKeybinds();
     void initTextures();
     void initPlayer();

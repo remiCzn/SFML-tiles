@@ -134,8 +134,36 @@ void GameState::update(const float &dt)
 void GameState::updateView()
 {
     this->view.setCenter(
-        std::floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->statedata->gfxSettings->resolution.width / 2)) / 30.f),
-        std::floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->statedata->gfxSettings->resolution.height / 2)) / 30.f));
+        std::floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->statedata->gfxSettings->resolution.width / 2)) / 10.f),
+        std::floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->statedata->gfxSettings->resolution.height / 2)) / 10.f));
+
+    if (this->view.getCenter().x - this->view.getSize().x / 2.f < -this->map->getWorldSize()) {
+        this->view.setCenter(
+            this->view.getSize().x / 2.f - this->map->getWorldSize(),
+            this->view.getCenter().y
+        );
+    }
+    else if (this->view.getCenter().x + this->view.getSize().x / 2.f > this->map->getWorldSize()) {
+        this->view.setCenter(
+            - this->view.getSize().x / 2.f + this->map->getWorldSize(),
+            this->view.getCenter().y
+        );
+    }
+
+    if (this->view.getCenter().y + this->view.getSize().y / 2.f > this->map->getWorldSize()) {
+        this->view.setCenter(
+            this->view.getCenter().x,
+            -this->view.getSize().y / 2.f + this->map->getWorldSize()
+        );
+    } else if (this->view.getCenter().y - this->view.getSize().y / 2.f < -this->map->getWorldSize()) {
+        this->view.setCenter(
+            this->view.getCenter().x,
+            this->view.getSize().y / 2.f - this->map->getWorldSize()
+        );
+    }
+
+    this->viewGridPosition.x = static_cast<int>(this->view.getCenter().x) / static_cast<int>(this->statedata->gridSize);
+    this->viewGridPosition.y = static_cast<int>(this->view.getCenter().y) / static_cast<int>(this->statedata->gridSize);
 }
 
 void GameState::updatePlayer(const float &dt)
@@ -151,20 +179,10 @@ void GameState::updatePlayer(const float &dt)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP"))))
     {
         this->player->move(dt, 0.f, -1.f);
-
-        if (this->getKeyTime())
-        {
-            this->player->getAttributeComponent()->gainHp(1);
-        }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
     {
         this->player->move(dt, 0.f, 1.f);
-
-        if (this->getKeyTime())
-        {
-            this->player->getAttributeComponent()->loseHp(1);
-        }
     }
 }
 
@@ -219,11 +237,14 @@ void GameState::render(sf::RenderTarget *target)
     if (!target)
         target = this->statedata->gfxSettings->window;
 
-    this->core_shader.setUniform("winSize", sf::Vector2f(this->statedata->gfxSettings->window->getSize().x, this->statedata->gfxSettings->window->getSize().y));
+    this->core_shader.setUniform("winSize", sf::Vector2f(
+        static_cast<float>(this->statedata->gfxSettings->window->getSize().x),
+        static_cast<float>(this->statedata->gfxSettings->window->getSize().y))
+    );
     this->core_shader.setUniform("hasTexture", true);
     this->core_shader.setUniform("light", sf::Vector3f(
-        this->statedata->gfxSettings->window->getSize().x / 2.f,
-        this->statedata->gfxSettings->window->getSize().y / 2.f,
+        this->player->getPosition().x - this->view.getCenter().x + this->view.getSize().x / 2.f,
+        this->player->getPosition().y - this->view.getCenter().y + this->view.getSize().y / 2.f,
         this->statedata->gfxSettings->window->getSize().y * 3.f / 4.f)
     );
 
@@ -234,7 +255,7 @@ void GameState::render(sf::RenderTarget *target)
         this->shaderTexture,
         this->statedata->debugMode,
         sf::Vector2i(this->player->getPosition() / this->gridSize),
-        sf::Vector2i(this->player->getPosition() / this->gridSize));
+        this->viewGridPosition);
 
     this->player->render(this->shaderTexture, this->statedata->debugMode);
 

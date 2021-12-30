@@ -52,11 +52,11 @@ void Player::update(const float &dt)
 {
     this->movementComponent->update(dt);
     this->updateAttack(dt);
-    this->playAnimations(dt);
+    this->updateAnimation(dt);
     this->hitboxComponent->update();
 }
 
-void Player::playAnimations(const float &dt)
+void Player::updateAnimation(const float &dt)
 {
     if (attacking)
     {
@@ -158,4 +158,19 @@ void Player::render(sf::RenderTarget &target, bool debugMode)
 AttributeComponent *Player::getAttributeComponent()
 {
     return this->attributeComponent;
+}
+
+void Player::loseHP(const int hp)
+{
+    this->attributeComponent->loseHp(hp);
+}
+
+void Player::gainHP(const int hp)
+{
+    this->attributeComponent->gainHp(hp);
+}
+
+void Player::gainExp(const int exp)
+{
+    this->attributeComponent->gainExp(exp);
 }
