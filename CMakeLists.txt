@@ -20,12 +20,7 @@ set(EXFILES
     config/mainmenu_keybinds
     config/supported_keys
     config/window.json
-    images/background/background.png
     images/character/player_sheet.png
-    images/Tiles/grass.png
-    images/Tiles/tilesheet.png
-    images/Tiles/tilesheet1.png
-    images/Tiles/tilesheet2.png
     images/UI/checkx48.png
     resource/fragment_shader.frag
     images/Tiles/Stonex20.png
