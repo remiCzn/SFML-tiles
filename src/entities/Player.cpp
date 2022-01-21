@@ -21,7 +21,7 @@ Player::Player(float x, float y, sf::Texture *texture_sheet)
     // this->sprite->setOrigin(sf::Vector2f(this->sprite->getGlobalBounds().width / 2.f, this->sprite->getGlobalBounds().height / 2.f));
 
     this->createHitboxComponent(24.f, 16.f, 16.f, 32.f);
-    this->createMovementComponent(300.f, 15.f, 7.f);
+    this->createMovementComponent(200.f, 15.f, 10.f);
     this->createAnimationComponent(*texture_sheet);
     this->createAttributeComponent(1);
 

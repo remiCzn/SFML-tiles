@@ -7,6 +7,10 @@ TileRegistry::TileRegistry()
     this->registerTile<Stone>(TileType::STONE);
     this->registerTile<Dirt>(TileType::DIRT);
 
+    this->chunkBgRegistry[TileType::DIRT] = new sf::Texture();
+    if (!this->chunkBgRegistry[TileType::DIRT]->loadFromFile("src/images/Tiles/ChunkBackground.png")) {
+        std::cout << "null" << std::endl;
+    }
 }
 
 TileRegistry::~TileRegistry()
@@ -46,6 +50,11 @@ void TileRegistry::registerTile(TileType type)
 
 const sf::Texture* TileRegistry::getTexture(TileType type) const {
     return this->texture_registry.at(type);
+}
+
+const sf::Texture* TileRegistry::getBgTexture(TileType type) const
+{
+    return this->chunkBgRegistry.at(type);
 }
 
 const bool& TileRegistry::isCollision(TileType type) const {

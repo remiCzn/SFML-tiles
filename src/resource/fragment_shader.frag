@@ -14,15 +14,18 @@ void main(void) {
     alpha = 1. - sqrt(distanceCarre) / light.z;
     alpha = 1.0 / (1.0 + exp(-(alpha * 7.0 - 3.0)));
 
-    float min = 0.2;
-    float max = 0.8;
-    if(alpha < min) {
-        alpha = min;
+    float min1 = 0.2;
+    float min2 = 0.1;
+    float max = 0.9;
+    if(alpha < min2) {
+        alpha = alpha / max;
+    } else if(alpha < min1) {
+        alpha = min1 / max;
     } else if(alpha > max) {
         alpha = 1.0;
     } else {
         alpha = alpha / max;
-    }
+    } 
 
     vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);
 

@@ -16,6 +16,8 @@ private:
     int offsetX;
     int offsetY;
 
+    sf::RectangleShape background;
+
     unsigned layers;
     std::vector<std::vector<Tile *>> chunk;
     std::stack<Tile *> deferredRenderStack;
@@ -36,7 +38,7 @@ public:
     const Tile *getTile(const unsigned x, const unsigned y);
 
     void render(sf::RenderTarget &target, bool debugMode);
-    void renderDeferred(sf::RenderTarget &target);
+    void renderDeferred(sf::RenderTarget &target, bool debugMode = false);
 
     virtual Json::Value getAsJson();
     void loadFromJson(Json::Value chunk);

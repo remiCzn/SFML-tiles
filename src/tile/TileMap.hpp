@@ -35,7 +35,7 @@ public:
     void update();
     void updateCollision(Entity *entity, const float &dt);
 
-    void renderDeferred(sf::RenderTarget &target);
+    void renderDeferred(sf::RenderTarget &target, bool debugMode);
     void render(
         sf::RenderTarget &target,
         bool debugMode = true,

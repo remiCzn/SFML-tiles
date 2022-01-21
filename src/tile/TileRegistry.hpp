@@ -17,6 +17,8 @@ private:
 	std::map<TileType, Tile *> registry;
 	std::map<TileType, sf::Texture *> texture_registry;
 
+	std::map<TileType, sf::Texture*> chunkBgRegistry;
+
 	static TileRegistry *_instance;
 
 	template <class TileClass>
@@ -29,6 +31,7 @@ public:
 
 	Tile *CreateTile(TileType type, const int x, const int y);
 	const sf::Texture* getTexture(TileType type) const;
+	const sf::Texture* getBgTexture(TileType type) const;
 	const bool& isCollision(TileType type) const;
 };
 
