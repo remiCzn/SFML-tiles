@@ -14,6 +14,7 @@ void TileMap::clear()
 
 TileMap::TileMap(float gridSize, int worldSizeInChunks, unsigned chunkSize, std::string texture_file)
 {
+    std::cout << 1 << std::endl;
     this->gridSizeF = gridSize;
     this->gridSizeU = static_cast<unsigned>(gridSize);
     this->texture_file = texture_file;
@@ -27,6 +28,8 @@ TileMap::TileMap(float gridSize, int worldSizeInChunks, unsigned chunkSize, std:
     this->collisionBox.setOutlineColor(sf::Color::Red);
     this->collisionBox.setOutlineThickness(1.f);
 
+    std::cout << 2 << std::endl;
+
     for (int x = -worldSizeInChunks; x < this->worldSizeInChunks; x++)
     {
         for (int y = -worldSizeInChunks; y < this->worldSizeInChunks; y++)
@@ -35,6 +38,8 @@ TileMap::TileMap(float gridSize, int worldSizeInChunks, unsigned chunkSize, std:
             this->chunkMap.at({x, y})->generate(40.f, 0.f);
         }
     }
+
+    std::cout << 3 << std::endl;
 }
 
 TileMap::~TileMap()
@@ -212,13 +217,13 @@ void TileMap::render(sf::RenderTarget &target,
     }
 }
 
-void TileMap::renderDeferred(sf::RenderTarget &target)
+void TileMap::renderDeferred(sf::RenderTarget &target, bool debugMode)
 {
     for (int x = -worldSizeInChunks; x < worldSizeInChunks; x++)
     {
         for (int y = -worldSizeInChunks; y < worldSizeInChunks; y++)
         {
-            this->chunkMap.at({(int)x, (int)y})->renderDeferred(target);
+            this->chunkMap.at({(int)x, (int)y})->renderDeferred(target, debugMode);
         }
     }
 }

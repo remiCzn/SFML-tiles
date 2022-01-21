@@ -38,6 +38,11 @@ Chunk::Chunk(float gridSize, sf::RectangleShape &collisionBox, int offsetX, int 
     this->chunkBox.setOutlineThickness(1.f);
     this->chunkBox.setOutlineColor(sf::Color::White);
     this->chunkBox.setFillColor(sf::Color::Transparent);
+
+    this->background.setTexture(TileRegistry::Instance()->getBgTexture(TileType::DIRT));
+    this->background.setPosition(offsetX, offsetY);
+    this->background.setSize(sf::Vector2f(this->chunkWidthF, this->chunkWidthF));
+
 }
 
 Chunk::~Chunk()
@@ -51,6 +56,7 @@ void Chunk::update()
 
 void Chunk::render(sf::RenderTarget &target, bool debugMode)
 {
+    target.draw(background);
     for (auto &x : this->chunk)
     {
         for (auto &y : x)
@@ -68,18 +74,18 @@ void Chunk::render(sf::RenderTarget &target, bool debugMode)
             //TODO: Optimize Rendering, because with 16 chunk (+ collision Box) -> 16fps
         }
     }
-    if (debugMode)
-    {
-        target.draw(chunkBox);
-    }
 }
 
-void Chunk::renderDeferred(sf::RenderTarget &target)
+void Chunk::renderDeferred(sf::RenderTarget &target, bool debugMode)
 {
     while (!this->deferredRenderStack.empty())
     {        
         deferredRenderStack.top()->render(target);
         deferredRenderStack.pop();
+    }
+    if (debugMode)
+    {
+        target.draw(chunkBox);
     }
 }
 
