@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Fichiers de ressources">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -19,14 +15,8 @@
     <Filter Include="Fichiers de ressources\Fonts">
       <UniqueIdentifier>{ef024d09-dfff-48b6-b5cb-7f2fd4df1d49}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Components">
-      <UniqueIdentifier>{21942bb7-688e-4e51-ad9b-4bc9ee9ec58d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\Components">
       <UniqueIdentifier>{6434f3b2-7697-46ec-8ac4-dc3bdc1024f9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Entities">
-      <UniqueIdentifier>{de03caa5-6376-4c05-a55d-407f63a24c63}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers sources\Entities">
       <UniqueIdentifier>{fc6b6cb2-28e3-442f-8de1-a601ca00a443}</UniqueIdentifier>
@@ -34,32 +24,17 @@
     <Filter Include="Fichiers sources\GUI">
       <UniqueIdentifier>{484653c6-03eb-4125-9720-cbc4afdf5b09}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Resources">
-      <UniqueIdentifier>{d3dd9be3-3907-4891-969b-0b5ec40bf1db}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\Resources">
       <UniqueIdentifier>{4ca2302e-d41a-42fc-aefb-76e114b306c9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers sources\States">
       <UniqueIdentifier>{55f32313-8faf-41eb-9ff3-d88700dfab3a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\States">
-      <UniqueIdentifier>{c4b1f739-7e26-4e2a-8844-87d94abdf81a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\GUI">
-      <UniqueIdentifier>{bda569f0-7ba9-48ba-926e-f81f0921de1a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Tile">
-      <UniqueIdentifier>{1ce6ff03-8bf8-4406-bf81-dabcb20d5ae1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\Tile">
       <UniqueIdentifier>{4d6e534d-f2eb-481f-a842-114a7b434787}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers de ressources\Git">
       <UniqueIdentifier>{f230e79a-7fba-467f-aadc-aa7a22943aa7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Tile\CustomTile">
-      <UniqueIdentifier>{3a8bef89-8b66-453b-9da0-1b56edc6336a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers sources\Tile\CustomTile">
       <UniqueIdentifier>{46ce6a71-57f9-4542-9e5e-b8fc15efa55a}</UniqueIdentifier>
@@ -120,9 +95,6 @@
     <ClCompile Include="src\gui\progressBar\progressBar.cpp">
       <Filter>Fichiers sources\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="src\headers\headers.cpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClCompile>
     <ClCompile Include="src\resource\GraphicSettings.cpp">
       <Filter>Fichiers sources\Resources</Filter>
     </ClCompile>
@@ -168,14 +140,14 @@
     <ClCompile Include="src\tile\Custom\Dirt.cpp">
       <Filter>Fichiers sources\Tile\CustomTile</Filter>
     </ClCompile>
+    <ClCompile Include="src\headers\headers.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\AnimatedHitboxComponent.cpp">
+      <Filter>Fichiers sources\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Game.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\headers.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="src\lib\json\json.h">
       <Filter>Fichiers de ressources\JsonCpp</Filter>
     </ClInclude>
@@ -183,82 +155,91 @@
       <Filter>Fichiers de ressources\JsonCpp</Filter>
     </ClInclude>
     <ClInclude Include="src\components\AnimationComponent.hpp">
-      <Filter>Fichiers d%27en-tête\Components</Filter>
+      <Filter>Fichiers sources\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\components\AttributeComponent.hpp">
-      <Filter>Fichiers d%27en-tête\Components</Filter>
+      <Filter>Fichiers sources\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\components\HitboxComponent.hpp">
-      <Filter>Fichiers d%27en-tête\Components</Filter>
+      <Filter>Fichiers sources\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\components\MovementComponent.hpp">
-      <Filter>Fichiers d%27en-tête\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\entities\Entity.hpp">
-      <Filter>Fichiers d%27en-tête\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="src\entities\Player.hpp">
-      <Filter>Fichiers d%27en-tête\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\gui.hpp">
-      <Filter>Fichiers d%27en-tête\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\PauseMenu.hpp">
-      <Filter>Fichiers d%27en-tête\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\PlayerGUI.hpp">
-      <Filter>Fichiers d%27en-tête\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\progressBar\progressBar.hpp">
-      <Filter>Fichiers d%27en-tête\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resource\GraphicSettings.hpp">
-      <Filter>Fichiers d%27en-tête\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resource\KeyState.hpp">
-      <Filter>Fichiers d%27en-tête\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resource\algo\Noise.hpp">
-      <Filter>Fichiers d%27en-tête\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="src\states\EditorState.hpp">
-      <Filter>Fichiers d%27en-tête\States</Filter>
-    </ClInclude>
-    <ClInclude Include="src\states\GameState.hpp">
-      <Filter>Fichiers d%27en-tête\States</Filter>
-    </ClInclude>
-    <ClInclude Include="src\states\MainMenuState.hpp">
-      <Filter>Fichiers d%27en-tête\States</Filter>
-    </ClInclude>
-    <ClInclude Include="src\states\SettingsState.hpp">
-      <Filter>Fichiers d%27en-tête\States</Filter>
-    </ClInclude>
-    <ClInclude Include="src\states\State.hpp">
-      <Filter>Fichiers d%27en-tête\States</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tile\Tile.hpp">
-      <Filter>Fichiers d%27en-tête\Tile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tile\TileMap.hpp">
-      <Filter>Fichiers d%27en-tête\Tile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tile\Chunk.hpp">
-      <Filter>Fichiers d%27en-tête\Tile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resource\algo\test\run.hpp">
-      <Filter>Fichiers d%27en-tête\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tile\TileRegistry.hpp">
-      <Filter>Fichiers d%27en-tête\Tile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tile\Custom\Stone.hpp">
-      <Filter>Fichiers d%27en-tête\Tile\CustomTile</Filter>
+      <Filter>Fichiers sources\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\tile\Custom\Dirt.hpp">
-      <Filter>Fichiers d%27en-tête\Tile\CustomTile</Filter>
+      <Filter>Fichiers sources\Tile\CustomTile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tile\Custom\Stone.hpp">
+      <Filter>Fichiers sources\Tile\CustomTile</Filter>
     </ClInclude>
     <ClInclude Include="src\tile\Custom\Tiletype.hpp">
-      <Filter>Fichiers d%27en-tête\Tile\CustomTile</Filter>
+      <Filter>Fichiers sources\Tile\CustomTile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tile\Chunk.hpp">
+      <Filter>Fichiers sources\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tile\Tile.hpp">
+      <Filter>Fichiers sources\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tile\TileMap.hpp">
+      <Filter>Fichiers sources\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tile\TileRegistry.hpp">
+      <Filter>Fichiers sources\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\states\EditorState.hpp">
+      <Filter>Fichiers sources\States</Filter>
+    </ClInclude>
+    <ClInclude Include="src\states\GameState.hpp">
+      <Filter>Fichiers sources\States</Filter>
+    </ClInclude>
+    <ClInclude Include="src\states\MainMenuState.hpp">
+      <Filter>Fichiers sources\States</Filter>
+    </ClInclude>
+    <ClInclude Include="src\states\SettingsState.hpp">
+      <Filter>Fichiers sources\States</Filter>
+    </ClInclude>
+    <ClInclude Include="src\states\State.hpp">
+      <Filter>Fichiers sources\States</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource\GraphicSettings.hpp">
+      <Filter>Fichiers sources\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource\KeyState.hpp">
+      <Filter>Fichiers sources\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource\algo\Noise.hpp">
+      <Filter>Fichiers sources\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource\algo\test\run.hpp">
+      <Filter>Fichiers sources\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\gui.hpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\PauseMenu.hpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\PlayerGUI.hpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\progressBar\progressBar.hpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\Entity.hpp">
+      <Filter>Fichiers sources\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\Player.hpp">
+      <Filter>Fichiers sources\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\AnimatedHitboxComponent.hpp">
+      <Filter>Fichiers sources\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game.hpp">
+      <Filter>Fichiers sources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\headers.hpp">
+      <Filter>Fichiers sources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

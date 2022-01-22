@@ -47,12 +47,6 @@ TileMap::~TileMap()
     this->clear();
 }
 
-//TODO: To delete
-const sf::Texture *TileMap::getTileSheet() const
-{
-    return new sf::Texture();
-}
-
 void TileMap::addTile(const int x, const int y, TileType type)
 {
     if (x < this->worldSizeInTiles && x >= -worldSizeInTiles &&
