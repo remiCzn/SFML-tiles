@@ -53,3 +53,7 @@ void AnimatedHitboxComponent::updateHitbox(sf::IntRect& step) {
         step.width, step.height
     ));
 }
+
+sf::RectangleShape& AnimatedHitboxComponent::getHitbox() {
+    return this->hitbox;
+}

@@ -45,6 +45,9 @@
     <Filter Include="Fichiers de ressources\Shaders">
       <UniqueIdentifier>{a9ea4b51-bc1f-45e0-91a1-4d8d4f6d3e19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Components\Animation">
+      <UniqueIdentifier>{2fe742a2-eda3-4088-bea7-e484934de5b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -143,8 +146,11 @@
     <ClCompile Include="src\headers\headers.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\components\AnimatedHitboxComponent.cpp">
-      <Filter>Fichiers sources\Components</Filter>
+    <ClCompile Include="src\components\AnimatedHitbox.cpp">
+      <Filter>Fichiers sources\Components\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\Animation\Animation.cpp">
+      <Filter>Fichiers sources\Components\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -232,14 +238,17 @@
     <ClInclude Include="src\entities\Player.hpp">
       <Filter>Fichiers sources\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="src\components\AnimatedHitboxComponent.hpp">
-      <Filter>Fichiers sources\Components</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game.hpp">
       <Filter>Fichiers sources</Filter>
     </ClInclude>
     <ClInclude Include="src\headers\headers.hpp">
       <Filter>Fichiers sources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\AnimatedHitbox.hpp">
+      <Filter>Fichiers sources\Components\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\Animation\Animation.hpp">
+      <Filter>Fichiers sources\Components\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

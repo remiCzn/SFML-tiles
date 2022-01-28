@@ -22,6 +22,7 @@ public:
 	void reset();
 	const bool& isDone();
 	void updateHitbox(sf::IntRect& step);
+	sf::RectangleShape& getHitbox();
 };
 
 #endif ANIMATED_HITBOX_HPP
