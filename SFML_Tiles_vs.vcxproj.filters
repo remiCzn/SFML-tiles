@@ -146,10 +146,13 @@
     <ClCompile Include="src\headers\headers.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\components\AnimatedHitbox.cpp">
+    <ClCompile Include="src\components\Animation\Animation.cpp">
       <Filter>Fichiers sources\Components\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="src\components\Animation\Animation.cpp">
+    <ClCompile Include="src\components\Animation\AnimatedHitbox.cpp">
+      <Filter>Fichiers sources\Components\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\Animation\AnimatedSprite.cpp">
       <Filter>Fichiers sources\Components\Animation</Filter>
     </ClCompile>
   </ItemGroup>
@@ -244,10 +247,13 @@
     <ClInclude Include="src\headers\headers.hpp">
       <Filter>Fichiers sources</Filter>
     </ClInclude>
-    <ClInclude Include="src\components\AnimatedHitbox.hpp">
+    <ClInclude Include="src\components\Animation\Animation.hpp">
       <Filter>Fichiers sources\Components\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="src\components\Animation\Animation.hpp">
+    <ClInclude Include="src\components\Animation\AnimatedHitbox.hpp">
+      <Filter>Fichiers sources\Components\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\Animation\AnimatedSprite.hpp">
       <Filter>Fichiers sources\Components\Animation</Filter>
     </ClInclude>
   </ItemGroup>

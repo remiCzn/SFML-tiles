@@ -1,6 +1,8 @@
 #ifndef ANIMATION_HPP
 #define ANIMATION_HPP
 
+#include "../../headers/headers.hpp"
+
 class Animation
 {
 protected:
@@ -14,6 +16,7 @@ public:
 	virtual ~Animation();
 
 	const bool& play(const float& dt);
+	const bool& play(const float& dt, float mod_percent);
 	virtual void nextStep() = 0;
 	void reset();
 	const bool& isDone();

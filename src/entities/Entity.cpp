@@ -93,9 +93,9 @@ void Entity::createMovementComponent(const float maxSpeed, const float accelerat
     this->movementComponent = new MovementComponent(this->sprite, maxSpeed, acceleration, decceleration);
 }
 
-void Entity::createAnimationComponent(sf::Texture &textureSheet)
+void Entity::createAnimationComponent()
 {
-    this->animationComponent = new AnimationComponent(this->sprite, textureSheet);
+    this->animationComponent = new AnimationComponent();
 }
 
 void Entity::createAttributeComponent(const unsigned level)

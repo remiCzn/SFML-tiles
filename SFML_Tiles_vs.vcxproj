@@ -19,8 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\components\AnimatedHitbox.cpp" />
     <ClCompile Include="src\components\AnimationComponent.cpp" />
+    <ClCompile Include="src\components\Animation\AnimatedHitbox.cpp" />
+    <ClCompile Include="src\components\Animation\AnimatedSprite.cpp" />
     <ClCompile Include="src\components\Animation\Animation.cpp" />
     <ClCompile Include="src\components\AttributeComponent.cpp" />
     <ClCompile Include="src\components\HitboxComponent.cpp" />
@@ -55,8 +56,9 @@
     <ClCompile Include="src\tile\TileRegistry.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\components\AnimatedHitbox.hpp" />
     <ClInclude Include="src\components\AnimationComponent.hpp" />
+    <ClInclude Include="src\components\Animation\AnimatedHitbox.hpp" />
+    <ClInclude Include="src\components\Animation\AnimatedSprite.hpp" />
     <ClInclude Include="src\components\Animation\Animation.hpp" />
     <ClInclude Include="src\components\AttributeComponent.hpp" />
     <ClInclude Include="src\components\HitboxComponent.hpp" />
