@@ -13,14 +13,14 @@ AnimationComponent::~AnimationComponent()
     }
 }
 
-void AnimationComponent::addAnimation(const std::string key, AnimatedSprite* animation)
+void AnimationComponent::addAnimation(const std::string key, Animation* animation)
 {
     this->animations[key] = animation;
 }
 
-const bool &AnimationComponent::play(const std::string key, const float &dt, const bool priority)
+const bool& AnimationComponent::play(const std::string key, const float& dt, const bool& independent)
 {
-    if (this->lastAnimation != this->animations[key])
+    if (!independent && this->lastAnimation != this->animations[key])
     {
         if (this->lastAnimation == NULL)
         {
@@ -37,7 +37,7 @@ const bool &AnimationComponent::play(const std::string key, const float &dt, con
     return this->animations[key]->isDone();
 }
 
-const bool &AnimationComponent::play(const std::string key, const float &dt, const float &modifier, const float &modifier_max, const bool priority)
+const bool &AnimationComponent::play(const std::string key, const float &dt, const float &modifier, const float &modifier_max)
 {
     if (this->lastAnimation != this->animations[key])
     {
@@ -53,6 +53,11 @@ const bool &AnimationComponent::play(const std::string key, const float &dt, con
     this->animations[key]->play(dt, abs(modifier / modifier_max));
     
     return this->animations[key]->isDone();
+}
+
+void AnimationComponent::reset(const std::string key)
+{
+    this->animations[key]->reset();
 }
 
 const bool &AnimationComponent::isDone(const std::string key)

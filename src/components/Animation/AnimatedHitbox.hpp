@@ -7,10 +7,11 @@ class AnimatedHitbox : public Animation
 {
 private:
 	std::vector<sf::IntRect> steps;
-	sf::RectangleShape hitbox;
+	sf::RectangleShape& hitbox;
+	sf::Sprite* playerPosition;
 
 public:
-	AnimatedHitbox(sf::IntRect initialBox,
+	AnimatedHitbox(sf::RectangleShape& initialBox, sf::Sprite* sprite,
 		float animationTimer, std::vector<sf::IntRect> steps);
 	virtual ~AnimatedHitbox();
 	void nextStep();

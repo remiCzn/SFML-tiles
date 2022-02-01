@@ -20,10 +20,13 @@ private:
 
     short direction;
 
+    sf::RectangleShape rect;
+
     //Initializers
     void initVariables();
 
     void updateAnimation(const float& dt);
+    void playAttackAnimation(std::string sprite_key, std::string hitbox_key, const float& dt);
 
 public:
     Player(float x, float y, sf::Texture *textureSheet);

@@ -7,6 +7,12 @@ void Player::initVariables()
     this->attack_cooldown = 0.f;
 
     this->direction = DOWN;
+
+    this->rect.setFillColor(sf::Color::Green);
+    this->rect.setOutlineColor(sf::Color::Blue);
+    this->rect.setOutlineThickness(-1.f);
+    this->rect.setSize(sf::Vector2f(16.f, 32.f));
+    this->rect.setPosition(24.f, 16.f);
 }
 
 Player::Player(float x, float y, sf::Texture *texture_sheet)
@@ -26,10 +32,10 @@ Player::Player(float x, float y, sf::Texture *texture_sheet)
     this->createAttributeComponent(1);
 
     float idle_anim_timer = 8.f;
-    this->animationComponent->addAnimation("IDLE_DOWN", new AnimatedSprite(this->sprite, *texture_sheet, idle_anim_timer, 0, 0, 4, 64, 64));
-    this->animationComponent->addAnimation("IDLE_UP", new AnimatedSprite(this->sprite, *texture_sheet, idle_anim_timer, 0, 1, 4, 64, 64));
-    this->animationComponent->addAnimation("IDLE_LEFT", new AnimatedSprite(this->sprite, *texture_sheet, idle_anim_timer, 0, 2, 4, 64, 64));
-    this->animationComponent->addAnimation("IDLE_RIGHT", new AnimatedSprite(this->sprite, *texture_sheet, idle_anim_timer, 0, 3, 4, 64, 64));
+    this->animationComponent->addAnimation("IDLE_DOWN", new AnimatedSprite(this->sprite, *texture_sheet, idle_anim_timer, 0, 0, 5, 64, 64));
+    this->animationComponent->addAnimation("IDLE_UP", new AnimatedSprite(this->sprite, *texture_sheet, idle_anim_timer, 0, 1, 5, 64, 64));
+    this->animationComponent->addAnimation("IDLE_LEFT", new AnimatedSprite(this->sprite, *texture_sheet, idle_anim_timer, 0, 2, 5, 64, 64));
+    this->animationComponent->addAnimation("IDLE_RIGHT", new AnimatedSprite(this->sprite, *texture_sheet, idle_anim_timer, 0, 3, 5, 64, 64));
 
     float walk_anim_timer = 5.f;
     this->animationComponent->addAnimation("WALK_DOWN", new AnimatedSprite(this->sprite, *texture_sheet, walk_anim_timer, 0, 4, 5, 64, 64));
@@ -38,10 +44,41 @@ Player::Player(float x, float y, sf::Texture *texture_sheet)
     this->animationComponent->addAnimation("WALK_RIGHT", new AnimatedSprite(this->sprite, *texture_sheet, walk_anim_timer, 0, 7, 5, 64, 64));
 
     float attack_anim_timer = 6.f;
-    this->animationComponent->addAnimation("ATTACK_DOWN", new AnimatedSprite(this->sprite, *texture_sheet, attack_anim_timer, 0, 8, 2, 64, 64));
-    this->animationComponent->addAnimation("ATTACK_UP", new AnimatedSprite(this->sprite, *texture_sheet, attack_anim_timer, 0, 9, 2, 64, 64));
-    this->animationComponent->addAnimation("ATTACK_LEFT", new AnimatedSprite(this->sprite, *texture_sheet, attack_anim_timer, 0, 10, 2, 64, 64));
-    this->animationComponent->addAnimation("ATTACK_RIGHT", new AnimatedSprite(this->sprite, *texture_sheet, attack_anim_timer, 0, 11, 2, 64, 64));
+    this->animationComponent->addAnimation("ATTACK_DOWN", new AnimatedSprite(this->sprite, *texture_sheet, attack_anim_timer, 0, 8, 4, 64, 64));
+    this->animationComponent->addAnimation("ATTACK_UP", new AnimatedSprite(this->sprite, *texture_sheet, attack_anim_timer, 0, 9, 4, 64, 64));
+    this->animationComponent->addAnimation("ATTACK_LEFT", new AnimatedSprite(this->sprite, *texture_sheet, attack_anim_timer, 0, 10, 4, 64, 64));
+    this->animationComponent->addAnimation("ATTACK_RIGHT", new AnimatedSprite(this->sprite, *texture_sheet, attack_anim_timer, 0, 11, 4, 64, 64));
+
+    std::vector<sf::IntRect> steps_right = {};
+    steps_right.push_back(sf::IntRect(24, 16, 36, 32));
+    steps_right.push_back(sf::IntRect(24, 16, 36, 32));
+    steps_right.push_back(sf::IntRect(24, 16, 36, 32));
+    steps_right.push_back(sf::IntRect(24, 16, 16, 32));
+    this->animationComponent->addAnimation("ATTACK_RIGHT_HITBOX", new AnimatedHitbox(this->rect, this->sprite, attack_anim_timer, steps_right));
+
+    std::vector<sf::IntRect> steps_left = {};
+    steps_left.push_back(sf::IntRect(24, 16, 36, 32));
+    steps_left.push_back(sf::IntRect(24, 16, 36, 32));
+    steps_left.push_back(sf::IntRect(24, 16, 36, 32));
+    steps_left.push_back(sf::IntRect(24, 16, 16, 32));
+    this->animationComponent->addAnimation("ATTACK_LEFT_HITBOX", new AnimatedHitbox(this->rect, this->sprite, attack_anim_timer, steps_left));
+
+    std::vector<sf::IntRect> steps_up = {};
+    steps_up.push_back(sf::IntRect(24, 16, 36, 32));
+    steps_up.push_back(sf::IntRect(24, 16, 36, 32));
+    steps_up.push_back(sf::IntRect(24, 16, 36, 32));
+    steps_up.push_back(sf::IntRect(24, 16, 16, 32));
+    this->animationComponent->addAnimation("ATTACK_UP_HITBOX", new AnimatedHitbox(this->rect, this->sprite, attack_anim_timer, steps_up));
+
+    std::vector<sf::IntRect> steps_down = {};
+    steps_down.push_back(sf::IntRect(24, 16, 36, 32));
+    steps_down.push_back(sf::IntRect(24, 16, 36, 32));
+    steps_down.push_back(sf::IntRect(24, 16, 36, 32));
+    steps_down.push_back(sf::IntRect(24, 16, 16, 32));
+    this->animationComponent->addAnimation("ATTACK_DOWN_HITBOX", new AnimatedHitbox(this->rect, this->sprite, attack_anim_timer, steps_down));
+
+
+    std::cout << "Animation initialized" << std::endl;
 }
 
 Player::~Player()
@@ -54,43 +91,28 @@ void Player::update(const float &dt)
     this->updateAttack(dt);
     this->updateAnimation(dt);
     this->hitboxComponent->update();
+    //this->rect.setPosition(this->sprite->getPosition());
+    std::cout << this->sprite->getPosition().x << " " << this->sprite->getPosition().y << std::endl;
+    std::cout << this->rect.getPosition().x << " " << this->rect.getPosition().y << " " << this->rect.getSize().x << " " << this->rect.getSize().y << std::endl;
 }
 
 void Player::updateAnimation(const float &dt)
-{    
+{
     if (attacking)
     {
         switch (this->direction)
         {
         case DOWN:
-            if (this->animationComponent->play("ATTACK_DOWN", dt, true))
-            {
-                this->attacking = false;
-                this->attack_cooldown = 0.f;
-            }
+            this->playAttackAnimation("ATTACK_DOWN", "ATTACK_DOWN_HITBOX", dt);
             break;
         case LEFT:
-            if (this->animationComponent->play("ATTACK_LEFT", dt, true))
-            {
-                this->attacking = false;
-                this->attack_cooldown = 0.f;
-            }
+            this->playAttackAnimation("ATTACK_LEFT", "ATTACK_LEFT_HITBOX", dt);
             break;
         case RIGHT:
-            if (this->animationComponent->play("ATTACK_RIGHT", dt, true))
-            {
-                this->attacking = false;
-                this->attack_cooldown = 0.f;
-            }
+            this->playAttackAnimation("ATTACK_RIGHT", "ATTACK_RIGHT_HITBOX", dt);
             break;
         case UP:
-            if (this->animationComponent->play("ATTACK_UP", dt, true))
-            {
-                this->attacking = false;
-                this->attack_cooldown = 0.f;
-            }
-            break;
-
+            this->playAttackAnimation("ATTACK_UP", "ATTACK_UP_HITBOX", dt);
         default:
             break;
         }
@@ -139,6 +161,23 @@ void Player::updateAnimation(const float &dt)
     }
 }
 
+void Player::playAttackAnimation(std::string sprite_key, std::string hitbox_key, const float& dt)
+{
+    if (!this->animationComponent->isDone(sprite_key) && !this->animationComponent->isDone(hitbox_key)) {
+        bool playing_sprite = this->animationComponent->play(sprite_key, dt);
+        bool playing_hitbox = this->animationComponent->play(hitbox_key, dt, true);
+        if (playing_sprite && playing_hitbox) {
+            this->attacking = false;
+            this->attack_cooldown = 0.f;
+        }
+    }
+    else {
+        this->animationComponent->reset(sprite_key);
+        this->animationComponent->reset(hitbox_key);
+    }
+    
+}
+
 void Player::updateAttack(const float &dt)
 {
     this->attack_cooldown += dt;
@@ -153,6 +192,8 @@ void Player::render(sf::RenderTarget &target, bool debugMode)
     target.draw(*this->sprite);
 
     this->hitboxComponent->render(target, debugMode);
+
+    target.draw(this->rect);
 }
 
 AttributeComponent *Player::getAttributeComponent()

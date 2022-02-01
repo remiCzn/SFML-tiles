@@ -14,7 +14,6 @@ void TileMap::clear()
 
 TileMap::TileMap(float gridSize, int worldSizeInChunks, unsigned chunkSize, std::string texture_file)
 {
-    std::cout << 1 << std::endl;
     this->gridSizeF = gridSize;
     this->gridSizeU = static_cast<unsigned>(gridSize);
     this->texture_file = texture_file;
@@ -28,7 +27,6 @@ TileMap::TileMap(float gridSize, int worldSizeInChunks, unsigned chunkSize, std:
     this->collisionBox.setOutlineColor(sf::Color::Red);
     this->collisionBox.setOutlineThickness(1.f);
 
-    std::cout << 2 << std::endl;
 
     for (int x = -worldSizeInChunks; x < this->worldSizeInChunks; x++)
     {
@@ -39,7 +37,6 @@ TileMap::TileMap(float gridSize, int worldSizeInChunks, unsigned chunkSize, std:
         }
     }
 
-    std::cout << 3 << std::endl;
 }
 
 TileMap::~TileMap()

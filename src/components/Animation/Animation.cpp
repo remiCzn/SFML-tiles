@@ -16,6 +16,7 @@ void Animation::reset()
 {
 	this->timer = this->animationTimer;
 	this->currentStep = 0;
+	this->done = false;
 }
 
 const bool& Animation::isDone()
@@ -29,8 +30,7 @@ const bool& Animation::play(const float& dt) {
 	if (this->timer >= this->animationTimer) {
 		this->timer = 0.f;
 		this->nextStep();
-		if (this->currentStep < this->nb_frames) {
-			std::cout << this->currentStep << std::endl;
+		if (this->currentStep < this->nb_frames - 1) {
 			this->currentStep++;
 		}
 		else {

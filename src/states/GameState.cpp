@@ -30,10 +30,10 @@ void GameState::initPlayerGui()
 
 void GameState::initShaders()
 {
-    if (!sf::Shader::isAvailable() || !this->core_shader.loadFromFile("src/resource/fragment_shader.frag", sf::Shader::Fragment))
+    /*if (!sf::Shader::isAvailable() || !this->core_shader.loadFromFile("src/resource/fragment_shader.frag", sf::Shader::Fragment))
     {
         std::cout << "ERROR::GAMESTATE::COULD NOT LOAD SHADER" << std::endl;
-    }
+    }*/
 }
 
 void GameState::initKeybinds()
